@@ -1,0 +1,785 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
+		49111B4D23180D8B4EB32E8A /* Pods_AlbumFolksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */; };
+		D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32D202345DC00DC1D34 /* AppDelegate.swift */; };
+		D05EB330202345DC00DC1D34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32F202345DC00DC1D34 /* ViewController.swift */; };
+		D05EB333202345DC00DC1D34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05EB331202345DC00DC1D34 /* Main.storyboard */; };
+		D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05EB334202345DC00DC1D34 /* AlbumFolks.xcdatamodeld */; };
+		D05EB338202345DC00DC1D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05EB337202345DC00DC1D34 /* Assets.xcassets */; };
+		D05EB33B202345DC00DC1D34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05EB339202345DC00DC1D34 /* LaunchScreen.storyboard */; };
+		D05EB346202345DC00DC1D34 /* AlbumFolksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB345202345DC00DC1D34 /* AlbumFolksTests.swift */; };
+		D05EB351202345DC00DC1D34 /* AlbumFolksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB350202345DC00DC1D34 /* AlbumFolksUITests.swift */; };
+		D0FA97462024849A00C75C50 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97452024849A00C75C50 /* SearchViewController.swift */; };
+		D0FA974820248CBC00C75C50 /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0FA974720248CBC00C75C50 /* AlbumCell.xib */; };
+		D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974920248CD600C75C50 /* AlbumCell.swift */; };
+		F8D1CF90950D37B1AB5B4D08 /* Pods_AlbumFolks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA32A3F4BBA4EC4D44933384 /* Pods_AlbumFolks.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D05EB342202345DC00DC1D34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05EB322202345DC00DC1D34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D05EB329202345DC00DC1D34;
+			remoteInfo = AlbumFolks;
+		};
+		D05EB34D202345DC00DC1D34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D05EB322202345DC00DC1D34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D05EB329202345DC00DC1D34;
+			remoteInfo = AlbumFolks;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolks.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks.release.xcconfig"; sourceTree = "<group>"; };
+		55AA7D052F4A0532D1FF52E0 /* Pods-AlbumFolksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksTests/Pods-AlbumFolksTests.debug.xcconfig"; sourceTree = "<group>"; };
+		716A129F8A81F19F183021B3 /* Pods-AlbumFolksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksTests/Pods-AlbumFolksTests.release.xcconfig"; sourceTree = "<group>"; };
+		B33A94BA4AC2445FB33C1AE0 /* Pods-AlbumFolks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks.debug.xcconfig"; sourceTree = "<group>"; };
+		C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA32A3F4BBA4EC4D44933384 /* Pods_AlbumFolks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05EB32A202345DC00DC1D34 /* AlbumFolks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlbumFolks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05EB32D202345DC00DC1D34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D05EB32F202345DC00DC1D34 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D05EB332202345DC00DC1D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D05EB335202345DC00DC1D34 /* AlbumFolks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlbumFolks.xcdatamodel; sourceTree = "<group>"; };
+		D05EB337202345DC00DC1D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D05EB33A202345DC00DC1D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D05EB33C202345DC00DC1D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D05EB341202345DC00DC1D34 /* AlbumFolksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlbumFolksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05EB345202345DC00DC1D34 /* AlbumFolksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumFolksTests.swift; sourceTree = "<group>"; };
+		D05EB347202345DC00DC1D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D05EB34C202345DC00DC1D34 /* AlbumFolksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlbumFolksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05EB350202345DC00DC1D34 /* AlbumFolksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumFolksUITests.swift; sourceTree = "<group>"; };
+		D05EB352202345DC00DC1D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0FA97452024849A00C75C50 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D0FA974720248CBC00C75C50 /* AlbumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCell.xib; sourceTree = "<group>"; };
+		D0FA974920248CD600C75C50 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		EEBF543D2A0AAE222A257C0F /* Pods-AlbumFolksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D05EB327202345DC00DC1D34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8D1CF90950D37B1AB5B4D08 /* Pods_AlbumFolks.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D05EB33E202345DC00DC1D34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49111B4D23180D8B4EB32E8A /* Pods_AlbumFolksTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D05EB349202345DC00DC1D34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		35FA5A3C81177420F2EC8412 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B33A94BA4AC2445FB33C1AE0 /* Pods-AlbumFolks.debug.xcconfig */,
+				473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */,
+				55AA7D052F4A0532D1FF52E0 /* Pods-AlbumFolksTests.debug.xcconfig */,
+				716A129F8A81F19F183021B3 /* Pods-AlbumFolksTests.release.xcconfig */,
+				3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */,
+				EEBF543D2A0AAE222A257C0F /* Pods-AlbumFolksUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5A5E96C1EE63D3B8A032872C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA32A3F4BBA4EC4D44933384 /* Pods_AlbumFolks.framework */,
+				C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */,
+				35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D05EB321202345DC00DC1D34 = {
+			isa = PBXGroup;
+			children = (
+				D05EB32C202345DC00DC1D34 /* AlbumFolks */,
+				D05EB344202345DC00DC1D34 /* AlbumFolksTests */,
+				D05EB34F202345DC00DC1D34 /* AlbumFolksUITests */,
+				D05EB32B202345DC00DC1D34 /* Products */,
+				35FA5A3C81177420F2EC8412 /* Pods */,
+				5A5E96C1EE63D3B8A032872C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D05EB32B202345DC00DC1D34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D05EB32A202345DC00DC1D34 /* AlbumFolks.app */,
+				D05EB341202345DC00DC1D34 /* AlbumFolksTests.xctest */,
+				D05EB34C202345DC00DC1D34 /* AlbumFolksUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D05EB32C202345DC00DC1D34 /* AlbumFolks */ = {
+			isa = PBXGroup;
+			children = (
+				D05EB32D202345DC00DC1D34 /* AppDelegate.swift */,
+				D05EB32F202345DC00DC1D34 /* ViewController.swift */,
+				D05EB331202345DC00DC1D34 /* Main.storyboard */,
+				D05EB337202345DC00DC1D34 /* Assets.xcassets */,
+				D05EB339202345DC00DC1D34 /* LaunchScreen.storyboard */,
+				D05EB33C202345DC00DC1D34 /* Info.plist */,
+				D05EB334202345DC00DC1D34 /* AlbumFolks.xcdatamodeld */,
+				D0FA97452024849A00C75C50 /* SearchViewController.swift */,
+				D0FA974720248CBC00C75C50 /* AlbumCell.xib */,
+				D0FA974920248CD600C75C50 /* AlbumCell.swift */,
+			);
+			path = AlbumFolks;
+			sourceTree = "<group>";
+		};
+		D05EB344202345DC00DC1D34 /* AlbumFolksTests */ = {
+			isa = PBXGroup;
+			children = (
+				D05EB345202345DC00DC1D34 /* AlbumFolksTests.swift */,
+				D05EB347202345DC00DC1D34 /* Info.plist */,
+			);
+			path = AlbumFolksTests;
+			sourceTree = "<group>";
+		};
+		D05EB34F202345DC00DC1D34 /* AlbumFolksUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D05EB350202345DC00DC1D34 /* AlbumFolksUITests.swift */,
+				D05EB352202345DC00DC1D34 /* Info.plist */,
+			);
+			path = AlbumFolksUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D05EB329202345DC00DC1D34 /* AlbumFolks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D05EB355202345DC00DC1D34 /* Build configuration list for PBXNativeTarget "AlbumFolks" */;
+			buildPhases = (
+				6A37647898D0097E563F8B27 /* [CP] Check Pods Manifest.lock */,
+				D05EB326202345DC00DC1D34 /* Sources */,
+				D05EB327202345DC00DC1D34 /* Frameworks */,
+				D05EB328202345DC00DC1D34 /* Resources */,
+				D3FF7A018A3EB913A49C2093 /* [CP] Embed Pods Frameworks */,
+				8642B0ADDC615D64DFF2F80B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlbumFolks;
+			productName = AlbumFolks;
+			productReference = D05EB32A202345DC00DC1D34 /* AlbumFolks.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D05EB340202345DC00DC1D34 /* AlbumFolksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D05EB358202345DC00DC1D34 /* Build configuration list for PBXNativeTarget "AlbumFolksTests" */;
+			buildPhases = (
+				D67F1ABF514DE22A2134CC8F /* [CP] Check Pods Manifest.lock */,
+				D05EB33D202345DC00DC1D34 /* Sources */,
+				D05EB33E202345DC00DC1D34 /* Frameworks */,
+				D05EB33F202345DC00DC1D34 /* Resources */,
+				9C3611E2EB2DC8D8174E75A6 /* [CP] Embed Pods Frameworks */,
+				37BDDDE4EDC07FD48FA23FC9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D05EB343202345DC00DC1D34 /* PBXTargetDependency */,
+			);
+			name = AlbumFolksTests;
+			productName = AlbumFolksTests;
+			productReference = D05EB341202345DC00DC1D34 /* AlbumFolksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D05EB34B202345DC00DC1D34 /* AlbumFolksUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D05EB35B202345DC00DC1D34 /* Build configuration list for PBXNativeTarget "AlbumFolksUITests" */;
+			buildPhases = (
+				885369A40F113CAD7BAE5C42 /* [CP] Check Pods Manifest.lock */,
+				D05EB348202345DC00DC1D34 /* Sources */,
+				D05EB349202345DC00DC1D34 /* Frameworks */,
+				D05EB34A202345DC00DC1D34 /* Resources */,
+				19931E3FD27C1A3DE54253ED /* [CP] Embed Pods Frameworks */,
+				D8B5CA30FC31A1DA366547F2 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D05EB34E202345DC00DC1D34 /* PBXTargetDependency */,
+			);
+			name = AlbumFolksUITests;
+			productName = AlbumFolksUITests;
+			productReference = D05EB34C202345DC00DC1D34 /* AlbumFolksUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D05EB322202345DC00DC1D34 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = carlosmouracorreia;
+				TargetAttributes = {
+					D05EB329202345DC00DC1D34 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					D05EB340202345DC00DC1D34 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D05EB329202345DC00DC1D34;
+					};
+					D05EB34B202345DC00DC1D34 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D05EB329202345DC00DC1D34;
+					};
+				};
+			};
+			buildConfigurationList = D05EB325202345DC00DC1D34 /* Build configuration list for PBXProject "AlbumFolks" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D05EB321202345DC00DC1D34;
+			productRefGroup = D05EB32B202345DC00DC1D34 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D05EB329202345DC00DC1D34 /* AlbumFolks */,
+				D05EB340202345DC00DC1D34 /* AlbumFolksTests */,
+				D05EB34B202345DC00DC1D34 /* AlbumFolksUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D05EB328202345DC00DC1D34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D05EB33B202345DC00DC1D34 /* LaunchScreen.storyboard in Resources */,
+				D05EB338202345DC00DC1D34 /* Assets.xcassets in Resources */,
+				D05EB333202345DC00DC1D34 /* Main.storyboard in Resources */,
+				D0FA974820248CBC00C75C50 /* AlbumCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D05EB33F202345DC00DC1D34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D05EB34A202345DC00DC1D34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		19931E3FD27C1A3DE54253ED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		37BDDDE4EDC07FD48FA23FC9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbumFolksTests/Pods-AlbumFolksTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6A37647898D0097E563F8B27 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8642B0ADDC615D64DFF2F80B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		885369A40F113CAD7BAE5C42 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9C3611E2EB2DC8D8174E75A6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbumFolksTests/Pods-AlbumFolksTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3FF7A018A3EB913A49C2093 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D67F1ABF514DE22A2134CC8F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D8B5CA30FC31A1DA366547F2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D05EB326202345DC00DC1D34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D05EB330202345DC00DC1D34 /* ViewController.swift in Sources */,
+				D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */,
+				D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */,
+				D0FA97462024849A00C75C50 /* SearchViewController.swift in Sources */,
+				D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D05EB33D202345DC00DC1D34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D05EB346202345DC00DC1D34 /* AlbumFolksTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D05EB348202345DC00DC1D34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D05EB351202345DC00DC1D34 /* AlbumFolksUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D05EB343202345DC00DC1D34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D05EB329202345DC00DC1D34 /* AlbumFolks */;
+			targetProxy = D05EB342202345DC00DC1D34 /* PBXContainerItemProxy */;
+		};
+		D05EB34E202345DC00DC1D34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D05EB329202345DC00DC1D34 /* AlbumFolks */;
+			targetProxy = D05EB34D202345DC00DC1D34 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D05EB331202345DC00DC1D34 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D05EB332202345DC00DC1D34 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D05EB339202345DC00DC1D34 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D05EB33A202345DC00DC1D34 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D05EB353202345DC00DC1D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D05EB354202345DC00DC1D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D05EB356202345DC00DC1D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B33A94BA4AC2445FB33C1AE0 /* Pods-AlbumFolks.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = AlbumFolks/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D05EB357202345DC00DC1D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = AlbumFolks/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolks;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D05EB359202345DC00DC1D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55AA7D052F4A0532D1FF52E0 /* Pods-AlbumFolksTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = AlbumFolksTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlbumFolks.app/AlbumFolks";
+			};
+			name = Debug;
+		};
+		D05EB35A202345DC00DC1D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 716A129F8A81F19F183021B3 /* Pods-AlbumFolksTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = AlbumFolksTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlbumFolks.app/AlbumFolks";
+			};
+			name = Release;
+		};
+		D05EB35C202345DC00DC1D34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = AlbumFolksUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolksUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AlbumFolks;
+			};
+			name = Debug;
+		};
+		D05EB35D202345DC00DC1D34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEBF543D2A0AAE222A257C0F /* Pods-AlbumFolksUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
+				INFOPLIST_FILE = AlbumFolksUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolksUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AlbumFolks;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D05EB325202345DC00DC1D34 /* Build configuration list for PBXProject "AlbumFolks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D05EB353202345DC00DC1D34 /* Debug */,
+				D05EB354202345DC00DC1D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D05EB355202345DC00DC1D34 /* Build configuration list for PBXNativeTarget "AlbumFolks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D05EB356202345DC00DC1D34 /* Debug */,
+				D05EB357202345DC00DC1D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D05EB358202345DC00DC1D34 /* Build configuration list for PBXNativeTarget "AlbumFolksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D05EB359202345DC00DC1D34 /* Debug */,
+				D05EB35A202345DC00DC1D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D05EB35B202345DC00DC1D34 /* Build configuration list for PBXNativeTarget "AlbumFolksUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D05EB35C202345DC00DC1D34 /* Debug */,
+				D05EB35D202345DC00DC1D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D05EB334202345DC00DC1D34 /* AlbumFolks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D05EB335202345DC00DC1D34 /* AlbumFolks.xcdatamodel */,
+			);
+			currentVersion = D05EB335202345DC00DC1D34 /* AlbumFolks.xcdatamodel */;
+			path = AlbumFolks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D05EB322202345DC00DC1D34 /* Project object */;
+}
