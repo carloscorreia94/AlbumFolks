@@ -19,6 +19,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 11.0, *) {
+            self.collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -36,11 +42,14 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
         
+        let album = Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
+        cell.setContent(album)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 16
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -55,5 +64,26 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
         }
     }
     
+}
+
+extension ViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.bounds.width / 2.0
+        let cellHeight = cellWidth * (17/15) // ratio as explicitly defined in the AlbumView Layout
+        
+        return CGSize(width: cellWidth - 8, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
 }
 

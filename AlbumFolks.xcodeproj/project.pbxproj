@@ -20,6 +20,7 @@
 		D0FA97462024849A00C75C50 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97452024849A00C75C50 /* SearchViewController.swift */; };
 		D0FA974820248CBC00C75C50 /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0FA974720248CBC00C75C50 /* AlbumCell.xib */; };
 		D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974920248CD600C75C50 /* AlbumCell.swift */; };
+		D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974B2024ABD900C75C50 /* ArtistCell.swift */; };
 		F8D1CF90950D37B1AB5B4D08 /* Pods_AlbumFolks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA32A3F4BBA4EC4D44933384 /* Pods_AlbumFolks.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		D0FA97452024849A00C75C50 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D0FA974720248CBC00C75C50 /* AlbumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCell.xib; sourceTree = "<group>"; };
 		D0FA974920248CD600C75C50 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		D0FA974B2024ABD900C75C50 /* ArtistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCell.swift; sourceTree = "<group>"; };
 		EEBF543D2A0AAE222A257C0F /* Pods-AlbumFolksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,7 @@
 				D0FA97452024849A00C75C50 /* SearchViewController.swift */,
 				D0FA974720248CBC00C75C50 /* AlbumCell.xib */,
 				D0FA974920248CD600C75C50 /* AlbumCell.swift */,
+				D0FA974B2024ABD900C75C50 /* ArtistCell.swift */,
 			);
 			path = AlbumFolks;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 			files = (
 				D05EB330202345DC00DC1D34 /* ViewController.swift in Sources */,
 				D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */,
+				D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */,
 				D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */,
 				D0FA97462024849A00C75C50 /* SearchViewController.swift in Sources */,
 				D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */,
@@ -566,7 +570,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -617,7 +621,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
