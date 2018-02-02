@@ -10,7 +10,8 @@ import UIKit
 
 class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
     
-    var flowDelegateHandler: CollectionViewProtocolHandler!
+    var flowDelegateHandler: UICollectionViewFlowDelegateHandler!
+    
     var artistDetail : ArtistDetail! {
         didSet {
             // TODO - Think on better solution...
@@ -66,7 +67,10 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath)
+            let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
+        
+        artistCell.imageView.image = UIImage(named: "mock_artist")
+            return artistCell
 
     }
     

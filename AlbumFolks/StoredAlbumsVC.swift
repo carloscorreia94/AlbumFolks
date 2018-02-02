@@ -10,7 +10,7 @@ import UIKit
 
 class StoredAlbumsVC: UIViewController, UICollectionViewFlowDelegateAlbums {
 
-    var flowDelegateHandler: CollectionViewProtocolHandler!
+    var flowDelegateHandler: UICollectionViewFlowDelegateHandler!
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {

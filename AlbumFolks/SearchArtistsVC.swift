@@ -51,7 +51,7 @@ class SearchArtistsVC : UIViewController {
         switch segue.identifier ?? "" {
         case "searchToArtistAlbums":
             let destination = segue.destination as! ArtistAlbumsVC
-            let indexPath = tableView.indexPathForSelectedRow!
+            //let indexPath = tableView.indexPathForSelectedRow!
             //let selectedObject = fetchedResultsController.object(at: indexPath) as! BookingMO
             var tags = [String]()
             tags.append("Lo-Fi")
@@ -61,7 +61,9 @@ class SearchArtistsVC : UIViewController {
             destination.artistDetail = ArtistDetail(name: "Mac DeMarco", tags: tags, description: "Mac DeMarco is the antithesis to your stereotypical singer-songwriter. Disregarding the seriously somber moments, he replaces them with whimsical and youthful spontaneity, whilst retaining endearing and subtle commentaries. Promptly after leaving his Edmonton garage for Vancouver he embarked on a grand voyage of enlightenment and alcoholic debauchery.\n\nDeMarco’s a weird cat, cultivating an affinity for occult imagery, nudity and social satire.")
             
         default:
-            print("Unknown segue: \(segue.identifier)")
+            if let id = segue.identifier {
+                print("Unknown segue: \(id)")
+            }
         }
     }
 }
