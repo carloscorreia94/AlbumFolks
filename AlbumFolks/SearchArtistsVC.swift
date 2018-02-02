@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController : UIViewController {
+class SearchArtistsVC : UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var searchController : UISearchController! {
@@ -18,7 +18,7 @@ class SearchViewController : UIViewController {
             self.searchController.searchBar.delegate = self
             
             self.searchController.hidesNavigationBarDuringPresentation = false
-            self.searchController.dimsBackgroundDuringPresentation = true
+            self.searchController.dimsBackgroundDuringPresentation = false
             
             self.navigationItem.titleView = searchController.searchBar
             
@@ -47,14 +47,30 @@ class SearchViewController : UIViewController {
     }
     
   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier ?? "" {
+        case "searchToArtistAlbums":
+            let destination = segue.destination as! ArtistAlbumsVC
+            let indexPath = tableView.indexPathForSelectedRow!
+            //let selectedObject = fetchedResultsController.object(at: indexPath) as! BookingMO
+            var tags = [String]()
+            tags.append("Lo-Fi")
+            tags.append("Indie")
+            tags.append("Garage")
+
+            destination.artistDetail = ArtistDetail(name: "Mac DeMarco", tags: tags, description: "Mac DeMarco is the antithesis to your stereotypical singer-songwriter. Disregarding the seriously somber moments, he replaces them with whimsical and youthful spontaneity, whilst retaining endearing and subtle commentaries. Promptly after leaving his Edmonton garage for Vancouver he embarked on a grand voyage of enlightenment and alcoholic debauchery.\n\nDeMarco’s a weird cat, cultivating an affinity for occult imagery, nudity and social satire.")
+            
+        default:
+            print("Unknown segue: \(segue.identifier)")
+        }
+    }
 }
 
-extension SearchViewController : UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     //MARK : UISearchControllerDelegate
     
     func didPresentSearchController(_ searchController: UISearchController) {
         searchController.searchBar.becomeFirstResponder()
-        searchController.definesPresentationContext = true
     }
     
     //MARK : UISearchBarDelegate
@@ -72,7 +88,7 @@ extension SearchViewController : UISearchControllerDelegate, UISearchResultsUpda
     }
 }
 
-extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
+extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
