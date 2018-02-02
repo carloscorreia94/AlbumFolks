@@ -6,8 +6,15 @@
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
 
-struct ArtistDetail {
-    let name : String
+class ArtistDetail {
     let tags : [String]
     let description : String
+    let heading : Artist
+    
+    init(_ heading: Artist,tags: [String], description: String) {
+        self.heading = heading
+        self.tags = tags
+        self.description = description
+    }
+    
 }

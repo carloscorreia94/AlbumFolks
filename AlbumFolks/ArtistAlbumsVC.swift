@@ -17,7 +17,7 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
             // TODO - Think on better solution...
             //collectionView.reloadData()
             
-            self.navigationItem.title = artistDetail.name
+            self.navigationItem.title = artistDetail.heading.name
         }
     }
     
@@ -69,7 +69,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
             let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
         
-        artistCell.imageView.image = UIImage(named: "mock_artist")
+            artistCell.setContent(artistDetail)
             return artistCell
 
     }
