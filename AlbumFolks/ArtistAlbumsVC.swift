@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
     
@@ -14,9 +15,6 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
     
     var artistDetail : ArtistDetail! {
         didSet {
-            // TODO - Think on better solution...
-            //collectionView.reloadData()
-            
             self.navigationItem.title = artistDetail.heading.name
         }
     }
@@ -70,8 +68,34 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
         
             artistCell.setContent(artistDetail)
+            artistCell.setArtistInfoCallback(artistInfoCallback)
             return artistCell
 
     }
     
+}
+
+extension ArtistAlbumsVC {
+    // MARK : Supplementary methods to handle navigation
+    
+    func artistInfoCallback() {
+        let popup = PopupDialog(title: nil, message: artistDetail.description.trim(to: 500))
+        
+        if let url = artistDetail.lastFmUrl {
+            let buttonMore = DefaultButton(title: "See more on LastFm") {
+                if #available(iOS 10.0, *) {
+                    print(url.absoluteString)
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            
+            popup.addButton(buttonMore)
+        }
+        
+        let buttonDismiss = DefaultButton(title: "OK") {}
+        popup.addButton(buttonDismiss)
+        self.present(popup, animated: true, completion: nil)
+    }
 }

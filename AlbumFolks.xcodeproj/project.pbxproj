@@ -27,6 +27,7 @@
 		D0FA97542024E91000C75C50 /* AlbumDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97532024E91000C75C50 /* AlbumDetail.swift */; };
 		D0FA97562024F40200C75C50 /* ArtistInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97552024F40200C75C50 /* ArtistInfoHeaderCell.swift */; };
 		D0FA97592025129400C75C50 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97582025129400C75C50 /* UILabel.swift */; };
+		D0FA975B2025CC4800C75C50 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA975A2025CC4800C75C50 /* String.swift */; };
 		F8D1CF90950D37B1AB5B4D08 /* Pods_AlbumFolks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA32A3F4BBA4EC4D44933384 /* Pods_AlbumFolks.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		D0FA97532024E91000C75C50 /* AlbumDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetail.swift; sourceTree = "<group>"; };
 		D0FA97552024F40200C75C50 /* ArtistInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoHeaderCell.swift; sourceTree = "<group>"; };
 		D0FA97582025129400C75C50 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		D0FA975A2025CC4800C75C50 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		EEBF543D2A0AAE222A257C0F /* Pods-AlbumFolksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				D0FA97582025129400C75C50 /* UILabel.swift */,
+				D0FA975A2025CC4800C75C50 /* String.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0FA97542024E91000C75C50 /* AlbumDetail.swift in Sources */,
+				D0FA975B2025CC4800C75C50 /* String.swift in Sources */,
 				D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */,
 				D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */,
 				D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */,

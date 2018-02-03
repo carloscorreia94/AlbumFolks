@@ -17,6 +17,8 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     
     @IBOutlet weak var infoLabel: UILabel!
     
+    var artistInfoCallback : (() -> ())?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -31,6 +33,10 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
         tags.text = getTagsString(artistDetail.tags)
         
         seeMore.isHidden = !tags.isTruncated
+    }
+    
+    public func setArtistInfoCallback(_ callback: @escaping () -> ()) {
+        self.artistInfoCallback = callback
     }
     
     
@@ -56,6 +62,9 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     }
     
     @IBAction func seeMorePressed(_ sender: UIButton) {
+        if let callback = artistInfoCallback {
+            callback()
+        }
     }
     
 }
