@@ -54,6 +54,16 @@ class StoredAlbumsVC: UIViewController, UICollectionViewFlowDelegateAlbums {
             tracks.append(Track(id: 3, duration: "4:01", name: "Brother"))
             tracks.append(Track(id: 4, duration: "3:00", name: "Salad Days"))
             tracks.append(Track(id: 5, duration: "3:00", name: "Salad Days"))
+            tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
+            tracks.append(Track(id: 2, duration: "2:20", name: "Blue Boy"))
+            tracks.append(Track(id: 3, duration: "4:01", name: "Brother"))
+            tracks.append(Track(id: 4, duration: "3:00", name: "Salad Days"))
+            tracks.append(Track(id: 5, duration: "3:00", name: "Salad Days"))
+            tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
+            tracks.append(Track(id: 2, duration: "2:20", name: "Blue Boy"))
+            tracks.append(Track(id: 3, duration: "4:01", name: "Brother"))
+            tracks.append(Track(id: 4, duration: "3:00", name: "Salad Days"))
+            tracks.append(Track(id: 5, duration: "3:00", name: "Salad Days"))
 
             let albumDetail = AlbumDetail(artist: artist, album: album, year: "2014", tracks: tracks)
             destination.albumDetail = albumDetail

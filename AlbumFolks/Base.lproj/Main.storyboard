@@ -115,7 +115,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloaded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlN-1D-Zb8">
-                                                    <rect key="frame" x="16" y="18" width="96" height="20.5"/>
+                                                    <rect key="frame" x="209" y="18" width="96" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -126,9 +126,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Ye2-Le-lbI" secondAttribute="trailing" constant="16" id="7IZ-mY-nIk"/>
-                                                <constraint firstItem="jlN-1D-Zb8" firstAttribute="leading" secondItem="BNo-ki-kUr" secondAttribute="leading" constant="16" id="BOU-5z-mra"/>
-                                                <constraint firstItem="Ye2-Le-lbI" firstAttribute="leading" relation="lessThanOrEqual" secondItem="jlN-1D-Zb8" secondAttribute="trailing" constant="199" id="Sep-kx-6TY"/>
+                                                <constraint firstItem="Ye2-Le-lbI" firstAttribute="leading" secondItem="jlN-1D-Zb8" secondAttribute="trailing" constant="5" id="Sep-kx-6TY"/>
                                                 <constraint firstItem="jlN-1D-Zb8" firstAttribute="centerY" secondItem="Ye2-Le-lbI" secondAttribute="centerY" id="Yb7-9J-b3e"/>
+                                                <constraint firstItem="jlN-1D-Zb8" firstAttribute="leading" relation="lessThanOrEqual" secondItem="BNo-ki-kUr" secondAttribute="leadingMargin" constant="194" id="afO-6e-v7w"/>
                                                 <constraint firstItem="Ye2-Le-lbI" firstAttribute="centerY" secondItem="BNo-ki-kUr" secondAttribute="centerY" id="uRP-MA-dIv"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -383,7 +383,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2J-DL-spN">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2J-DL-spN">
                                             <rect key="frame" x="273" y="209" width="62" height="29"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
@@ -488,6 +488,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7El-br-PSB"/>
+        <segue reference="wmV-14-qQm"/>
     </inferredMetricsTieBreakers>
 </document>

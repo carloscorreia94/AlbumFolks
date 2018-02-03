@@ -28,9 +28,9 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     }
     
     public func setContent(_ artistDetail: ArtistDetail) {
-        imageView.image = UIImage(named: artistDetail.heading.photoUrl)
-        infoLabel.text = artistDetail.description
-        tags.text = getTagsString(artistDetail.tags)
+       // imageView.image = UIImage(named: artistDetail.heading.photoUrl)
+       // infoLabel.text = artistDetail.description
+       // tags.text = getTagsString(artistDetail.tags)
         
         seeMore.isHidden = !tags.isTruncated
     }

@@ -6,15 +6,26 @@
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
 
-import Foundation
+import ObjectMapper
 
-class ArtistDetail {
-    let tags : [String]
-    var description : String
-    let heading : Artist
+class ArtistDetail : Mappable {
+    var tags : [String]!
+    var description : String!
+    //var heading : Artist!
     var lastFmUrl : URL?
     
-    init(_ heading: Artist,tags: [String], description: String) {
+    required init?(map: Map){
+        if map.JSON["tags"] == nil || map.JSON["description"] == nil {
+            return nil
+        }
+    }
+    
+    func mapping(map: Map) {
+        tags <- map["tags"]
+        description <- map["description"]
+    }
+    
+  /*  init(_ heading: Artist,tags: [String], description: String) {
         self.heading = heading
         self.tags = tags
         self.description = description
@@ -23,7 +34,7 @@ class ArtistDetail {
             self.lastFmUrl = url
         }
         
-    }
+    } */
     
     private func cropDescriptionGetURL() -> URL? {
         var returnUrl : URL?
