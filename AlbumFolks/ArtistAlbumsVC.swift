@@ -44,12 +44,13 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
         
         if artist.detail == nil {
             let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
-            Alamofire.request(URL).responseObject(keyPath: "artist") { (response: DataResponse<ArtistDetail>) in
+            Alamofire.request(URL).responseObject(keyPath: "artist") { [unowned self] (response: DataResponse<ArtistDetail>) in
                 
                 let weatherResponse = response.result.value
                 
                 if let artistDetail = weatherResponse {
-                    print(artistDetail.description)
+                    self.artist.detail = artistDetail
+                    self.collectionView.reloadData()
                 }
             }
         }
@@ -129,7 +130,11 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
             let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
             artistCell.setContent(artist)
-            //artistCell.setDetailContent(artist.detail)
+        
+            if let detail = artist.detail {
+                artistCell.setDetailContent(detail)
+            }
+        
             artistCell.setArtistInfoCallback(artistInfoCallback)
             return artistCell
 
@@ -145,22 +150,24 @@ extension ArtistAlbumsVC {
     Concerning the reusableCell LifeCycle and because it's easier to load things at once from a method invocation, I prefered to keep a callback reference on there (ArtistInfoHeaderCell) rather that having another reference to the ArtistDetail, and maybe to the viewController
     **/
     func artistInfoCallback() {
-      /*  let popup = PopupDialog(title: nil, message: artistDetail.description.trim(to: 500))
-        
-        if let url = artistDetail.lastFmUrl {
-            let buttonMore = DefaultButton(title: "See more on LastFm") {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url)
+        if let detail = artist.detail {
+            let popup = PopupDialog(title: nil, message: detail.description.trim(to: 500))
+            
+            if let url = detail.lastFmUrl {
+                let buttonMore = DefaultButton(title: "See more on LastFm") {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
                 }
+                
+                popup.addButton(buttonMore)
             }
             
-            popup.addButton(buttonMore)
+            let buttonDismiss = DefaultButton(title: "OK") {}
+            popup.addButton(buttonDismiss)
+            self.present(popup, animated: true, completion: nil)
         }
-        
-        let buttonDismiss = DefaultButton(title: "OK") {}
-        popup.addButton(buttonDismiss)
-        self.present(popup, animated: true, completion: nil)
-  */  }
+    }
 }

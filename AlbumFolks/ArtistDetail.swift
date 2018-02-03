@@ -8,8 +8,45 @@
 
 import ObjectMapper
 
+
+class Tag : Mappable {
+    
+    var name : String!
+    
+    required init?(map: Map){
+        guard let _: String = map["name"].value() else {
+            return nil
+        }
+    }
+    
+    func mapping(map: Map) {
+        name <- map["name"]
+    }
+    
+    static func getTagsString(_ tags: [Tag]) -> String? {
+        
+        if tags.count == 0 {
+            return nil
+        } else if tags.count == 1 {
+            return tags[0].name
+        }
+        
+        var formattedStr = ""
+        for i in 0...tags.count-1 {
+            formattedStr.append(tags[i].name)
+            
+            if i < tags.count-1 {
+                formattedStr.append(", ")
+            }
+        }
+        
+        return formattedStr
+        
+    }
+}
+
 class ArtistDetail : Mappable {
-    var tags : [String]!
+    var tags : [Tag]?
     var description : String!
     var lastFmUrl : URL?
     
@@ -25,7 +62,8 @@ class ArtistDetail : Mappable {
     func mapping(map: Map) {
         //tags <- map["tags"]
         description <- map["bio.summary"]
-        
+        lastFmUrl = cropDescriptionGetURL()
+        tags <- map["tags.tag"]
         
     }
     
@@ -40,8 +78,15 @@ class ArtistDetail : Mappable {
         
     } */
     
+    func getTagsString() -> String? {
+        if let tags = tags {
+            return Tag.getTagsString(tags)
+        }
+        return nil
+    }
+    
     private func cropDescriptionGetURL() -> URL? {
-        /*var returnUrl : URL?
+        var returnUrl : URL?
        
         let descriptionSplitHrefTag = description.components(separatedBy: "<a href=\"")
         if descriptionSplitHrefTag.count > 1 {
@@ -52,8 +97,7 @@ class ArtistDetail : Mappable {
                 returnUrl = URL(string: linkFromEnclosingTag[0])
             }
         }
-        return returnUrl */
-        return nil
+        return returnUrl
     }
     
 }

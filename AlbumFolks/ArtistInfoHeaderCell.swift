@@ -32,11 +32,10 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     }
     
     public func setDetailContent(_ detail: ArtistDetail) {
-       // imageView.image = UIImage(named: artistDetail.heading.photoUrl)
-       // infoLabel.text = artistDetail.description
-       // tags.text = getTagsString(artistDetail.tags)
+         infoLabel.text = detail.description
+         tags.text = detail.getTagsString()
         
-        seeMore.isHidden = !tags.isTruncated
+        seeMore.isHidden = !infoLabel.isTruncated
     }
     
     public func setArtistInfoCallback(_ callback: @escaping () -> ()) {
@@ -44,26 +43,7 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     }
     
     
-    private func getTagsString(_ tags: [String]) -> String? {
-        
-        if tags.count == 0 {
-            return nil
-        } else if tags.count == 1 {
-            return tags[0]
-        }
-        
-        var formattedStr = ""
-        for i in 0...tags.count-1 {
-            formattedStr.append(tags[i])
-            
-            if i < tags.count-1 {
-                formattedStr.append(", ")
-            }
-        }
-        
-        return formattedStr
-        
-    }
+  
     
     @IBAction func seeMorePressed(_ sender: UIButton) {
         if let callback = artistInfoCallback {
