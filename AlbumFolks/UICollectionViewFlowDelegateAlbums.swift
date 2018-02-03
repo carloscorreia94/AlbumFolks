@@ -5,11 +5,10 @@
 //  Created by Carlos Correia on 02/02/18.
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
-
 import UIKit
 
 // TODO : Explain this, and the flowDelegateHandler in the appropriate classes
-class UICollectionViewFlowDelegateHandler :  NSObject, UICollectionViewDelegateFlowLayout {
+class UICollectionViewFlowDelegateHandler :  NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.bounds.width / 2.0
         let cellHeight = cellWidth * (17/15) // ratio as explicitly defined in the AlbumView Layout

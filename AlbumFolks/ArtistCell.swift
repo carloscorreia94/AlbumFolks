@@ -24,6 +24,8 @@ class ArtistCell : UITableViewCell {
         
         customImageView.layer.cornerRadius = customImageView.bounds.size.width / 2
         customImageView.clipsToBounds = true
+        customImageView.contentMode = .scaleAspectFill
+
     }
     
     public func setContent(_ artist: Artist) {

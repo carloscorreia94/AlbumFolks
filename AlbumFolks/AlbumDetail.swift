@@ -8,7 +8,23 @@
 
 import Foundation
 
-struct AlbumDetail {
-    let albumID : String
-    let tracks : [String]
+
+struct Track {
+    let id: Int
+    let duration: String
+    let name: String
+}
+
+class AlbumDetail {
+    let artist : Artist
+    let album : Album
+    let year : String
+    let tracks : [Track]
+    
+    init(artist: Artist, album: Album, year: String, tracks: [Track]) {
+        self.artist = artist
+        self.album = album
+        self.year = year
+        self.tracks = tracks
+    }
 }

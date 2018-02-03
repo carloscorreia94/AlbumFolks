@@ -22,12 +22,14 @@
 		D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974920248CD600C75C50 /* AlbumCell.swift */; };
 		D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974B2024ABD900C75C50 /* ArtistCell.swift */; };
 		D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974D2024D67D00C75C50 /* ArtistAlbumsVC.swift */; };
-		D0FA97502024E43D00C75C50 /* UICollectionViewFlowDelegateAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA974F2024E43D00C75C50 /* UICollectionViewFlowDelegateAlbums.swift */; };
 		D0FA97522024E8DE00C75C50 /* ArtistDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97512024E8DE00C75C50 /* ArtistDetail.swift */; };
 		D0FA97542024E91000C75C50 /* AlbumDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97532024E91000C75C50 /* AlbumDetail.swift */; };
 		D0FA97562024F40200C75C50 /* ArtistInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97552024F40200C75C50 /* ArtistInfoHeaderCell.swift */; };
 		D0FA97592025129400C75C50 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97582025129400C75C50 /* UILabel.swift */; };
 		D0FA975B2025CC4800C75C50 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA975A2025CC4800C75C50 /* String.swift */; };
+		D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA975C2025DAE600C75C50 /* AlbumVC.swift */; };
+		D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA975E2025E11400C75C50 /* AlbumVcHeaderView.swift */; };
+		D0FA97612025E5DB00C75C50 /* UICollectionViewFlowDelegateAlbums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA97602025E5DB00C75C50 /* UICollectionViewFlowDelegateAlbums.swift */; };
 		F8D1CF90950D37B1AB5B4D08 /* Pods_AlbumFolks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA32A3F4BBA4EC4D44933384 /* Pods_AlbumFolks.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,12 +78,14 @@
 		D0FA974920248CD600C75C50 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		D0FA974B2024ABD900C75C50 /* ArtistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCell.swift; sourceTree = "<group>"; };
 		D0FA974D2024D67D00C75C50 /* ArtistAlbumsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistAlbumsVC.swift; sourceTree = "<group>"; };
-		D0FA974F2024E43D00C75C50 /* UICollectionViewFlowDelegateAlbums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowDelegateAlbums.swift; sourceTree = "<group>"; };
 		D0FA97512024E8DE00C75C50 /* ArtistDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetail.swift; sourceTree = "<group>"; };
 		D0FA97532024E91000C75C50 /* AlbumDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetail.swift; sourceTree = "<group>"; };
 		D0FA97552024F40200C75C50 /* ArtistInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoHeaderCell.swift; sourceTree = "<group>"; };
 		D0FA97582025129400C75C50 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		D0FA975A2025CC4800C75C50 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		D0FA975C2025DAE600C75C50 /* AlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumVC.swift; sourceTree = "<group>"; };
+		D0FA975E2025E11400C75C50 /* AlbumVcHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumVcHeaderView.swift; sourceTree = "<group>"; };
+		D0FA97602025E5DB00C75C50 /* UICollectionViewFlowDelegateAlbums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowDelegateAlbums.swift; sourceTree = "<group>"; };
 		EEBF543D2A0AAE222A257C0F /* Pods-AlbumFolksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,10 +178,12 @@
 				D0FA974720248CBC00C75C50 /* AlbumCell.xib */,
 				D0FA974920248CD600C75C50 /* AlbumCell.swift */,
 				D0FA974B2024ABD900C75C50 /* ArtistCell.swift */,
-				D0FA974F2024E43D00C75C50 /* UICollectionViewFlowDelegateAlbums.swift */,
 				D0FA97512024E8DE00C75C50 /* ArtistDetail.swift */,
 				D0FA97532024E91000C75C50 /* AlbumDetail.swift */,
 				D0FA97552024F40200C75C50 /* ArtistInfoHeaderCell.swift */,
+				D0FA975C2025DAE600C75C50 /* AlbumVC.swift */,
+				D0FA975E2025E11400C75C50 /* AlbumVcHeaderView.swift */,
+				D0FA97602025E5DB00C75C50 /* UICollectionViewFlowDelegateAlbums.swift */,
 			);
 			path = AlbumFolks;
 			sourceTree = "<group>";
@@ -496,7 +502,9 @@
 				D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */,
 				D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */,
 				D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */,
-				D0FA97502024E43D00C75C50 /* UICollectionViewFlowDelegateAlbums.swift in Sources */,
+				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
+				D0FA97612025E5DB00C75C50 /* UICollectionViewFlowDelegateAlbums.swift in Sources */,
+				D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */,
 				D0FA97522024E8DE00C75C50 /* ArtistDetail.swift in Sources */,
 				D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */,
 				D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */,
@@ -677,7 +685,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -693,7 +701,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

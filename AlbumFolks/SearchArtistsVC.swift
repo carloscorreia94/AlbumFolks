@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * I didn't subclass UITableViewController as it makes it more flexible to change the layout /incrementally add more components starting with an embedded UITableView in a blank ViewController
+ **/
 class SearchArtistsVC : UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -59,6 +62,10 @@ class SearchArtistsVC : UIViewController {
             tags.append("Garage")
 
             destination.artistDetail = ArtistDetail(Artist(photoUrl: "mock_artist", name: "Mac DeMarco", gender: "Indie"), tags: tags, description: "Mac DeMarco is the antithesis to your stereotypical singer-songwriter. Disregarding the seriously somber moments, he replaces them with whimsical and youthful spontaneity, whilst retaining endearing and subtle commentaries. Promptly after leaving his Edmonton garage for Vancouver he embarked on a grand voyage of enlightenment and alcoholic debauchery.\n\nDeMarco’s a weird cat, cultivating an affinity for occult imagery, nudity and social satire. But <a href=\"https://www.last.fm/music/Mac+DeMarco\">Read more on Last.fm</a>")
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = "Search"
+            navigationItem.backBarButtonItem = backItem
         default:
             if let id = segue.identifier {
                 print("Unknown segue: \(id)")

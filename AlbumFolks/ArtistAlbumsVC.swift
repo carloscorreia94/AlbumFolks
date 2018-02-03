@@ -43,12 +43,34 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier ?? "" {
+        case "presentAlbumFromArtist":
+            let backItem = UIBarButtonItem()
+            backItem.title = "Artist"
+            navigationItem.backBarButtonItem = backItem
+        default:
+            if let id = segue.identifier {
+                print("Unknown segue: \(id)")
+            }
+        }
+    }
+}
+
+extension ArtistAlbumsVC {
+    @objc func cellTapped(sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: sender)
+    }
 }
 
 extension ArtistAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
+        
+        let tapCell = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        cell.addGestureRecognizer(tapCell)
         
         let album = Album(photoUrl: "mock_album", name: "Salad Days", artist: "2014")
         cell.setContent(album)
@@ -78,13 +100,16 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
 extension ArtistAlbumsVC {
     // MARK : Supplementary methods to handle navigation
     
+    
+    /**
+    Concerning the reusableCell LifeCycle and because it's easier to load things at once from a method invocation, I prefered to keep a callback reference on there (ArtistInfoHeaderCell) rather that having another reference to the ArtistDetail, and maybe to the viewController
+    **/
     func artistInfoCallback() {
         let popup = PopupDialog(title: nil, message: artistDetail.description.trim(to: 500))
         
         if let url = artistDetail.lastFmUrl {
             let buttonMore = DefaultButton(title: "See more on LastFm") {
                 if #available(iOS 10.0, *) {
-                    print(url.absoluteString)
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
                     UIApplication.shared.openURL(url)
