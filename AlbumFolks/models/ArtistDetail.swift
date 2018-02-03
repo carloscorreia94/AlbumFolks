@@ -60,23 +60,11 @@ class ArtistDetail : Mappable {
     }
     
     func mapping(map: Map) {
-        //tags <- map["tags"]
         description <- map["bio.summary"]
         lastFmUrl = cropDescriptionGetURL()
         tags <- map["tags.tag"]
-        
     }
     
-  /*  init(_ heading: Artist,tags: [String], description: String) {
-        self.heading = heading
-        self.tags = tags
-        self.description = description
-        
-        if let url = cropDescriptionGetURL() {
-            self.lastFmUrl = url
-        }
-        
-    } */
     
     func getTagsString() -> String? {
         if let tags = tags {

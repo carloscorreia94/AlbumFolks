@@ -8,17 +8,6 @@
 
 import UIKit
 
-class Artist {
-    var photoUrl, name, gender : String
-    var detail: ArtistDetail?
-    
-    init(photoUrl: String, name: String, gender: String) {
-        self.photoUrl = photoUrl
-        self.name = name
-        self.gender = gender
-    }
-}
-
 class ArtistCell : UITableViewCell {
     
     @IBOutlet weak var artistName : UILabel!

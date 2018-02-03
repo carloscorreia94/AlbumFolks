@@ -15,8 +15,12 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     @IBOutlet weak var tags: UILabel!
     @IBOutlet weak var seeMore: UIButton!
     
+    @IBOutlet weak var artistInfoStatic: UILabel!
+    @IBOutlet weak var artistAlbumsStatic: UILabel!
+    
     @IBOutlet weak var infoLabel: UILabel!
     
+    var loadingView : UIView?
     var artistInfoCallback : (() -> ())?
     
     override func layoutSubviews() {
@@ -32,8 +36,18 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     }
     
     public func setDetailContent(_ detail: ArtistDetail) {
-         infoLabel.text = detail.description
-         tags.text = detail.getTagsString()
+        
+        if let view = loadingView {
+            view.removeFromSuperview()
+        }
+        
+        //Unhide previous hidden content (progressBar was showing)
+        tags.isHidden = false
+        infoLabel.isHidden = false
+        artistInfoStatic.isHidden = false
+        
+        infoLabel.text = detail.description
+        tags.text = detail.getTagsString()
         
         seeMore.isHidden = !infoLabel.isTruncated
     }
@@ -42,6 +56,10 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
         self.artistInfoCallback = callback
     }
     
+    public func setActivityIndicatorView() {
+        loadingView = LoadingIndicatorView.create(centerX: self.center.x, originY: imageView.frame.maxY + 12, size: (artistAlbumsStatic.frame.minY - imageView.frame.maxY) * 0.7)
+        self.addSubview(loadingView!)
+    }
     
   
     

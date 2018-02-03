@@ -17,11 +17,11 @@ struct Track {
 
 class AlbumDetail {
     let artist : Artist
-    let album : Album
+    let album : _Album
     let year : String
     let tracks : [Track]
     
-    init(artist: Artist, album: Album, year: String, tracks: [Track]) {
+    init(artist: Artist, album: _Album, year: String, tracks: [Track]) {
         self.artist = artist
         self.album = album
         self.year = year

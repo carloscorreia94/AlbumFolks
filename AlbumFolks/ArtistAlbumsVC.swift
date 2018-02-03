@@ -11,10 +11,8 @@ import PopupDialog
 import Alamofire
 import AlamofireObjectMapper
 
-class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
-    
-    var flowDelegateHandler: UICollectionViewFlowDelegateHandler!
-    
+class ArtistAlbumsVC : UIViewController {
+        
     var artist : Artist! {
         didSet {
             self.navigationItem.title = artist.name
@@ -25,8 +23,7 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
         didSet {
             collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
             
-            var reference = self
-            reference.useProtocolForCollectionView(collectionView: collectionView)
+            
         }
     }
     
@@ -70,7 +67,7 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
             
             let destination = segue.destination as! AlbumVC
             //let indexPath = tableView.indexPathForSelectedRow!
-            let album = Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
+            let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
             let artist = Artist(photoUrl: "mock_artist", name: "Mac DeMarco", gender: "Indie")
             var tracks = [Track]()
             tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
@@ -113,33 +110,65 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         let tapCell = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
         cell.addGestureRecognizer(tapCell)
         
-        let album = Album(photoUrl: "mock_album", name: "Salad Days", artist: "2014")
+        let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "2014")
         cell.setContent(album)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return artist.albums?.count ?? 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionElementKindSectionHeader {
             let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
             artistCell.setContent(artist)
-        
+            
             if let detail = artist.detail {
                 artistCell.setDetailContent(detail)
+            } else {
+                artistCell.setActivityIndicatorView()
             }
-        
+            
             artistCell.setArtistInfoCallback(artistInfoCallback)
             return artistCell
-
+        } else {
+            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "LoadingAlbumsFooterCell", for: indexPath)
+            
+            let loadingView = LoadingIndicatorView.create(centerX: cell.center.x, originY: 8, size: cell.frame.size.height * 0.8)
+            cell.addSubview(loadingView)
+            
+            return cell
+        }
+        
     }
     
+}
+
+extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    // MARK : UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: 80, height: artist.albums != nil ? 0 : 80)
+    }
+    
+    
+    // MARK : UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.bounds.width / 2.0
+        let cellHeight = cellWidth * (17/15) // ratio as explicitly defined in the AlbumView Layout
+        
+        return CGSize(width: cellWidth - 8, height: cellHeight)
+    }
 }
 
 extension ArtistAlbumsVC {

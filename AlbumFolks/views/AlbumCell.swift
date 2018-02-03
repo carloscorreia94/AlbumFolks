@@ -8,9 +8,6 @@
 
 import UIKit
 
-struct Album {
-    let photoUrl, name, artist : String
-}
 
 class AlbumCell : UICollectionViewCell {
     
@@ -26,7 +23,7 @@ class AlbumCell : UICollectionViewCell {
     }
     
     
-    public func setContent(_ album: Album) {
+    public func setContent(_ album: _Album) {
         self.imageView.image = UIImage(named: album.photoUrl)
         self.albumName.text = album.name
         self.albumArtist.text = album.artist

@@ -8,16 +8,13 @@
 
 import UIKit
 
-class StoredAlbumsVC: UIViewController, UICollectionViewFlowDelegateAlbums {
-
-    var flowDelegateHandler: UICollectionViewFlowDelegateHandler!
+class StoredAlbumsVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
         
-            var reference = self
-            reference.useProtocolForCollectionView(collectionView: collectionView)
+           
         }
     }
     
@@ -46,7 +43,7 @@ class StoredAlbumsVC: UIViewController, UICollectionViewFlowDelegateAlbums {
             
             let destination = segue.destination as! AlbumVC
             //let indexPath = tableView.indexPathForSelectedRow!
-            let album = Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
+            let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
             let artist = Artist(photoUrl: "mock_artist", name: "Mac DeMarco", gender: "Indie")
             var tracks = [Track]()
             tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
@@ -91,7 +88,7 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
         let tapCell = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
         cell.addGestureRecognizer(tapCell)
         
-        let album = Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
+        let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
         cell.setContent(album)
         
         return cell
@@ -113,5 +110,19 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
         }
     }
     
+}
+
+extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+        
+    // UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        //TODO - Centralize these
+        let cellWidth = collectionView.bounds.width / 2.0
+        let cellHeight = cellWidth * (17/15) // ratio as explicitly defined in the AlbumView Layout
+        
+        return CGSize(width: cellWidth - 8, height: cellHeight)
+    }
 }
 
