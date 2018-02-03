@@ -8,8 +8,15 @@
 
 import UIKit
 
-struct Artist {
-    let photoUrl, name, gender : String
+class Artist {
+    var photoUrl, name, gender : String
+    var detail: ArtistDetail?
+    
+    init(photoUrl: String, name: String, gender: String) {
+        self.photoUrl = photoUrl
+        self.name = name
+        self.gender = gender
+    }
 }
 
 class ArtistCell : UITableViewCell {

@@ -8,14 +8,16 @@
 
 import UIKit
 import PopupDialog
+import Alamofire
+import AlamofireObjectMapper
 
 class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
     
     var flowDelegateHandler: UICollectionViewFlowDelegateHandler!
     
-    var artistDetail : ArtistDetail! {
+    var artist : Artist! {
         didSet {
-          //  self.navigationItem.title = artistDetail.heading.name
+            self.navigationItem.title = artist.name
         }
     }
     
@@ -37,6 +39,20 @@ class ArtistAlbumsVC : UIViewController, UICollectionViewFlowDelegateAlbums {
             automaticallyAdjustsScrollViewInsets = false
         }
         
+        //TODO : Change... maybe before view load we can make network call...
+        
+        
+        if artist.detail == nil {
+            let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
+            Alamofire.request(URL).responseObject(keyPath: "artist") { (response: DataResponse<ArtistDetail>) in
+                
+                let weatherResponse = response.result.value
+                
+                if let artistDetail = weatherResponse {
+                    print(artistDetail.description)
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,9 +128,9 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
             let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
-        
-            //artistCell.setContent(artistDetail)
-            //artistCell.setArtistInfoCallback(artistInfoCallback)
+            artistCell.setContent(artist)
+            //artistCell.setDetailContent(artist.detail)
+            artistCell.setArtistInfoCallback(artistInfoCallback)
             return artistCell
 
     }
@@ -129,7 +145,7 @@ extension ArtistAlbumsVC {
     Concerning the reusableCell LifeCycle and because it's easier to load things at once from a method invocation, I prefered to keep a callback reference on there (ArtistInfoHeaderCell) rather that having another reference to the ArtistDetail, and maybe to the viewController
     **/
     func artistInfoCallback() {
-        let popup = PopupDialog(title: nil, message: artistDetail.description.trim(to: 500))
+      /*  let popup = PopupDialog(title: nil, message: artistDetail.description.trim(to: 500))
         
         if let url = artistDetail.lastFmUrl {
             let buttonMore = DefaultButton(title: "See more on LastFm") {
@@ -146,5 +162,5 @@ extension ArtistAlbumsVC {
         let buttonDismiss = DefaultButton(title: "OK") {}
         popup.addButton(buttonDismiss)
         self.present(popup, animated: true, completion: nil)
-    }
+  */  }
 }

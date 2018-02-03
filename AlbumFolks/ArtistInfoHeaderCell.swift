@@ -27,7 +27,11 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
         imageView.clipsToBounds = true
     }
     
-    public func setContent(_ artistDetail: ArtistDetail) {
+    public func setContent(_ artist: Artist) {
+         imageView.image = UIImage(named: artist.photoUrl)
+    }
+    
+    public func setDetailContent(_ detail: ArtistDetail) {
        // imageView.image = UIImage(named: artistDetail.heading.photoUrl)
        // infoLabel.text = artistDetail.description
        // tags.text = getTagsString(artistDetail.tags)

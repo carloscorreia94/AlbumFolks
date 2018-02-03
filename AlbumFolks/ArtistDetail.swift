@@ -11,18 +11,22 @@ import ObjectMapper
 class ArtistDetail : Mappable {
     var tags : [String]!
     var description : String!
-    //var heading : Artist!
     var lastFmUrl : URL?
     
     required init?(map: Map){
-        if map.JSON["tags"] == nil || map.JSON["description"] == nil {
+      
+        
+        guard let _: String = map["bio.summary"].value() else {
             return nil
         }
+        
     }
     
     func mapping(map: Map) {
-        tags <- map["tags"]
-        description <- map["description"]
+        //tags <- map["tags"]
+        description <- map["bio.summary"]
+        
+        
     }
     
   /*  init(_ heading: Artist,tags: [String], description: String) {
@@ -37,7 +41,7 @@ class ArtistDetail : Mappable {
     } */
     
     private func cropDescriptionGetURL() -> URL? {
-        var returnUrl : URL?
+        /*var returnUrl : URL?
        
         let descriptionSplitHrefTag = description.components(separatedBy: "<a href=\"")
         if descriptionSplitHrefTag.count > 1 {
@@ -48,7 +52,8 @@ class ArtistDetail : Mappable {
                 returnUrl = URL(string: linkFromEnclosingTag[0])
             }
         }
-        return returnUrl
+        return returnUrl */
+        return nil
     }
     
 }
