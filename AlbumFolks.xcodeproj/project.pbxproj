@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1774B1FB2027672C0060BB71 /* SupplementaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FA2027672C0060BB71 /* SupplementaryModels.swift */; };
 		1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FC20277D780060BB71 /* CoreNetwork.swift */; };
 		1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FE202791360060BB71 /* AlertDialog.swift */; };
 		1774B2012027BB410060BB71 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2002027BB410060BB71 /* Track.swift */; };
+		1774B2042027BEDC0060BB71 /* LastFmImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2032027BEDC0060BB71 /* LastFmImage.swift */; };
+		1774B2062027BEEB0060BB71 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2052027BEEB0060BB71 /* Tag.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
 		49111B4D23180D8B4EB32E8A /* Pods_AlbumFolksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */; };
 		D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32D202345DC00DC1D34 /* AppDelegate.swift */; };
@@ -57,10 +58,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1774B1FA2027672C0060BB71 /* SupplementaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryModels.swift; sourceTree = "<group>"; };
 		1774B1FC20277D780060BB71 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
 		1774B1FE202791360060BB71 /* AlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDialog.swift; sourceTree = "<group>"; };
 		1774B2002027BB410060BB71 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		1774B2032027BEDC0060BB71 /* LastFmImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastFmImage.swift; sourceTree = "<group>"; };
+		1774B2052027BEEB0060BB71 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolks.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1774B2022027BEB30060BB71 /* supplementary */ = {
+			isa = PBXGroup;
+			children = (
+				1774B2032027BEDC0060BB71 /* LastFmImage.swift */,
+				1774B2052027BEEB0060BB71 /* Tag.swift */,
+			);
+			path = supplementary;
+			sourceTree = "<group>";
+		};
 		35FA5A3C81177420F2EC8412 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,12 +245,12 @@
 		D0FA97652026320600C75C50 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				1774B2022027BEB30060BB71 /* supplementary */,
 				D0FA97672026323E00C75C50 /* persistence */,
 				D0FA97512024E8DE00C75C50 /* ArtistDetail.swift */,
 				D0FA97532024E91000C75C50 /* AlbumDetail.swift */,
 				D0FA97682026326C00C75C50 /* Album.swift */,
 				D0FA976A202632AC00C75C50 /* Artist.swift */,
-				1774B1FA2027672C0060BB71 /* SupplementaryModels.swift */,
 				1774B2002027BB410060BB71 /* Track.swift */,
 			);
 			path = models;
@@ -555,11 +566,12 @@
 				D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
 				D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */,
+				1774B2042027BEDC0060BB71 /* LastFmImage.swift in Sources */,
 				1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */,
 				D0FA97692026326C00C75C50 /* Album.swift in Sources */,
 				D0FA97522024E8DE00C75C50 /* ArtistDetail.swift in Sources */,
-				1774B1FB2027672C0060BB71 /* SupplementaryModels.swift in Sources */,
 				D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */,
+				1774B2062027BEEB0060BB71 /* Tag.swift in Sources */,
 				D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */,
 				D0FA97462024849A00C75C50 /* SearchArtistsVC.swift in Sources */,
 				D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */,

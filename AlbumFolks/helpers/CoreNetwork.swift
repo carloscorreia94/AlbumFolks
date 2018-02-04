@@ -10,10 +10,8 @@ import Alamofire
 
 
 enum NetworkError {
-    case Connection, ServerError, NotFound, EncodeLocal, UnexpectedJSON, WrongResult, Authorization
+    case Connection, ServerError, NotFound, UnexpectedJSON, Authorization
 }
-
-
 
 class CoreNetwork {
     
@@ -24,18 +22,16 @@ class CoreNetwork {
     
     static func messageFromError(_ error: NetworkError) -> NetworkErrorMessage {
         switch error {
-        case .EncodeLocal:
-            return NetworkErrorMessage(title: NSLocalizedString("error.title.internal", comment: ""), desc: NSLocalizedString("error.desc.internal.update", comment: ""))
         case .Connection:
-            return NetworkErrorMessage(title: NSLocalizedString("error.title.connection", comment: ""), desc: NSLocalizedString("error.desc.connection", comment: ""))
+            return NetworkErrorMessage(title: "Connection Error", desc: "Check your connection and load this page again")
         case .NotFound:
-            return NetworkErrorMessage(title: NSLocalizedString("error.title.simple", comment: ""), desc: NSLocalizedString("error.desc.not_found", comment: ""))
+            return NetworkErrorMessage(title:"Error", desc: "Server not found. That's strange.")
         case .ServerError:
-            return NetworkErrorMessage(title: NSLocalizedString("error.title.server", comment: ""), desc: NSLocalizedString("error.desc.contact_admin", comment: ""))
+            return NetworkErrorMessage(title: "Server Error", desc: "Contact the app administrator - We mean LastFM :-)")
         case .Authorization:
-            return NetworkErrorMessage(title: NSLocalizedString("error.title.auth", comment: ""), desc: NSLocalizedString("error.desc.auth", comment: ""))
+            return NetworkErrorMessage(title: "Authentication Error", desc: "API Key has expired? Build the app with your own API_KEY")
         default:
-            return NetworkErrorMessage(title: NSLocalizedString("error.title.server", comment: ""), desc: NSLocalizedString("error.desc.wrong_json", comment: ""))
+            return NetworkErrorMessage(title: "Server Error", desc: "Unexpected content coming from the server. Wait for the next update :))")
         }
     }
     
