@@ -6,25 +6,38 @@
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
 
-import Foundation
+import ObjectMapper
+import Alamofire
 
 
-struct Track {
-    let id: Int
-    let duration: String
-    let name: String
-}
 
-class AlbumDetail {
-    let artist : Artist
-    let album : _Album
-    let year : String
-    let tracks : [Track]
+class AlbumDetail : Mappable {
     
-    init(artist: Artist, album: _Album, year: String, tracks: [Track]) {
-        self.artist = artist
-        self.album = album
-        self.year = year
-        self.tracks = tracks
+    var year : String?
+    var tracks : [Track]!
+    
+    required init?(map: Map){
+        
+        //TODO - Check for track array being empty/nul? Object mapper takes care of this?
+        //should be done with guard instead to check for array type?
+        if !map["tracks.track"].isKeyPresent {
+            return nil
+        }
     }
+    
+    
+    func mapping(map: Map) {
+        
+        var tags : [Tag]?
+        tags <- map["tags.tag"]
+        
+        if let tagsArray = tags {
+            if tagsArray.count > 0 {
+                year = tagsArray[0].name
+            }
+        }
+        
+        tracks <- map["tracks.track"]
+    }
+    
 }

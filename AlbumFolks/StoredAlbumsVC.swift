@@ -43,27 +43,8 @@ class StoredAlbumsVC: UIViewController {
             
             let destination = segue.destination as! AlbumVC
             //let indexPath = tableView.indexPathForSelectedRow!
-            let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
-            let artist = Artist(photoUrl: "mock_artist", name: "Mac DeMarco", gender: "Indie")
-            var tracks = [Track]()
-            tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 2, duration: "2:20", name: "Blue Boy"))
-            tracks.append(Track(id: 3, duration: "4:01", name: "Brother"))
-            tracks.append(Track(id: 4, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 5, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 2, duration: "2:20", name: "Blue Boy"))
-            tracks.append(Track(id: 3, duration: "4:01", name: "Brother"))
-            tracks.append(Track(id: 4, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 5, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 1, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 2, duration: "2:20", name: "Blue Boy"))
-            tracks.append(Track(id: 3, duration: "4:01", name: "Brother"))
-            tracks.append(Track(id: 4, duration: "3:00", name: "Salad Days"))
-            tracks.append(Track(id: 5, duration: "3:00", name: "Salad Days"))
-
-            let albumDetail = AlbumDetail(artist: artist, album: album, year: "2014", tracks: tracks)
-            destination.albumDetail = albumDetail
+           
+            //destination.albumDetail = albumDetail
             
         default:
             if let id = segue.identifier {

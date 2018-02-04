@@ -16,7 +16,7 @@ class AlbumVC : UIViewController {
     @IBOutlet var albumInfoHeader: AlbumVcHeaderView!
     @IBOutlet weak var tableView : UITableView!
 
-    var albumDetail : AlbumDetail!
+    var album : Album!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +25,9 @@ class AlbumVC : UIViewController {
         
         self.tableView.tableHeaderView = albumInfoHeader
         
-        albumInfoHeader.imageView.image = UIImage(named: albumDetail.album.photoUrl)
-        albumInfoHeader.albumArtist.text = albumDetail.artist.name
-        albumInfoHeader.albumYear.text = albumDetail.year
+        //albumInfoHeader.imageView.image = UIImage(named: album.photoUrl)
+    //    albumInfoHeader.albumArtist.text = albumDetail.artist.name
+        //albumInfoHeader.albumYear.text = albumDetail.year
 
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -48,17 +48,19 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albumDetail.tracks.count
+        return 0
+       // return albumDetail.tracks.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackCell
         
-        let track = albumDetail.tracks[indexPath.row]
+        //let track = albumDetail.tracks[indexPath.row]
         
-        cell.trackNr.text = "\(track.id)"
-        cell.name.text = track.name
-        cell.duration.text = track.duration
+        //cell.trackNr.text = "\(track.id)"
+        //cell.name.text = track.name
+        //cell.duration.text = track.duration
         
         return cell
     }

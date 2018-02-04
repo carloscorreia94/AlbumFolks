@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nfl-NS-KO5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nfl-NS-KO5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -143,7 +143,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Km8-Fi-mdm">
-                                                    <rect key="frame" x="27" y="13.5" width="18" height="21"/>
+                                                    <rect key="frame" x="23" y="13.5" width="22" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -154,19 +154,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STW-CI-1OW">
-                                                    <rect key="frame" x="317" y="13" width="46" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STW-CI-1OW">
+                                                    <rect key="frame" x="317.5" y="13" width="41.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="STW-CI-1OW" firstAttribute="leading" relation="lessThanOrEqual" secondItem="V9m-SG-X0s" secondAttribute="trailing" constant="227" id="5iu-tS-hob"/>
-                                                <constraint firstAttribute="trailing" secondItem="STW-CI-1OW" secondAttribute="trailing" constant="12" id="FPG-xX-83d"/>
+                                                <constraint firstAttribute="trailing" secondItem="STW-CI-1OW" secondAttribute="trailing" constant="16" id="FPG-xX-83d"/>
                                                 <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Km8-Fi-mdm" secondAttribute="trailing" id="Kua-L5-esg"/>
                                                 <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leading" constant="45" id="YWH-C6-cWv"/>
-                                                <constraint firstItem="Km8-Fi-mdm" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leadingMargin" constant="12" id="c1Q-k5-jwm"/>
+                                                <constraint firstItem="STW-CI-1OW" firstAttribute="leading" relation="lessThanOrEqual" secondItem="V9m-SG-X0s" secondAttribute="trailing" constant="227" id="ZG0-sf-hqz"/>
+                                                <constraint firstItem="Km8-Fi-mdm" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leadingMargin" constant="8" id="c1Q-k5-jwm"/>
                                                 <constraint firstItem="STW-CI-1OW" firstAttribute="top" secondItem="V9m-SG-X0s" secondAttribute="top" id="evt-M1-J6V"/>
                                                 <constraint firstItem="V9m-SG-X0s" firstAttribute="top" secondItem="Km8-Fi-mdm" secondAttribute="top" id="lF4-4w-rX2"/>
                                                 <constraint firstItem="Km8-Fi-mdm" firstAttribute="centerY" secondItem="Ty4-Hb-8ku" secondAttribute="centerY" id="xZt-2P-OSF"/>

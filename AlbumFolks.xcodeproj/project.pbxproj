@@ -10,6 +10,7 @@
 		1774B1FB2027672C0060BB71 /* SupplementaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FA2027672C0060BB71 /* SupplementaryModels.swift */; };
 		1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FC20277D780060BB71 /* CoreNetwork.swift */; };
 		1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FE202791360060BB71 /* AlertDialog.swift */; };
+		1774B2012027BB410060BB71 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2002027BB410060BB71 /* Track.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
 		49111B4D23180D8B4EB32E8A /* Pods_AlbumFolksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */; };
 		D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32D202345DC00DC1D34 /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		1774B1FA2027672C0060BB71 /* SupplementaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementaryModels.swift; sourceTree = "<group>"; };
 		1774B1FC20277D780060BB71 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
 		1774B1FE202791360060BB71 /* AlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDialog.swift; sourceTree = "<group>"; };
+		1774B2002027BB410060BB71 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolks.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks.release.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				D0FA97682026326C00C75C50 /* Album.swift */,
 				D0FA976A202632AC00C75C50 /* Artist.swift */,
 				1774B1FA2027672C0060BB71 /* SupplementaryModels.swift */,
+				1774B2002027BB410060BB71 /* Track.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				D0FA976B202632AC00C75C50 /* Artist.swift in Sources */,
 				D0FA97562024F40200C75C50 /* ArtistInfoHeaderCell.swift in Sources */,
 				D0FA976420262A0900C75C50 /* LoadingAnimation.swift in Sources */,
+				1774B2012027BB410060BB71 /* Track.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

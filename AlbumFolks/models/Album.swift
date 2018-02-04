@@ -17,6 +17,7 @@ class Album : Mappable {
     var photoUrl : URL?
     var name : String!
     var id : String?
+    var albumDetail : AlbumDetail?
     
     required init?(map: Map){
         
