@@ -16,13 +16,7 @@ class ArtistAlbumsVC : UIViewController {
     
     fileprivate let downloader = ImageDownloader()
     var noFetchedAlbums = false
-    
-    var artist : Artist! {
-        didSet {
-            self.navigationItem.title = artist.name
-        }
-    }
-    
+   
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
@@ -30,6 +24,37 @@ class ArtistAlbumsVC : UIViewController {
             
         }
     }
+    
+    /**
+     * I'm not super sure about this (artist attribution) being called imediately before (just in time) the view is loaded. Still, it's for me the best way to do a request before the view initializes. One could issue a notification from viewDidLoad and make the network callback wait until the notification is triggered. I have to test it with more time :-)
+    **/
+    var artist : Artist! {
+        didSet {
+            self.navigationItem.title = artist.name
+            
+            if artist.detail == nil {
+                
+                ArtistDetail.fetchNetworkData(artistId: self.artist.id, successCallback: { [unowned self] artistDetail in
+                    
+                    self.artist.detail = artistDetail
+                    self.collectionView.reloadData()
+                    
+                    self.albumRequest()
+                    
+                    }, errorCallback: { [unowned self] error in
+                        let errorTitleDesc = CoreNetwork.messageFromError(error)
+                        
+                        AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
+                            self.navigationController!.popViewController(animated: true)
+                        })
+                        
+                        
+                })
+                
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,36 +64,13 @@ class ArtistAlbumsVC : UIViewController {
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
-        
-        //TODO : Change... maybe before view load we can make network call...
-        
-        
-        if artist.detail == nil {
-            
-            ArtistDetail.fetchNetworkData(artistId: self.artist.id, successCallback: { [unowned self] artistDetail in
-                
-                self.artist.detail = artistDetail
-                self.collectionView.reloadData()
-                
-                self.albumRequest()
-
-                }, errorCallback: { [unowned self] error in
-                    let errorTitleDesc = CoreNetwork.messageFromError(error)
-                 
-                    AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
-                        self.navigationController!.popViewController(animated: true)
-                    })
-
-                
-            })
-            
-        }
+      
     }
     
     
     private func albumRequest() {
         
-        Album.fetchTopAlbums(artistId: self.artist.id , successCallback: { [unowned self] albums in
+        Album.fetchTopAlbums(artist: self.artist, successCallback: { [unowned self] albums in
             
             //TODO - Check for no receiving albums - we might want to go to the notFetchedAlbums = true
             //returns 16 albums tops

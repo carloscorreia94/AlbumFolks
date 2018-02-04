@@ -56,7 +56,7 @@ class ArtistDetail : Mappable {
     
     static func fetchNetworkData(artistId: String, successCallback: @escaping (ArtistDetail) -> (), errorCallback: @escaping (NetworkError) -> ()) {
         
-        let URL = String(format: CoreNetwork.API_URLS.ArtistDetail,artistId)
+        let URL = String(format: Constants.API_URLS.ArtistDetail,artistId)
         
             Alamofire.request(URL).responseObject(keyPath: "artist") { (response: DataResponse<ArtistDetail>) in
                     let (success, error) = CoreNetwork.handleResponse(response)

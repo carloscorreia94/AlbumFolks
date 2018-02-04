@@ -16,7 +16,11 @@ class AlbumVC : UIViewController {
     @IBOutlet var albumInfoHeader: AlbumVcHeaderView!
     @IBOutlet weak var tableView : UITableView!
 
-    var album : Album!
+    var album : Album! {
+        didSet {
+            //Remove this - network call
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
