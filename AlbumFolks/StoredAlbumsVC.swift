@@ -73,20 +73,12 @@ class StoredAlbumsVC: UIViewController {
     }
 }
 
-extension StoredAlbumsVC {
-    @objc func cellTapped(sender: UITapGestureRecognizer) {
-        self.performSegue(withIdentifier: "presentAlbumFromHome", sender: sender)
-    }
-}
 
 
 extension StoredAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
-        
-        let tapCell = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
-        cell.addGestureRecognizer(tapCell)
         
         let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
         cell.setContent(album)
@@ -113,8 +105,15 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
 }
 
 extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    // MARK : UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
+    }
+    
         
-    // UICollectionViewDelegateFlowLayout
+    // MARK : UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

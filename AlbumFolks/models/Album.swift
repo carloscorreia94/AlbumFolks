@@ -13,22 +13,33 @@ struct _Album {
 }
 
 class Album : Mappable {
-    var photoUrl : String? //Several photos for different devices?
+    var photoUrl : URL?
     var name : String!
     var id : String!
     
     required init?(map: Map){
         
         
-        /*     guard let _: String = map["bio.summary"].value() else {
+        guard let _: String = map["name"].value(), let _: String = map["mbid"].value() else {
          return nil
-         } */
+         }
         
     }
     
     func mapping(map: Map) {
-        //    description <- map["bio.summary"]
-        //   lastFmUrl = cropDescriptionGetURL()
-        //   tags <- map["tags.tag"]
+        name <- map["name"]
+        id <- map["mbid"]
+        
+        var images : [LastFmImage]?
+        images <- map["image"]
+        
+        if let images = images {
+            if let index = images.index(where: { $0.imageSize == .large }) {
+                photoUrl = images[index].url
+            } else {
+                photoUrl = images[0].url
+            }
+        }
+        
     }
 }

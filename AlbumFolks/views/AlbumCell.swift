@@ -28,4 +28,8 @@ class AlbumCell : UICollectionViewCell {
         self.albumName.text = album.name
         self.albumArtist.text = album.artist
     }
+    
+    public func setImage(_ image: UIImage) {
+        self.imageView.image = image
+    }
 }

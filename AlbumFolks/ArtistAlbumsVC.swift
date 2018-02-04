@@ -10,8 +10,11 @@ import UIKit
 import PopupDialog
 import Alamofire
 import AlamofireObjectMapper
+import AlamofireImage
 
 class ArtistAlbumsVC : UIViewController {
+    
+    fileprivate let downloader = ImageDownloader()
         
     var artist : Artist! {
         didSet {
@@ -41,6 +44,8 @@ class ArtistAlbumsVC : UIViewController {
         
         if artist.detail == nil {
             let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
+            
+            
             Alamofire.request(URL).responseObject(keyPath: "artist") { [unowned self] (response: DataResponse<ArtistDetail>) in
                 
                 let weatherResponse = response.result.value
@@ -48,7 +53,28 @@ class ArtistAlbumsVC : UIViewController {
                 if let artistDetail = weatherResponse {
                     self.artist.detail = artistDetail
                     self.collectionView.reloadData()
+                
+                    self.albumRequest()
+                
                 }
+            }
+        }
+    }
+    
+    
+    private func albumRequest() {
+        let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
+        
+        
+        Alamofire.request(URL).responseArray(keyPath: "topalbums.album") { [unowned self] (response: DataResponse<[Album]>) in
+            
+            let weatherResponse = response.result.value
+            
+            if let albums = weatherResponse {
+                //returns 10 albums tops
+                self.artist.albums = Array(albums.prefix(11))
+                self.collectionView.reloadData()
+                
             }
         }
     }
@@ -96,22 +122,37 @@ class ArtistAlbumsVC : UIViewController {
     }
 }
 
-extension ArtistAlbumsVC {
-    @objc func cellTapped(sender: UITapGestureRecognizer) {
-        self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: sender)
-    }
-}
+
 
 extension ArtistAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
+
         
-        let tapCell = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
-        cell.addGestureRecognizer(tapCell)
+        guard let album = artist.albums?[indexPath.row] else {
+            fatalError("Invalid application state while fetching albums.")
+        }
         
-        let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "2014")
-        cell.setContent(album)
+        if let albumImageUrl = album.photoUrl {
+            let urlRequest = URLRequest(url: albumImageUrl)
+            
+            downloader.download(urlRequest) { response in
+                
+                
+                if let image = response.result.value {
+                    cell.setImage(image)
+                }
+            }
+        }
+        
+       
+        
+        let _album = _Album(photoUrl: "mock_album", name: album.name, artist: artist.name)
+        cell.setContent(_album)
+        
+        
+        
         
         return cell
     }
@@ -156,6 +197,11 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
 extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK : UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: 80, height: artist.albums != nil ? 0 : 80)
     }
