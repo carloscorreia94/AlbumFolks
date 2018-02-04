@@ -9,7 +9,7 @@
 import UIKit
 
 class LoadingIndicatorView {
-    static func create(centerX: CGFloat, originY: CGFloat, size: CGFloat) -> UIView {
+    class func create(centerX: CGFloat, originY: CGFloat, size: CGFloat) -> UIView {
         let loadingView = UIView()
         loadingView.frame = CGRect(origin: CGPoint(x: 0,y: originY), size: CGSize(width: size,height: size))
         loadingView.center.x = centerX

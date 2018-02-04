@@ -15,7 +15,8 @@ import AlamofireImage
 class ArtistAlbumsVC : UIViewController {
     
     fileprivate let downloader = ImageDownloader()
-        
+    var noFetchedAlbums = false
+    
     var artist : Artist! {
         didSet {
             self.navigationItem.title = artist.name
@@ -52,9 +53,13 @@ class ArtistAlbumsVC : UIViewController {
                 self.albumRequest()
 
                 }, errorCallback: { [unowned self] error in
-                    self.collectionView.reloadData()
+                    let errorTitleDesc = CoreNetwork.messageFromError(error)
+                 
+                    AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
+                        self.navigationController!.popViewController(animated: true)
+                    })
 
-                    //handle error
+                
             })
             
         }
@@ -62,20 +67,25 @@ class ArtistAlbumsVC : UIViewController {
     
     
     private func albumRequest() {
-        let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
         
-        
-        Alamofire.request(URL).responseArray(keyPath: "topalbums.album") { [unowned self] (response: DataResponse<[Album]>) in
+        Album.fetchTopAlbums(artistId: self.artist.id , successCallback: { [unowned self] albums in
             
-            let weatherResponse = response.result.value
+            //TODO - Check for no receiving albums - we might want to go to the notFetchedAlbums = true
+            //returns 16 albums tops
+            self.artist.albums = Array(albums.prefix(16))
+            self.collectionView.reloadData()
             
-            if let albums = weatherResponse {
-                //returns 16 albums tops
-                self.artist.albums = Array(albums.prefix(16))
-                self.collectionView.reloadData()
+            }, errorCallback: { [unowned self] error in
                 
-            }
-        }
+                let errorTitleDesc = CoreNetwork.messageFromError(error)
+                AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
+                    self.noFetchedAlbums = true
+                    self.collectionView.reloadData()
+                })
+                
+                
+        })
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -183,9 +193,29 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         } else {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "LoadingAlbumsFooterCell", for: indexPath)
             
-            let loadingView = LoadingIndicatorView.create(centerX: cell.center.x, originY: 8, size: cell.frame.size.height * 0.8)
-            cell.addSubview(loadingView)
+            for view in cell.subviews {
+                view.removeFromSuperview()
+            }
             
+            
+            /**
+            * There's two possible situations for footer being shown. One is the loading process, the other is not having albums (network error or simply no album info)
+            **/
+            
+            if noFetchedAlbums {
+                
+                let label = UILabel(frame: CGRect(x:0,y: 0,width: 250,height: 25))
+                label.textAlignment = .center
+                label.textColor = .black
+                label.font = UIFont.systemFont(ofSize: 19.0, weight: UIFont.Weight.light)
+                label.text = "No Fetched Albums"
+                
+                cell.addSubview(label)
+            } else {
+                let loadingView = LoadingIndicatorView.create(centerX: cell.center.x, originY: 8, size: cell.frame.size.height * 0.8)
+                cell.addSubview(loadingView)
+            }
+     
             return cell
         }
         

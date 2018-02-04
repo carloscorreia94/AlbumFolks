@@ -7,6 +7,7 @@
 //
 
 import ObjectMapper
+import Alamofire
 
 struct _Album {
     let photoUrl, name, artist : String
@@ -48,5 +49,20 @@ class Album : Mappable {
             }
         }
         
+    }
+    
+    static func fetchTopAlbums(artistId: String, successCallback: @escaping ([Album]) -> (), errorCallback: @escaping (NetworkError) -> ()) {
+        
+        let URL = String(format: CoreNetwork.API_URLS.ArtistAlbums,artistId)
+        
+        Alamofire.request(URL).responseArray(keyPath: "topalbums.album") { (response: DataResponse<[Album]>) in
+            let (success, error) = CoreNetwork.handleResponse(response)
+            
+            if let error = error {
+                errorCallback(error)
+            } else {
+                successCallback(success!)
+            }
+        }
     }
 }
