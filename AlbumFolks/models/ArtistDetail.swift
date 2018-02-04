@@ -7,6 +7,7 @@
 //
 
 import ObjectMapper
+import Alamofire
 
 
 class Tag : Mappable {
@@ -86,6 +87,25 @@ class ArtistDetail : Mappable {
             }
         }
         return returnUrl
+    }
+    
+    static func fetchNetworkData(artistId: String, successCallback: @escaping (ArtistDetail) -> (), errorCallback: @escaping (NetworkError) -> ()) {
+        let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
+        
+        let URL = String(format: "\(CoreNetwork.API_URLS.ArtistDetail)&\(CoreNetwork.COMMON_KEYS.ID)","")
+        
+        
+        Alamofire.request(URL).responseObject(keyPath: "artist") { (response: DataResponse<ArtistDetail>) in
+            
+            let (success, error) = CoreNetwork.handleResponse(response)
+            
+            if let error = error {
+                errorCallback(error)
+            } else {
+                successCallback(success)
+            }
+            
+        }
     }
     
 }

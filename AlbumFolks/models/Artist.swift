@@ -6,14 +6,17 @@
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
 
+
 class Artist {
     var photoUrl, name, gender : String
     var detail: ArtistDetail?
     var albums : [Album]?
-    
+    let id = "f2492c31-54a8-4347-a1fc-f81f72873bbf"
     init(photoUrl: String, name: String, gender: String) {
         self.photoUrl = photoUrl
         self.name = name
         self.gender = gender
     }
+    
+
 }

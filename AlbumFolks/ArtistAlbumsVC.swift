@@ -43,21 +43,20 @@ class ArtistAlbumsVC : UIViewController {
         
         
         if artist.detail == nil {
-            let URL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=f2492c31-54a8-4347-a1fc-f81f72873bbf&api_key=817be21ebea3ab66566f275369c6c4ad&format=json"
             
-            
-            Alamofire.request(URL).responseObject(keyPath: "artist") { [unowned self] (response: DataResponse<ArtistDetail>) in
+            ArtistDetail.fetchNetworkData(artistId: self.artist.id, successCallback: { [unowned self] artistDetail in
                 
-                let weatherResponse = response.result.value
+                self.artist.detail = artistDetail
+                self.collectionView.reloadData()
                 
-                if let artistDetail = weatherResponse {
-                    self.artist.detail = artistDetail
+                self.albumRequest()
+
+                }, errorCallback: { [unowned self] error in
                     self.collectionView.reloadData()
-                
-                    self.albumRequest()
-                
-                }
-            }
+
+                    //handle error
+            })
+            
         }
     }
     
@@ -71,8 +70,8 @@ class ArtistAlbumsVC : UIViewController {
             let weatherResponse = response.result.value
             
             if let albums = weatherResponse {
-                //returns 10 albums tops
-                self.artist.albums = Array(albums.prefix(11))
+                //returns 16 albums tops
+                self.artist.albums = Array(albums.prefix(16))
                 self.collectionView.reloadData()
                 
             }
@@ -148,7 +147,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         
        
         
-        let _album = _Album(photoUrl: "mock_album", name: album.name, artist: artist.name)
+        let _album = _Album(photoUrl: "", name: album.name, artist: artist.name)
         cell.setContent(_album)
         
         
