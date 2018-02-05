@@ -90,7 +90,7 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     // MARK : UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
+       // self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
     }
     
         

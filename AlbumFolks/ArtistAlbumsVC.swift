@@ -75,7 +75,7 @@ class ArtistAlbumsVC : UIViewController {
             //TODO - Check for no receiving albums - we might want to go to the notFetchedAlbums = true
             //returns 16 albums tops
             self.artist.albums = Array(albums.prefix(16))
-            self.artist.requestedAlbumDetails = [Album]()
+            self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
             
             //load up to 4 first albums (the visible ones)
             let albumDetailToRequest = Array(albums.prefix(4))
@@ -106,32 +106,22 @@ class ArtistAlbumsVC : UIViewController {
         
         for album in albums {
             //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
-            if let index = self.artist.albums!.index(of: album) {
-                if self.artist.albums![index].albumDetail != nil {
-                    continue
-                }
-            } else if self.artist.requestedAlbumDetails!.contains(album) {
+            if let index = self.artist.albums!.index(of: album), let albumDetail = self.artist.albums![index].albumDetail {
+                continue
+            } else if self.artist.requestedAlbumDetails![album] == true {
                 continue
             }
-            self.artist.requestedAlbumDetails!.append(album)
             
-            AlbumDetail.fetchNetworkData(album: album, successCallback: { [unowned self] albumDetail in
+            self.artist.requestedAlbumDetails![album] = true
+            
+            AlbumDetail.fetchNetworkData(album: album, successCallback: { albumDetail in
                 album.albumDetail = albumDetail
 
-                if let index = self.artist.requestedAlbumDetails!.index(of: album) {
-                    self.artist.requestedAlbumDetails!.remove(at: index)
-                }
-                
-                }, errorCallback: { [unowned self] error in
-                    
-                    if let index = self.artist.requestedAlbumDetails!.index(of: album) {
-                        self.artist.requestedAlbumDetails!.remove(at: index)
-                    }
-
+                }, errorCallback: { error in
                     
             })
-
             
+
         }
     }
     
@@ -148,11 +138,12 @@ class ArtistAlbumsVC : UIViewController {
             navigationItem.backBarButtonItem = backItem
             
             let destination = segue.destination as! AlbumVC
-            //let indexPath = tableView.indexPathForSelectedRow!
+            let indexPath = collectionView.indexPathsForSelectedItems![0]
            
-            
+            if let _ = artist.albums![indexPath.row].albumDetail {
+                destination.album = artist.albums![indexPath.row]
+            }
           
-           // destination.albumDetail = albumDetail
         default:
             if let id = segue.identifier {
                 print("Unknown segue: \(id)")
@@ -258,7 +249,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if let albums = artist.albums {
+        if let _ = artist.requestedAlbumDetails, let albums = artist.albums {
             var visibleAlbums = [Album]()
             for indexPath in collectionView.indexPathsForVisibleItems {
                 visibleAlbums.append(albums[indexPath.row])
@@ -272,7 +263,10 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
+        // TODO _ Loading Screen if we don't have it yet. Show message if no info
+        if let albumDetail = artist.albums![indexPath.row].albumDetail {
+            self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

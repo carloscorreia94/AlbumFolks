@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AlamofireImage
 /**
  * Again, I didn't subclass UITableViewController as it makes it more flexible to change the layout/incrementally add more components starting with an embedded UITableView in a blank ViewController
  **/
@@ -15,23 +15,32 @@ class AlbumVC : UIViewController {
     
     @IBOutlet var albumInfoHeader: AlbumVcHeaderView!
     @IBOutlet weak var tableView : UITableView!
-
-    var album : Album! {
-        didSet {
-            //Remove this - network call
-        }
-    }
+    let downloader = ImageDownloader()
+    var album: Album!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Salad Days"
+        self.navigationItem.title = album.name
         
         self.tableView.tableHeaderView = albumInfoHeader
         
-        //albumInfoHeader.imageView.image = UIImage(named: album.photoUrl)
-    //    albumInfoHeader.albumArtist.text = albumDetail.artist.name
-        //albumInfoHeader.albumYear.text = albumDetail.year
+        /*
+        * I'm not sure about the caching mechanism with AlamofireImage. Am to in a hurry to finish this so didn't went to the trouble of storing potentially a lot of data in memory for UIImages. Anyways, images are stored for savedAlbums.
+        */
+        if let albumImageUrl = album.photoUrl {
+            let urlRequest = URLRequest(url: albumImageUrl)
+            
+            downloader.download(urlRequest) { response in
+                
+                if let image = response.result.value {
+                    self.albumInfoHeader.imageView.image = image
+                }
+            }
+        }
+        
+        albumInfoHeader.albumArtist.text = album.artist.name
+        albumInfoHeader.albumYear.text = album.albumDetail?.year ?? ""
 
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -52,27 +61,32 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-       // return albumDetail.tracks.count
-
+        return album.albumDetail?.tracks.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackCell
         
-        //let track = albumDetail.tracks[indexPath.row]
+        guard let track = album.albumDetail?.tracks[indexPath.row] else {
+            fatalError("Invalid application state on AlbumVC - dequeing cell.")
+        }
         
-        //cell.trackNr.text = "\(track.id)"
-        //cell.name.text = track.name
+        cell.trackNr.text = "\(track.number)"
+        cell.name.text = track.title
         //cell.duration.text = track.duration
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as! AlbumHeaderCell
-        
-        return cell
+        let tracks = album.albumDetail?.tracks.count ?? 0
+
+        //ISSUE - Design : Should I be able to store an album with 0 tracks?
+        if tracks > 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as! AlbumHeaderCell
+            return cell
+        }
+        return nil
     }
     
 }
