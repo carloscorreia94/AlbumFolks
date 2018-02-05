@@ -43,4 +43,20 @@ class LastFmImage : Mappable {
         
         imageSize = ImageSize(rawValue: imageSizeString)!
     }
+    
+    static func getImageUrl(imageMap : Map, imageKey: String) -> URL? {
+        var images : [LastFmImage]?
+        images <- imageMap[imageKey]
+        
+        if let images = images {
+            if !images.isEmpty {
+                if let index = images.index(where: { $0.imageSize == .large }) {
+                    return images[index].url
+                } else {
+                    return images[0].url
+                }
+            }
+        }
+        return nil
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ArtistInfoHeaderCell : UICollectionReusableView {
     
@@ -23,6 +24,8 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     var loadingView : UIView?
     var artistInfoCallback : (() -> ())?
     
+    var imgDownloader : ImageDownloader!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -32,7 +35,19 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     }
     
     public func setContent(_ artist: Artist) {
-         imageView.image = UIImage(named: artist.photoUrl)
+        
+        if let url = artist.photoUrl {
+            let urlRequest = URLRequest(url: url)
+            imgDownloader.download(urlRequest) { response in
+                
+                if let image = response.result.value {
+                    self.imageView.image = image
+                }
+            }
+        }
+        
+       
+        
     }
     
     public func setDetailContent(_ detail: ArtistDetail) {

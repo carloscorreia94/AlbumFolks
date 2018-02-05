@@ -31,7 +31,7 @@ class AlbumVC : UIViewController {
         if let albumImageUrl = album.photoUrl {
             let urlRequest = URLRequest(url: albumImageUrl)
             
-            downloader.download(urlRequest) { response in
+            downloader.download(urlRequest) { [unowned self] response in
                 
                 if let image = response.result.value {
                     self.albumInfoHeader.imageView.image = image

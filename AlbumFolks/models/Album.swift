@@ -60,19 +60,7 @@ class Album : Mappable, Equatable, Hashable {
     func mapping(map: Map) {
         name <- map["name"]
         id <- map["mbid"]
-        
-        var images : [LastFmImage]?
-        images <- map["image"]
-        
-        if let images = images {
-            if !images.isEmpty {
-                if let index = images.index(where: { $0.imageSize == .large }) {
-                    photoUrl = images[index].url
-                } else {
-                    photoUrl = images[0].url
-                }
-            }
-        }
+        photoUrl = LastFmImage.getImageUrl(imageMap: map,imageKey: "image")
         
     }
     

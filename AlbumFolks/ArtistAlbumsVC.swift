@@ -14,7 +14,7 @@ import AlamofireImage
 
 class ArtistAlbumsVC : UIViewController {
     
-    fileprivate let downloader = ImageDownloader()
+    fileprivate let imgDownloader = ImageDownloader()
     var noFetchedAlbums = false
    
     @IBOutlet weak var collectionView: UICollectionView! {
@@ -106,7 +106,7 @@ class ArtistAlbumsVC : UIViewController {
         
         for album in albums {
             //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
-            if let index = self.artist.albums!.index(of: album), let albumDetail = self.artist.albums![index].albumDetail {
+            if let index = self.artist.albums!.index(of: album), let _ = self.artist.albums![index].albumDetail {
                 continue
             } else if self.artist.requestedAlbumDetails![album] == true {
                 continue
@@ -167,7 +167,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         if let albumImageUrl = album.photoUrl {
             let urlRequest = URLRequest(url: albumImageUrl)
             
-            downloader.download(urlRequest) { response in
+            imgDownloader.download(urlRequest) { response in
                 
                 
                 if let image = response.result.value {
@@ -201,6 +201,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         
         if kind == UICollectionElementKindSectionHeader {
             let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
+            artistCell.imgDownloader = imgDownloader
             artistCell.setContent(artist)
             
             if let detail = artist.detail {
@@ -264,7 +265,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO _ Loading Screen if we don't have it yet. Show message if no info
-        if let albumDetail = artist.albums![indexPath.row].albumDetail {
+        if let _ = artist.albums![indexPath.row].albumDetail {
             self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
         }
     }

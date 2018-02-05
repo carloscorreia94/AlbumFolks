@@ -10,7 +10,7 @@ import Alamofire
 
 
 enum NetworkError {
-    case Connection, ServerError, NotFound, UnexpectedJSON, Authorization
+    case Connection, ServerError, NotFound, UnexpectedJSON, Authorization, WrongContent
 }
 
 class CoreNetwork {
@@ -30,6 +30,8 @@ class CoreNetwork {
             return NetworkErrorMessage(title: "Server Error", desc: "Contact the app administrator - We mean LastFM :-)")
         case .Authorization:
             return NetworkErrorMessage(title: "Authentication Error", desc: "API Key has expired? Build the app with your own API_KEY")
+        case .WrongContent:
+            return NetworkErrorMessage(title: "Content Error", desc: "Are you inputing wrong/bad content? Try again")
         default:
             return NetworkErrorMessage(title: "Server Error", desc: "Unexpected content coming from the server. Wait for the next update :))")
         }

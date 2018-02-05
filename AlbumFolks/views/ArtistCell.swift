@@ -25,8 +25,12 @@ class ArtistCell : UITableViewCell {
     }
     
     public func setContent(_ artist: Artist) {
-        self.customImageView.image = UIImage(named: artist.photoUrl)
+       // self.customImageView.image = UIImage(named: artist.photoUrl)
         self.artistName.text = artist.name
-        self.genderSlashStored.text = artist.gender
+        self.genderSlashStored.text = "Stored / Not Stored"
+    }
+    
+    public func setImage(_ image: UIImage) {
+        self.customImageView.image = image
     }
 }

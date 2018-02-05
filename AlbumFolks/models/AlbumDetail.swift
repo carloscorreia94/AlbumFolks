@@ -46,24 +46,30 @@ class AlbumDetail : Mappable {
     **/
     static func fetchNetworkData(album: Album, successCallback: @escaping (AlbumDetail) -> (), errorCallback: @escaping (NetworkError) -> ()) {
         
-        var url : String!
+        var url : String?
         if let mbid = album.id {
             url = String(format: Constants.API_URLS.AlbumDetailById,mbid)
         } else {
             url = String(format: Constants.API_URLS.AlbumDetailByNameAndArtist,album.name,album.artist.name).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         }
         
-        print("Request Album detail with URL: " + url)
-        
-        Alamofire.request(url).responseObject(keyPath: "album") { (response: DataResponse<AlbumDetail>) in
-            let (success, error) = CoreNetwork.handleResponse(response)
-             
-            if let error = error {
-                errorCallback(error)
-            } else {
-                successCallback(success!)
+        if let validUrl = url {
+            print("Request Album detail with URL: " + validUrl)
+            
+            Alamofire.request(validUrl).responseObject(keyPath: "album") { (response: DataResponse<AlbumDetail>) in
+                let (success, error) = CoreNetwork.handleResponse(response)
+                
+                if let error = error {
+                    errorCallback(error)
+                } else {
+                    successCallback(success!)
+                }
             }
+        } else {
+            errorCallback(.WrongContent)
         }
+        
+       
     }
     
 }
