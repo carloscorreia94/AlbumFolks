@@ -40,4 +40,30 @@ class AlbumDetail : Mappable {
         tracks <- map["tracks.track"]
     }
     
+    /**
+    * Album is passed instead of just AlbumID as some albums coming from the API don't have associated ID's and can only be fetched (Detail)
+    * resourcing to album name / artist name
+    **/
+    static func fetchNetworkData(album: Album, successCallback: @escaping (AlbumDetail) -> (), errorCallback: @escaping (NetworkError) -> ()) {
+        
+        var url : String!
+        if let mbid = album.id {
+            url = String(format: Constants.API_URLS.AlbumDetailById,mbid)
+        } else {
+            url = String(format: Constants.API_URLS.AlbumDetailByNameAndArtist,album.name,album.artist.name).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        }
+        
+        print("Request Album detail with URL: " + url)
+        
+        Alamofire.request(url).responseObject(keyPath: "album") { (response: DataResponse<AlbumDetail>) in
+            let (success, error) = CoreNetwork.handleResponse(response)
+             
+            if let error = error {
+                errorCallback(error)
+            } else {
+                successCallback(success!)
+            }
+        }
+    }
+    
 }

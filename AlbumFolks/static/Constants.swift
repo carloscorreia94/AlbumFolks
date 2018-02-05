@@ -17,6 +17,9 @@ class Constants {
     struct API_URLS {
         static let ArtistDetail = API_URL_FORMAT_AND_METHOD + "artist.getinfo&mbid=%@"
         static let ArtistAlbums = API_URL_FORMAT_AND_METHOD + "artist.getTopAlbums&mbid=%@"
+        static let AlbumDetailById = API_URL_FORMAT_AND_METHOD + "album.getInfo&mbid=%@"
+        static let AlbumDetailByNameAndArtist = API_URL_FORMAT_AND_METHOD + "album.getInfo&album=%@&artist=%@"
+        //TODO - By name/artist
     }
     
     static let API_URL = "https://ws.audioscrobbler.com/2.0/"

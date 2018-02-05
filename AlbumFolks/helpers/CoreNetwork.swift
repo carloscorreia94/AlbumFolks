@@ -40,7 +40,7 @@ class CoreNetwork {
     static func handleResponse<T>(_ response: DataResponse<T>) -> (T?,NetworkError?) {
         
         let status = response.response?.statusCode
-        switch status! {
+        switch status ?? -1 {
         case 403:
             return (nil,.Authorization)
         case 500:
@@ -53,6 +53,9 @@ class CoreNetwork {
             } else {
                 return (nil,.UnexpectedJSON)
             }
+            //No internet connection here
+        case -1:
+            return (nil,.Connection)
         default:
             if (response.result.error != nil) {
                 return (nil,.Connection)

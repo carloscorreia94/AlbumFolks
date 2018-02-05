@@ -75,6 +75,13 @@ class ArtistAlbumsVC : UIViewController {
             //TODO - Check for no receiving albums - we might want to go to the notFetchedAlbums = true
             //returns 16 albums tops
             self.artist.albums = Array(albums.prefix(16))
+            self.artist.requestedAlbumDetails = [Album]()
+            
+            //load up to 4 first albums (the visible ones)
+            let albumDetailToRequest = Array(albums.prefix(4))
+            
+            self.requestAlbumDetail(albums: albumDetailToRequest)
+            
             self.collectionView.reloadData()
             
             }, errorCallback: { [unowned self] error in
@@ -88,6 +95,44 @@ class ArtistAlbumsVC : UIViewController {
                 
         })
         
+    }
+    
+    /**
+     * Would be easier/cleaner to have a hashmap/dictionary (to keep track of the album detail requests)
+       instead of an array (manipulating keys instead of indexes) -
+     - yet I thought first of adopting equatable protocol and it seems to flow right :-)
+    **/
+    private func requestAlbumDetail(albums: [Album]) {
+        
+        for album in albums {
+            //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
+            if let index = self.artist.albums!.index(of: album) {
+                if self.artist.albums![index].albumDetail != nil {
+                    continue
+                }
+            } else if self.artist.requestedAlbumDetails!.contains(album) {
+                continue
+            }
+            self.artist.requestedAlbumDetails!.append(album)
+            
+            AlbumDetail.fetchNetworkData(album: album, successCallback: { [unowned self] albumDetail in
+                album.albumDetail = albumDetail
+
+                if let index = self.artist.requestedAlbumDetails!.index(of: album) {
+                    self.artist.requestedAlbumDetails!.remove(at: index)
+                }
+                
+                }, errorCallback: { [unowned self] error in
+                    
+                    if let index = self.artist.requestedAlbumDetails!.index(of: album) {
+                        self.artist.requestedAlbumDetails!.remove(at: index)
+                    }
+
+                    
+            })
+
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -209,8 +254,22 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
 }
 
 extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    // MARK : UIScrollViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if let albums = artist.albums {
+            var visibleAlbums = [Album]()
+            for indexPath in collectionView.indexPathsForVisibleItems {
+                visibleAlbums.append(albums[indexPath.row])
+            }
+            requestAlbumDetail(albums: visibleAlbums)
+        }
+        
+    }
     
     // MARK : UICollectionViewDelegate
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
@@ -236,7 +295,7 @@ extension ArtistAlbumsVC {
     
     
     /**
-    Concerning the reusableCell LifeCycle and because it's easier to load things at once from a method invocation, I prefered to keep a callback reference on there (ArtistInfoHeaderCell) rather that having another reference to the ArtistDetail, and maybe to the viewController
+    Concerning the reusableCell LifeCycle and because it's easier to load things at once from a method invocation, I prefered to keep a callback reference on there (ArtistInfoHeaderCell) rather that having another reference to the ArtistDetail and another to this viewController
     **/
     func artistInfoCallback() {
         if let detail = artist.detail {
