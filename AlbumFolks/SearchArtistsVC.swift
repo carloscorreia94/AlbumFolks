@@ -21,6 +21,9 @@ class SearchArtistsVC : UIViewController {
     
     fileprivate var searchTimer: Timer?
     fileprivate var artists : [Artist]?
+    fileprivate var paginatedArtists = Dictionary<Pagination,PaginatedArtists>()
+    fileprivate var currentPagination : Pagination?
+    
     fileprivate var isSearching = false
     fileprivate var recentSearchesMode = true
     
@@ -104,13 +107,17 @@ class SearchArtistsVC : UIViewController {
         //TODO - Animation
 
         
-        Artist.fetchAutoCompleteSearch(query: query, successCallback: { [unowned self] artists in
+        Artist.fetchAutoCompleteSearch(query: query, successCallback: { [unowned self] paginatedArtists in
+            
             
             if !self.isSearching {
                 self.tableView.tableHeaderView = nil
             }
             
-            self.artists = artists
+            self.currentPagination = Pagination(limit: paginatedArtists.itemsPerPage, offset: paginatedArtists.start, total: paginatedArtists.total)
+            
+            self.paginatedArtists[self.currentPagination!] = paginatedArtists
+            self.artists = paginatedArtists.artists
             self.tableView.reloadData()
             
         }, errorCallback: { error in

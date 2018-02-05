@@ -9,6 +9,21 @@
 import Foundation
 import ObjectMapper
 
+struct Pagination {
+    let limit, offset, total : Int
+}
+
+extension Pagination : Hashable, Equatable {
+    
+    static func ==(lhs:Pagination, rhs:Pagination) -> Bool {
+        return lhs.limit == rhs.limit && lhs.offset == rhs.offset && rhs.total == lhs.total
+    }
+    
+    var hashValue: Int {
+        return limit.hashValue ^ offset.hashValue ^ total.hashValue
+    }
+}
+
 class PaginatedArtists : Mappable {
     var total: Int!
     var start: Int!
