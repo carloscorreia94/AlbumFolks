@@ -142,8 +142,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Km8-Fi-mdm">
-                                                    <rect key="frame" x="23" y="13.5" width="22" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Km8-Fi-mdm">
+                                                    <rect key="frame" x="20" y="13.5" width="25" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -166,7 +166,7 @@
                                                 <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Km8-Fi-mdm" secondAttribute="trailing" id="Kua-L5-esg"/>
                                                 <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leading" constant="45" id="YWH-C6-cWv"/>
                                                 <constraint firstItem="STW-CI-1OW" firstAttribute="leading" relation="lessThanOrEqual" secondItem="V9m-SG-X0s" secondAttribute="trailing" constant="227" id="ZG0-sf-hqz"/>
-                                                <constraint firstItem="Km8-Fi-mdm" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leadingMargin" constant="8" id="c1Q-k5-jwm"/>
+                                                <constraint firstItem="Km8-Fi-mdm" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Ty4-Hb-8ku" secondAttribute="leadingMargin" constant="5" id="c1Q-k5-jwm"/>
                                                 <constraint firstItem="STW-CI-1OW" firstAttribute="top" secondItem="V9m-SG-X0s" secondAttribute="top" id="evt-M1-J6V"/>
                                                 <constraint firstItem="V9m-SG-X0s" firstAttribute="top" secondItem="Km8-Fi-mdm" secondAttribute="top" id="lF4-4w-rX2"/>
                                                 <constraint firstItem="Km8-Fi-mdm" firstAttribute="centerY" secondItem="Ty4-Hb-8ku" secondAttribute="centerY" id="xZt-2P-OSF"/>

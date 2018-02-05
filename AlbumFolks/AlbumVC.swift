@@ -71,7 +71,7 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
             fatalError("Invalid application state on AlbumVC - dequeing cell.")
         }
         
-        cell.trackNr.text = "\(track.number)"
+        cell.trackNr.text = String(track.number)
         cell.name.text = track.title
         //cell.duration.text = track.duration
         
