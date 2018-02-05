@@ -9,12 +9,14 @@ PODS:
   - ObjectMapper (3.1.0)
   - PopupDialog (0.7.0):
     - DynamicBlurView (~> 2.0)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - AlamofireObjectMapper
   - PopupDialog (~> 0.7)
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -23,7 +25,8 @@ SPEC CHECKSUMS:
   DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   PopupDialog: 4abc6db5b22b7c8029e2162bde8891ee6aa4b6c8
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: dc5cde39294cf8e76803a05f7cae585c00ecc4c5
+PODFILE CHECKSUM: fea5f79a24f4e5939d600fc2556ffddd7adc456b
 
 COCOAPODS: 1.1.1

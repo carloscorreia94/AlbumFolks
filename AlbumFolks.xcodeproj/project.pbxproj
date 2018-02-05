@@ -13,6 +13,7 @@
 		1774B2042027BEDC0060BB71 /* LastFmImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2032027BEDC0060BB71 /* LastFmImage.swift */; };
 		1774B2062027BEEB0060BB71 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2052027BEEB0060BB71 /* Tag.swift */; };
 		1774B20A2027C55F0060BB71 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2092027C55F0060BB71 /* Constants.swift */; };
+		1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B20B2028B6070060BB71 /* PaginatedArtists.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
 		49111B4D23180D8B4EB32E8A /* Pods_AlbumFolksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */; };
 		D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32D202345DC00DC1D34 /* AppDelegate.swift */; };
@@ -65,6 +66,7 @@
 		1774B2032027BEDC0060BB71 /* LastFmImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastFmImage.swift; sourceTree = "<group>"; };
 		1774B2052027BEEB0060BB71 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		1774B2092027C55F0060BB71 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1774B20B2028B6070060BB71 /* PaginatedArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedArtists.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolks.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				1774B2032027BEDC0060BB71 /* LastFmImage.swift */,
 				1774B2052027BEEB0060BB71 /* Tag.swift */,
+				1774B20B2028B6070060BB71 /* PaginatedArtists.swift */,
 			);
 			path = supplementary;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */,
 				D0FA97592025129400C75C50 /* UILabel.swift in Sources */,
 				D0FA976B202632AC00C75C50 /* Artist.swift in Sources */,
+				1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */,
 				D0FA97562024F40200C75C50 /* ArtistInfoHeaderCell.swift in Sources */,
 				D0FA976420262A0900C75C50 /* LoadingAnimation.swift in Sources */,
 				1774B2012027BB410060BB71 /* Track.swift in Sources */,

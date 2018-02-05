@@ -8,7 +8,6 @@
 
 import Alamofire
 
-
 enum NetworkError {
     case Connection, ServerError, NotFound, UnexpectedJSON, Authorization, WrongContent
 }

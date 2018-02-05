@@ -44,10 +44,10 @@ class Artist : Mappable {
         
     }
     
-    static func fetchAutoCompleteSearch(query: String, successCallback: @escaping ([Artist]) -> (), errorCallback: @escaping (NetworkError) -> ()) {
+    static func fetchAutoCompleteSearch(query: String, successCallback: @escaping (PaginatedArtists) -> (), errorCallback: @escaping (NetworkError) -> ()) {
         
         if let url = String(format: Constants.API_URLS.ArtistAutoCompleteSearch,query).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            Alamofire.request(url).responseArray(keyPath: "results.artistmatches.artist") { (response: DataResponse<[Artist]>) in
+            Alamofire.request(url).responseObject(keyPath: "results") { (response: DataResponse<PaginatedArtists>) in
                 let (success, error) = CoreNetwork.handleResponse(response)
                 
                 if let error = error {
