@@ -18,7 +18,7 @@ class Artist : Mappable {
     
     var photoUrl : URL?
     //TODO - Last FM Url here - instead from artist detail description
-    var lastFmUrl : URL!
+    var lastFmUrl : URL?
     
     var name : String!
     var id : String!
@@ -47,7 +47,7 @@ class Artist : Mappable {
     static func fetchAutoCompleteSearch(query: String, successCallback: @escaping ([Artist]) -> (), errorCallback: @escaping (NetworkError) -> ()) {
         
         if let url = String(format: Constants.API_URLS.ArtistAutoCompleteSearch,query).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            Alamofire.request(url).responseArray(keyPath: "artistmatches.artist") { (response: DataResponse<[Artist]>) in
+            Alamofire.request(url).responseArray(keyPath: "results.artistmatches.artist") { (response: DataResponse<[Artist]>) in
                 let (success, error) = CoreNetwork.handleResponse(response)
                 
                 if let error = error {

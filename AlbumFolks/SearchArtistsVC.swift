@@ -16,11 +16,13 @@ import AlamofireImage
 class SearchArtistsVC : UIViewController {
     
     fileprivate let imgDownloader = ImageDownloader()
-    static let MIN_SEARCH_QUERY_LENGTH = 3
+    static let MIN_SEARCH_QUERY_LENGTH = 4
     static let SEARCH_INTERVAL_TIMER = 0.5
     
     fileprivate var searchTimer: Timer?
     fileprivate var artists : [Artist]?
+    fileprivate var isSearching = false
+    fileprivate var recentSearchesMode = true
     
     lazy var loadingView : UIView = {
         let view = UIView(frame: CGRect(origin: CGPoint(x: 0,y:0), size: CGSize(width:self.tableView.frame.size.width, height: 80)))
@@ -29,11 +31,8 @@ class SearchArtistsVC : UIViewController {
         return view
     }()
     
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            self.tableView.tableHeaderView = loadingView
-        }
-    }
+    @IBOutlet weak var tableView: UITableView!
+    
     var searchController : UISearchController! {
         didSet {
             self.searchController.searchResultsUpdater = self
@@ -93,22 +92,41 @@ class SearchArtistsVC : UIViewController {
     }
     
     @objc private func performSearchTimer(_ timer : Timer) {
+        isSearching = false
         performSearch(timer.userInfo as! String)
     }
     
     private func performSearch(_ query: String) {
         print("searching" + query)
+        self.recentSearchesMode = false
+        self.tableView.tableHeaderView = loadingView
+        self.tableView.reloadData()
+        //TODO - Animation
+
         
         Artist.fetchAutoCompleteSearch(query: query, successCallback: { [unowned self] artists in
+            
+            if !self.isSearching {
+                self.tableView.tableHeaderView = nil
+            }
             
             self.artists = artists
             self.tableView.reloadData()
             
-        }, errorCallback: { error in })
+        }, errorCallback: { error in
+            if !self.isSearching {
+                self.tableView.tableHeaderView = nil
+            }
+            
+        })
+        
     }
     
     private func showRecentSearches() {
-        
+        self.tableView.tableHeaderView = nil
+        self.artists = nil
+        self.recentSearchesMode = true
+        self.tableView.reloadData()
     }
 }
 
@@ -128,25 +146,31 @@ extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating,
     }
     
     /**
-    * Logic for searching is. Whenever user types query multiple of 3 or after stops writing -> Network Call
+    * Logic for searching is -> Whenever user types query multiple of 3 or after stops writing -> Network Call
     **/
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         let currentText = searchBar.text ?? ""
         let newText = (currentText as NSString).replacingCharacters(in: range, with: text)
         
-        if newText.count < currentText.count && newText.count < SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH {
+        /**
+        * Conditions fall here if we're deleting past 3 chars or writing less than 3 chars
+        **/
+        if newText.count < SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH
+            || ( newText.count < currentText.count && newText.count < SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH )  {
             //going to the suggestions again and invalidating previous timer callbacks
             searchTimer?.invalidate()
             showRecentSearches()
-        } else if newText.count >= SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH && newText.count % 3 == 0 {
-            performSearch(newText)
-        } else if newText.count >= SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH && newText.count % 3 != 0 {
-            searchTimer?.invalidate()
-            searchTimer = Timer.scheduledTimer(timeInterval: SearchArtistsVC.SEARCH_INTERVAL_TIMER, target: self, selector: #selector(performSearchTimer), userInfo: newText, repeats: false)
-        } else if currentText.count == 0 {
-            showRecentSearches()
+            return true
         }
+        
+        isSearching = true
+        if newText.count >= SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH && newText.count % 3 == 0 {
+            performSearch(newText)
+        }
+        
+        searchTimer?.invalidate()
+        searchTimer = Timer.scheduledTimer(timeInterval: SearchArtistsVC.SEARCH_INTERVAL_TIMER, target: self, selector: #selector(performSearchTimer), userInfo: newText, repeats: false)
         
         return true
     }
@@ -163,7 +187,7 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Recent Searches"
+            return self.recentSearchesMode ? "Recent Searches" : nil
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
