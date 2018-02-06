@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -143,32 +144,37 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Km8-Fi-mdm">
-                                                    <rect key="frame" x="20" y="13.5" width="25" height="21"/>
+                                                    <rect key="frame" x="20" y="14" width="25" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9m-SG-X0s">
-                                                    <rect key="frame" x="45" y="13.5" width="45" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9m-SG-X0s">
+                                                    <rect key="frame" x="45" y="14" width="264" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STW-CI-1OW">
-                                                    <rect key="frame" x="317.5" y="13" width="41.5" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STW-CI-1OW">
+                                                    <rect key="frame" x="317" y="14" width="42" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="MnO-UV-gwu"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="STW-CI-1OW" firstAttribute="leading" secondItem="V9m-SG-X0s" secondAttribute="trailing" constant="8" id="3Ty-3b-5hG"/>
+                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leading" constant="45" id="CxV-pP-K1Z"/>
                                                 <constraint firstAttribute="trailing" secondItem="STW-CI-1OW" secondAttribute="trailing" constant="16" id="FPG-xX-83d"/>
-                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Km8-Fi-mdm" secondAttribute="trailing" id="Kua-L5-esg"/>
-                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Ty4-Hb-8ku" secondAttribute="leading" constant="45" id="YWH-C6-cWv"/>
-                                                <constraint firstItem="STW-CI-1OW" firstAttribute="leading" relation="lessThanOrEqual" secondItem="V9m-SG-X0s" secondAttribute="trailing" constant="227" id="ZG0-sf-hqz"/>
+                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="baseline" secondItem="Km8-Fi-mdm" secondAttribute="baseline" id="P4h-Bh-OLo"/>
+                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="leading" secondItem="Km8-Fi-mdm" secondAttribute="trailing" id="Uqd-C6-3S4"/>
                                                 <constraint firstItem="Km8-Fi-mdm" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Ty4-Hb-8ku" secondAttribute="leadingMargin" constant="5" id="c1Q-k5-jwm"/>
-                                                <constraint firstItem="STW-CI-1OW" firstAttribute="top" secondItem="V9m-SG-X0s" secondAttribute="top" id="evt-M1-J6V"/>
-                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="top" secondItem="Km8-Fi-mdm" secondAttribute="top" id="lF4-4w-rX2"/>
+                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="top" secondItem="Ty4-Hb-8ku" secondAttribute="topMargin" constant="3" id="hon-Yz-Y2t"/>
+                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="firstBaseline" secondItem="Km8-Fi-mdm" secondAttribute="firstBaseline" id="mbY-YZ-8xN"/>
+                                                <constraint firstItem="V9m-SG-X0s" firstAttribute="top" secondItem="STW-CI-1OW" secondAttribute="top" id="oyK-SA-fEQ"/>
                                                 <constraint firstItem="Km8-Fi-mdm" firstAttribute="centerY" secondItem="Ty4-Hb-8ku" secondAttribute="centerY" id="xZt-2P-OSF"/>
                                             </constraints>
                                         </tableViewCellContentView>

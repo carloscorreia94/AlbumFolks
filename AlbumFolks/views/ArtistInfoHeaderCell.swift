@@ -71,8 +71,7 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
         infoLabel.text = detail.description
         tags.text = detail.getTagsString()
         
-        //TODO - Sometimes empty escription leads to see more showing anyway. ObjectMapper level validation
-        seeMore.isHidden = (detail.description ?? "") == "" || !(infoLabel.isTruncated || lastFmUrl != nil)
+        seeMore.isHidden = (detail.description?.trimmingCharacters(in: .whitespaces) ?? "") == "" || !(infoLabel.isTruncated || lastFmUrl != nil)
     }
     
     public func setArtistInfoCallback(_ callback: @escaping () -> ()) {
