@@ -15,7 +15,8 @@ class AlbumVC : UIViewController {
     
     @IBOutlet var albumInfoHeader: AlbumVcHeaderView!
     @IBOutlet weak var tableView : UITableView!
-    let downloader = ImageDownloader()
+    fileprivate var albumHeaderCell : AlbumHeaderCell?
+    fileprivate let downloader = ImageDownloader()
     var album: Album!
     
     /* TODO - NO MEDIA FUNCTION */
@@ -54,6 +55,15 @@ class AlbumVC : UIViewController {
         }
         
     }
+    
+    
+    func saveAlbum() {
+        if let _ = AlbumMO.create(from: album) {
+            print("Album saved!")
+        } else {
+            albumHeaderCell!.saveSwitch.setOn(false, animated: true)
+        }
+    }
 
 }
 
@@ -88,8 +98,11 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
 
         //ISSUE - Design : Should I be able to store an album with 0 tracks?
         if tracks > 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as! AlbumHeaderCell
-            return cell
+            if albumHeaderCell == nil {
+                albumHeaderCell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as? AlbumHeaderCell
+                albumHeaderCell!.saveCallback = saveAlbum
+            }
+            return albumHeaderCell!
         }
         return nil
     }
@@ -99,5 +112,18 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
 
 class AlbumHeaderCell : UITableViewCell {
    
-   //TODO - Delete this?
+    @IBOutlet weak var saveSwitch: UISwitch!
+    var saveCallback : (() -> ())!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        saveSwitch.addTarget(self, action: #selector(stateChanged), for: UIControlEvents.valueChanged)
+    }
+    
+    @objc func stateChanged(switchState: UISwitch) {
+        if switchState.isOn {
+            saveCallback()
+        }
+    }
 }

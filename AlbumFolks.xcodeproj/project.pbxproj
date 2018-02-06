@@ -10,6 +10,10 @@
 		1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1733134D2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld */; };
 		173313512029CC2B00AF34F1 /* GenericHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173313502029CC2B00AF34F1 /* GenericHelpers.swift */; };
 		173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173313522029CDCA00AF34F1 /* TrackCell.swift */; };
+		17341270202A57A1005749D7 /* AlbumMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1734126F202A57A1005749D7 /* AlbumMO.swift */; };
+		17341272202A62AE005749D7 /* ArtistMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17341271202A62AE005749D7 /* ArtistMO.swift */; };
+		17341274202A644C005749D7 /* TrackMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17341273202A644C005749D7 /* TrackMO.swift */; };
+		177120B9202A550100CA47D9 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177120B8202A550100CA47D9 /* PersistenceController.swift */; };
 		1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FC20277D780060BB71 /* CoreNetwork.swift */; };
 		1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FE202791360060BB71 /* AlertDialog.swift */; };
 		1774B2012027BB410060BB71 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2002027BB410060BB71 /* Track.swift */; };
@@ -65,6 +69,10 @@
 		1733134E2029B9A000AF34F1 /* AlbumFolks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlbumFolks.xcdatamodel; sourceTree = "<group>"; };
 		173313502029CC2B00AF34F1 /* GenericHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericHelpers.swift; sourceTree = "<group>"; };
 		173313522029CDCA00AF34F1 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		1734126F202A57A1005749D7 /* AlbumMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMO.swift; sourceTree = "<group>"; };
+		17341271202A62AE005749D7 /* ArtistMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMO.swift; sourceTree = "<group>"; };
+		17341273202A644C005749D7 /* TrackMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMO.swift; sourceTree = "<group>"; };
+		177120B8202A550100CA47D9 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		1774B1FC20277D780060BB71 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
 		1774B1FE202791360060BB71 /* AlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDialog.swift; sourceTree = "<group>"; };
 		1774B2002027BB410060BB71 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -292,6 +300,10 @@
 			isa = PBXGroup;
 			children = (
 				1733134D2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld */,
+				177120B8202A550100CA47D9 /* PersistenceController.swift */,
+				1734126F202A57A1005749D7 /* AlbumMO.swift */,
+				17341271202A62AE005749D7 /* ArtistMO.swift */,
+				17341273202A644C005749D7 /* TrackMO.swift */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -587,19 +599,23 @@
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
 				173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
+				177120B9202A550100CA47D9 /* PersistenceController.swift in Sources */,
 				1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */,
+				17341272202A62AE005749D7 /* ArtistMO.swift in Sources */,
 				D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */,
 				1774B2042027BEDC0060BB71 /* LastFmImage.swift in Sources */,
 				1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */,
 				D0FA97692026326C00C75C50 /* Album.swift in Sources */,
 				D0FA97522024E8DE00C75C50 /* ArtistDetail.swift in Sources */,
 				D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */,
+				17341270202A57A1005749D7 /* AlbumMO.swift in Sources */,
 				1774B2062027BEEB0060BB71 /* Tag.swift in Sources */,
 				D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */,
 				D0FA97462024849A00C75C50 /* SearchArtistsVC.swift in Sources */,
 				D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */,
 				D0FA97592025129400C75C50 /* UILabel.swift in Sources */,
 				D0FA976B202632AC00C75C50 /* Artist.swift in Sources */,
+				17341274202A644C005749D7 /* TrackMO.swift in Sources */,
 				1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */,
 				D0FA97562024F40200C75C50 /* ArtistInfoHeaderCell.swift in Sources */,
 				D0FA976420262A0900C75C50 /* LoadingAnimation.swift in Sources */,
