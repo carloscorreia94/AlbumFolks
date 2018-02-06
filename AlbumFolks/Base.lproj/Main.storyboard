@@ -219,8 +219,8 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39U-jK-jia">
-                            <rect key="frame" x="174.5" y="176.5" width="27" height="17.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39U-jK-jia">
+                            <rect key="frame" x="152.5" y="176.5" width="71" height="17.5"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="17.5" id="DRj-W3-xg6"/>
                             </constraints>
@@ -242,7 +242,7 @@
                     <viewLayoutGuide key="safeArea" id="iUH-LC-XVj"/>
                     <connections>
                         <outlet property="albumArtist" destination="DO7-oH-aDk" id="kNO-ja-pVD"/>
-                        <outlet property="albumYear" destination="39U-jK-jia" id="lK0-g6-iGh"/>
+                        <outlet property="albumTags" destination="39U-jK-jia" id="5vP-8V-ACs"/>
                         <outlet property="imageView" destination="lrx-ke-nr1" id="8AL-38-FZ8"/>
                     </connections>
                 </view>

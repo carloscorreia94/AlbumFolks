@@ -40,7 +40,7 @@ class AlbumVC : UIViewController {
         }
         
         albumInfoHeader.albumArtist.text = album.artist.name
-        albumInfoHeader.albumYear.text = album.albumDetail?.year ?? ""
+        albumInfoHeader.albumTags.text = album.albumDetail?.getTagsString()
 
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -73,7 +73,7 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
         
         cell.trackNr.text = String(track.number)
         cell.name.text = track.title
-        //cell.duration.text = track.duration
+        cell.duration.text = track.lengthStatic
         
         return cell
     }

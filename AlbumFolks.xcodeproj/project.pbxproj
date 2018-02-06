@@ -19,7 +19,6 @@
 		D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32D202345DC00DC1D34 /* AppDelegate.swift */; };
 		D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32F202345DC00DC1D34 /* StoredAlbumsVC.swift */; };
 		D05EB333202345DC00DC1D34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05EB331202345DC00DC1D34 /* Main.storyboard */; };
-		D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05EB334202345DC00DC1D34 /* AlbumFolks.xcdatamodeld */; };
 		D05EB338202345DC00DC1D34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05EB337202345DC00DC1D34 /* Assets.xcassets */; };
 		D05EB33B202345DC00DC1D34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05EB339202345DC00DC1D34 /* LaunchScreen.storyboard */; };
 		D05EB346202345DC00DC1D34 /* AlbumFolksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB345202345DC00DC1D34 /* AlbumFolksTests.swift */; };
@@ -79,7 +78,6 @@
 		D05EB32D202345DC00DC1D34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D05EB32F202345DC00DC1D34 /* StoredAlbumsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAlbumsVC.swift; sourceTree = "<group>"; };
 		D05EB332202345DC00DC1D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D05EB335202345DC00DC1D34 /* AlbumFolks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlbumFolks.xcdatamodel; sourceTree = "<group>"; };
 		D05EB337202345DC00DC1D34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D05EB33A202345DC00DC1D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D05EB33C202345DC00DC1D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 		D0FA97672026323E00C75C50 /* persistence */ = {
 			isa = PBXGroup;
 			children = (
-				D05EB334202345DC00DC1D34 /* AlbumFolks.xcdatamodeld */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -577,7 +574,6 @@
 				D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */,
 				D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */,
 				1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */,
-				D05EB336202345DC00DC1D34 /* AlbumFolks.xcdatamodeld in Sources */,
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
 				D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */,
@@ -899,19 +895,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D05EB334202345DC00DC1D34 /* AlbumFolks.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D05EB335202345DC00DC1D34 /* AlbumFolks.xcdatamodel */,
-			);
-			currentVersion = D05EB335202345DC00DC1D34 /* AlbumFolks.xcdatamodel */;
-			path = AlbumFolks.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D05EB322202345DC00DC1D34 /* Project object */;
 }

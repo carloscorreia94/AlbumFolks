@@ -13,7 +13,7 @@ import Alamofire
 
 class AlbumDetail : Mappable {
     
-    var year : String?
+    fileprivate var tags : [Tag]?
     var tracks : [Track]!
     
     required init?(map: Map){
@@ -28,17 +28,18 @@ class AlbumDetail : Mappable {
     
     func mapping(map: Map) {
         
-        var tags : [Tag]?
         tags <- map["tags.tag"]
-        
-        if let tagsArray = tags {
-            if tagsArray.count > 0 {
-                year = tagsArray[0].name
-            }
-        }
-        
         tracks <- map["tracks.track"]
+        
     }
+    
+    func getTagsString() -> String? {
+        if let tags = tags {
+            return Tag.getTagsString(Array(tags.prefix(3)))
+        }
+        return nil
+    }
+    
     
     /**
     * Album is passed instead of just AlbumID as some albums coming from the API don't have associated ID's and can only be fetched (Detail)

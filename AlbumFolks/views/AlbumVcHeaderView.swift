@@ -11,7 +11,7 @@ import UIKit
 class AlbumVcHeaderView : UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var albumArtist: UILabel!
-    @IBOutlet weak var albumYear: UILabel!
+    @IBOutlet weak var albumTags: UILabel!
     
     
     override func layoutSubviews() {

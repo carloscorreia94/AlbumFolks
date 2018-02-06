@@ -12,7 +12,7 @@ import Alamofire
 
 
 class ArtistDetail : Mappable {
-    var tags : [Tag]?
+    fileprivate var tags : [Tag]?
     var description : String!
     var lastFmUrl : URL?
     
