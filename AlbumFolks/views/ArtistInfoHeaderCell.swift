@@ -23,6 +23,7 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     
     var loadingView : UIView?
     var artistInfoCallback : (() -> ())?
+    var lastFmUrl : URL?
     
     var imgDownloader : ImageDownloader!
     
@@ -42,11 +43,17 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
                 
                 if let image = response.result.value {
                     self.imageView.image = image
+                } else {
+                    self.imageView.image = UIImage(named: "no_media")!
                 }
             }
+        } else {
+            self.imageView.image = UIImage(named: "no_media")!
         }
         
-       
+        if let url = artist.lastFmUrl {
+            lastFmUrl = url
+        }
         
     }
     
@@ -64,7 +71,8 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
         infoLabel.text = detail.description
         tags.text = detail.getTagsString()
         
-        seeMore.isHidden = !infoLabel.isTruncated
+        //TODO - Sometimes empty escription leads to see more showing anyway. ObjectMapper level validation
+        seeMore.isHidden = (detail.description ?? "") == "" || !(infoLabel.isTruncated || lastFmUrl != nil)
     }
     
     public func setArtistInfoCallback(_ callback: @escaping () -> ()) {

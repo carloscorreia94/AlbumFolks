@@ -14,7 +14,6 @@ import Alamofire
 class ArtistDetail : Mappable {
     fileprivate var tags : [Tag]?
     var description : String!
-    var lastFmUrl : URL?
     
     required init?(map: Map){
       
@@ -27,7 +26,7 @@ class ArtistDetail : Mappable {
     
     func mapping(map: Map) {
         description <- map["bio.summary"]
-        lastFmUrl = cropDescriptionGetURL()
+        cropDescription()
         tags <- map["tags.tag"]
     }
     
@@ -39,19 +38,12 @@ class ArtistDetail : Mappable {
         return nil
     }
     
-    private func cropDescriptionGetURL() -> URL? {
-        var returnUrl : URL?
+    private func cropDescription() {
        
         let descriptionSplitHrefTag = description.components(separatedBy: "<a href=\"")
         if descriptionSplitHrefTag.count > 1 {
             description = descriptionSplitHrefTag[0]
-            
-            let linkFromEnclosingTag = descriptionSplitHrefTag[1].components(separatedBy: "\">")
-            if linkFromEnclosingTag.count > 1 {
-                returnUrl = URL(string: linkFromEnclosingTag[0])
-            }
         }
-        return returnUrl
     }
     
     static func fetchNetworkData(artistId: String, successCallback: @escaping (ArtistDetail) -> (), errorCallback: @escaping (NetworkError) -> ()) {

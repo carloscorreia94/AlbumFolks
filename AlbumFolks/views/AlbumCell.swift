@@ -24,9 +24,12 @@ class AlbumCell : UICollectionViewCell {
     
     
     public func setContent(_ album: _Album) {
-        if album.photoUrl != "" {
-            self.imageView.image = UIImage(named: album.photoUrl)
+      
+        if album.photoUrl == nil {
+            setImage(UIImage(named: "no_media")!)
         }
+        
+        
         self.albumName.text = album.name
         self.albumArtist.text = album.artist
     }

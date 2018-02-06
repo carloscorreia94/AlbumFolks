@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1733134D2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld */; };
+		173313512029CC2B00AF34F1 /* GenericHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173313502029CC2B00AF34F1 /* GenericHelpers.swift */; };
+		173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173313522029CDCA00AF34F1 /* TrackCell.swift */; };
 		1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FC20277D780060BB71 /* CoreNetwork.swift */; };
 		1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FE202791360060BB71 /* AlertDialog.swift */; };
 		1774B2012027BB410060BB71 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2002027BB410060BB71 /* Track.swift */; };
@@ -61,6 +63,8 @@
 
 /* Begin PBXFileReference section */
 		1733134E2029B9A000AF34F1 /* AlbumFolks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlbumFolks.xcdatamodel; sourceTree = "<group>"; };
+		173313502029CC2B00AF34F1 /* GenericHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericHelpers.swift; sourceTree = "<group>"; };
+		173313522029CDCA00AF34F1 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		1774B1FC20277D780060BB71 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
 		1774B1FE202791360060BB71 /* AlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDialog.swift; sourceTree = "<group>"; };
 		1774B2002027BB410060BB71 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 				D0FA976320262A0900C75C50 /* LoadingAnimation.swift */,
 				1774B1FC20277D780060BB71 /* CoreNetwork.swift */,
 				1774B1FE202791360060BB71 /* AlertDialog.swift */,
+				173313502029CC2B00AF34F1 /* GenericHelpers.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				D0FA974B2024ABD900C75C50 /* ArtistCell.swift */,
 				D0FA97552024F40200C75C50 /* ArtistInfoHeaderCell.swift */,
 				D0FA975E2025E11400C75C50 /* AlbumVcHeaderView.swift */,
+				173313522029CDCA00AF34F1 /* TrackCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -572,12 +578,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				173313512029CC2B00AF34F1 /* GenericHelpers.swift in Sources */,
 				D0FA97542024E91000C75C50 /* AlbumDetail.swift in Sources */,
 				D0FA975B2025CC4800C75C50 /* String.swift in Sources */,
 				D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */,
 				D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */,
 				1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */,
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
+				173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
 				1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */,
 				D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */,

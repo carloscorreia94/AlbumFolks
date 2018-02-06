@@ -9,8 +9,15 @@
 import ObjectMapper
 import Alamofire
 
-struct _Album {
-    let photoUrl, name, artist : String
+class _Album {
+    let  name, artist : String
+    var photoUrl : String?
+    
+    init(name: String, artist: String, photoUrl: String?) {
+        self.name = name
+        self.artist = artist
+        self.photoUrl = photoUrl
+    }
 }
 
 class Album : Mappable, Equatable, Hashable {

@@ -21,7 +21,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="150" height="170"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="loading_album" translatesAutoresizingMaskIntoConstraints="NO" id="rXl-8N-Cam">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="loading_misc" translatesAutoresizingMaskIntoConstraints="NO" id="rXl-8N-Cam">
                         <rect key="frame" x="16" y="2" width="118" height="118"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="rXl-8N-Cam" secondAttribute="height" multiplier="1:1" id="Mj0-qF-kiA"/>
@@ -61,6 +61,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="loading_album" width="100" height="100"/>
+        <image name="loading_misc" width="100" height="100"/>
     </resources>
 </document>

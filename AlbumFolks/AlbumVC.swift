@@ -18,6 +18,7 @@ class AlbumVC : UIViewController {
     let downloader = ImageDownloader()
     var album: Album!
     
+    /* TODO - NO MEDIA FUNCTION */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,8 +36,12 @@ class AlbumVC : UIViewController {
                 
                 if let image = response.result.value {
                     self.albumInfoHeader.imageView.image = image
+                } else {
+                    self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
                 }
             }
+        } else {
+            self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
         }
         
         albumInfoHeader.albumArtist.text = album.artist.name
@@ -91,17 +96,6 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     
 }
 
-
-class TrackCell : UITableViewCell {
-    @IBOutlet weak var trackNr : UILabel!
-    @IBOutlet weak var name : UILabel!
-    @IBOutlet weak var duration : UILabel!
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        trackNr.isHidden = trackNr.text?.isEmpty ?? true
-    }
-}
 
 class AlbumHeaderCell : UITableViewCell {
    

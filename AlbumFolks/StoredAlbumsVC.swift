@@ -61,7 +61,7 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
         
-        let album = _Album(photoUrl: "mock_album", name: "Salad Days", artist: "Mac DeMarco")
+        let album = _Album(name: "Salad Days", artist: "Mac DeMarco", photoUrl: nil)
         cell.setContent(album)
         
         return cell

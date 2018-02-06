@@ -65,10 +65,14 @@ class SearchArtistsVC : UIViewController {
     }
     
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.searchController.isActive = true
+        //workout to force searchbar appear as the keyboard
+        GenericHelpers.mainQueueDelay(0.1) { self.searchController.searchBar.becomeFirstResponder() }
+
     }
     
   
@@ -141,7 +145,7 @@ extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating,
     //MARK : UISearchControllerDelegate
     
     func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+        //Nothing for now
     }
     
     //MARK : UISearchBarDelegate
@@ -216,6 +220,8 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
                 
                 if let image = response.result.value {
                     cell.setImage(image)
+                } else {
+                    cell.setImage(UIImage(named: "no_media")!)
                 }
             }
         }

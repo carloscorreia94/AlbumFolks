@@ -17,7 +17,6 @@ class Artist : Mappable {
     var requestedAlbumDetails : Dictionary<Album,Bool>?
     
     var photoUrl : URL?
-    //TODO - Last FM Url here - instead from artist detail description
     var lastFmUrl : URL?
     
     var name : String!
@@ -43,6 +42,12 @@ class Artist : Mappable {
         id <- map["mbid"]
         photoUrl = LastFmImage.getImageUrl(imageMap: map,imageKey: "image")
         
+        var urlString : String?
+        urlString <- map["url"]
+        
+        if let urlString = urlString, let url = URL(string: urlString) {
+            lastFmUrl = url
+        }
     }
     
     static func fetchAutoCompleteSearch(query: String, successCallback: @escaping (PaginatedArtists) -> (), errorCallback: @escaping (NetworkError) -> ()) {

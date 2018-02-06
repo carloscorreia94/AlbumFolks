@@ -14,14 +14,17 @@ import AlamofireImage
 
 class ArtistAlbumsVC : UIViewController {
     
+    static let MAX_ALBUMS_TO_SHOW = 12
+    
     fileprivate let imgDownloader = ImageDownloader()
-    var noFetchedAlbums = false
-   
+    fileprivate var noFetchedAlbums = false
+    fileprivate var seeMoreLinkFooterActivated = false
+    
+    fileprivate var artistCell : ArtistInfoHeaderCell?
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
-            
-            
         }
     }
     
@@ -39,7 +42,7 @@ class ArtistAlbumsVC : UIViewController {
                     self.artist.detail = artistDetail
                     self.collectionView.reloadData()
                     
-                    self.albumRequest()
+                    self.albumRequest(self.artist)
                     
                     }, errorCallback: { [unowned self] error in
                         let errorTitleDesc = CoreNetwork.messageFromError(error)
@@ -68,13 +71,13 @@ class ArtistAlbumsVC : UIViewController {
     }
     
     
-    private func albumRequest() {
+    private func albumRequest(_ artist: Artist) {
         
-        Album.fetchTopAlbums(artist: self.artist, successCallback: { [unowned self] albums in
+        Album.fetchTopAlbums(artist: artist, successCallback: { [unowned self] albums in
             
             //TODO - Check for no receiving albums - we might want to go to the notFetchedAlbums = true
-            //returns 16 albums tops
-            self.artist.albums = Array(albums.prefix(16))
+            self.artist.albums = Array(albums.prefix(ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW))
+            self.seeMoreLinkFooterActivated = albums.count > ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW && artist.lastFmUrl != nil
             self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
             
             //load up to 4 first albums (the visible ones)
@@ -172,13 +175,15 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
                 
                 if let image = response.result.value {
                     cell.setImage(image)
+                } else {
+                    cell.setImage(UIImage(named: "no_media")!)
                 }
             }
         }
         
        
         
-        let _album = _Album(photoUrl: "", name: album.name, artist: artist.name)
+        let _album = _Album(name: album.name, artist: artist.name, photoUrl: nil)
         cell.setContent(_album)
         
         
@@ -200,19 +205,26 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionHeader {
-            let artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as! ArtistInfoHeaderCell
-            artistCell.imgDownloader = imgDownloader
-            artistCell.setContent(artist)
             
-            if let detail = artist.detail {
-                artistCell.setDetailContent(detail)
-            } else {
-                artistCell.setActivityIndicatorView()
+            
+            if artistCell == nil {
+                artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as? ArtistInfoHeaderCell
+                
+                artistCell!.setArtistInfoCallback(artistInfoCallback)
+                artistCell!.imgDownloader = imgDownloader
+                artistCell!.setContent(artist)
             }
             
-            artistCell.setArtistInfoCallback(artistInfoCallback)
-            return artistCell
+
+            if let detail = artist.detail {
+                artistCell!.setDetailContent(detail)
+            } else {
+                artistCell!.setActivityIndicatorView()
+            }
+            
+            return artistCell!
         } else {
+            //TODO - Change cell name
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "LoadingAlbumsFooterCell", for: indexPath)
             
             for view in cell.subviews {
@@ -221,18 +233,35 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             
             
             /**
-            * There's two possible situations for footer being shown. One is the loading process, the other is not having albums (network error or simply no album info)
+            * There's three possible situations for footer being shown. One is the loading process, second is not having albums (network error or simply no album info) and third is to see more albums on the LastFM Website
             **/
             
-            if noFetchedAlbums {
+            if noFetchedAlbums || seeMoreLinkFooterActivated {
                 
-                let label = UILabel(frame: CGRect(x:0,y: 0,width: 250,height: 25))
+                let label = UILabel(frame: CGRect(x:0,y: 10,width: 250,height: 25))
                 label.textAlignment = .center
                 label.textColor = .black
                 label.font = UIFont.systemFont(ofSize: 19.0, weight: UIFont.Weight.light)
-                label.text = "No Fetched Albums"
+                
+                if seeMoreLinkFooterActivated {
+                    
+                    let tapFooterLink = UITapGestureRecognizer(target: self, action: #selector(openArtistPage))
+                    cell.addGestureRecognizer(tapFooterLink)
+                    
+                    let text = "See more albums on Last FM"
+                    let textRange = NSMakeRange(0, text.count)
+                    let attributedText = NSMutableAttributedString(string: text)
+                    attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: textRange)
+                    label.attributedText = attributedText
+                    label.textColor = UIColor.blue
+                    
+                } else {
+                    label.text = "No Fetched Albums"
+                }
                 
                 cell.addSubview(label)
+            
+                
             } else {
                 let loadingView = LoadingIndicatorView.create(centerX: cell.center.x, originY: 8, size: cell.frame.size.height * 0.8)
                 cell.addSubview(loadingView)
@@ -271,7 +300,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: 80, height: artist.albums != nil ? 0 : 80)
+        return CGSize(width: 80, height: artist.albums != nil && !seeMoreLinkFooterActivated ? 0 : 80)
     }
     
     
@@ -296,13 +325,9 @@ extension ArtistAlbumsVC {
         if let detail = artist.detail {
             let popup = PopupDialog(title: nil, message: detail.description.trim(to: 500))
             
-            if let url = detail.lastFmUrl {
+            if let _ = artist.lastFmUrl {
                 let buttonMore = DefaultButton(title: "See more on LastFm") {
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(url)
-                    }
+                   self.openArtistPage()
                 }
                 
                 popup.addButton(buttonMore)
@@ -311,6 +336,15 @@ extension ArtistAlbumsVC {
             let buttonDismiss = DefaultButton(title: "OK") {}
             popup.addButton(buttonDismiss)
             self.present(popup, animated: true, completion: nil)
+        }
+    }
+    
+    // LastFMUrl will never be nil here.
+    @objc func openArtistPage(_ sender: UIGestureRecognizer? = nil) {
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(self.artist.lastFmUrl!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(self.artist.lastFmUrl!)
         }
     }
 }

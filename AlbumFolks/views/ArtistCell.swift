@@ -28,6 +28,11 @@ class ArtistCell : UITableViewCell {
        // self.customImageView.image = UIImage(named: artist.photoUrl)
         self.artistName.text = artist.name
         self.genderSlashStored.text = "Stored / Not Stored"
+        
+        if artist.photoUrl == nil {
+            setImage(UIImage(named: "no_media")!)
+        }
+        
     }
     
     public func setImage(_ image: UIImage) {
