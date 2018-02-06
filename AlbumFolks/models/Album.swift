@@ -69,9 +69,10 @@ class Album : Mappable, Equatable, Hashable {
     **/
     static func fetchTopAlbums(artist: Artist, successCallback: @escaping ([Album]) -> (), errorCallback: @escaping (NetworkError) -> ()) {
         
-        let URL = String(format: Constants.API_URLS.ArtistAlbums,artist.id)
-        
-        Alamofire.request(URL).responseArray(keyPath: "topalbums.album") { (response: DataResponse<[Album]>) in
+        let url = String(format: Constants.API_URLS.ArtistAlbums,artist.id)
+        print("Request Album with URL: " + url)
+
+        Alamofire.request(url).responseArray(keyPath: "topalbums.album") { (response: DataResponse<[Album]>) in
             let (success, error) = CoreNetwork.handleResponse(response)
             
             if let error = error {

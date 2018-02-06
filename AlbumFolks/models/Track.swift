@@ -32,7 +32,7 @@ class Track : Mappable {
         number = Int(rank)!
         title <- map["name"]
         
-        if let duration : String = map["duration"].value(), let intDuration = Int(duration) {
+        if let duration : String = map["duration"].value(), let intDuration = Int(duration), let _ : Int? = intDuration > 0 ? 1 : nil {
             lengthStatic = stringFromTimeIn(seconds: intDuration)
         }
 

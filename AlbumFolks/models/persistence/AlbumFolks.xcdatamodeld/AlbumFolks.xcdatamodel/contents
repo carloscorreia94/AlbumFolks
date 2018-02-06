@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Album" representedClassName="Album" syncable="YES" codeGenerationType="class">
-        <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="myHash" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Album" representedClassName="AlbumMO" syncable="YES" codeGenerationType="class">
+        <attribute name="myHash" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="artist" maxCount="1" deletionRule="Cascade" destinationEntity="Artist" syncable="YES"/>
         <relationship name="tracks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Track" syncable="YES"/>
     </entity>
-    <entity name="RecentSearch" representedClassName="RecentSearch" syncable="YES" codeGenerationType="class">
-        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" syncable="YES"/>
+    <entity name="Artist" representedClassName="ArtistMO" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="photoUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Track" representedClassName="Track" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="RecentSearch" representedClassName="RecentSearchMO" syncable="YES" codeGenerationType="class">
+        <attribute name="time" attributeType="Date" defaultDateTimeInterval="539605740" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="artist" maxCount="1" deletionRule="Deny" destinationEntity="Track" syncable="YES"/>
+    </entity>
+    <entity name="Track" representedClassName="TrackMO" syncable="YES" codeGenerationType="class">
+        <attribute name="lengthStatic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Album" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="RecentSearch" positionX="-54" positionY="-9" width="128" height="75"/>
         <element name="Track" positionX="-36" positionY="9" width="128" height="90"/>
+        <element name="Artist" positionX="-54" positionY="27" width="128" height="75"/>
     </elements>
 </model>

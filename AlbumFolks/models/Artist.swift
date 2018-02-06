@@ -31,7 +31,8 @@ class Artist : Mappable {
             return nil
         }
         
-        guard let _: String = map["mbid"].value() else {
+        // We just return Artists if they have mbid associated
+        guard let mbid: String = map["mbid"].value(), let _ : Int? = mbid.isEmpty ? nil : 1 else {
             return nil
         }
         

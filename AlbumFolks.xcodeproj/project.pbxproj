@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1733134D2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld */; };
 		1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FC20277D780060BB71 /* CoreNetwork.swift */; };
 		1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B1FE202791360060BB71 /* AlertDialog.swift */; };
 		1774B2012027BB410060BB71 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2002027BB410060BB71 /* Track.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1733134E2029B9A000AF34F1 /* AlbumFolks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlbumFolks.xcdatamodel; sourceTree = "<group>"; };
 		1774B1FC20277D780060BB71 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
 		1774B1FE202791360060BB71 /* AlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDialog.swift; sourceTree = "<group>"; };
 		1774B2002027BB410060BB71 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		D0FA97672026323E00C75C50 /* persistence */ = {
 			isa = PBXGroup;
 			children = (
+				1733134D2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */,
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
+				1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */,
 				D0FA975F2025E11400C75C50 /* AlbumVcHeaderView.swift in Sources */,
 				1774B2042027BEDC0060BB71 /* LastFmImage.swift in Sources */,
 				1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */,
@@ -895,6 +899,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1733134D2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1733134E2029B9A000AF34F1 /* AlbumFolks.xcdatamodel */,
+			);
+			currentVersion = 1733134E2029B9A000AF34F1 /* AlbumFolks.xcdatamodel */;
+			path = AlbumFolks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D05EB322202345DC00DC1D34 /* Project object */;
 }
