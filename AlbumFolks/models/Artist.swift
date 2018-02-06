@@ -18,6 +18,7 @@ class Artist : Mappable {
     
     var photoUrl : URL?
     var lastFmUrl : URL?
+    var listeners : Int?
     
     var name : String!
     var id : String!
@@ -46,8 +47,16 @@ class Artist : Mappable {
         urlString <- map["url"]
         
         if let urlString = urlString, let url = URL(string: urlString) {
-            lastFmUrl = url
+            self.lastFmUrl = url
         }
+        
+        var listenersString : String?
+        listenersString <- map["listeners"]
+        
+        if let listenersString = listenersString, let listeners = Int(listenersString) {
+            self.listeners = listeners
+        }
+        
     }
     
     static func fetchAutoCompleteSearch(query: String, successCallback: @escaping (PaginatedArtists) -> (), errorCallback: @escaping (NetworkError) -> ()) {

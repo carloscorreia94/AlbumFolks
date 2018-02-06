@@ -11,7 +11,7 @@ import UIKit
 class ArtistCell : UITableViewCell {
     
     @IBOutlet weak var artistName : UILabel!
-    @IBOutlet weak var genderSlashStored : UILabel!
+    @IBOutlet weak var listeners: UILabel!
     @IBOutlet weak var customImageView : UIImageView!
     
     
@@ -25,9 +25,8 @@ class ArtistCell : UITableViewCell {
     }
     
     public func setContent(_ artist: Artist) {
-       // self.customImageView.image = UIImage(named: artist.photoUrl)
         self.artistName.text = artist.name
-        self.genderSlashStored.text = "Stored / Not Stored"
+        self.listeners.text = artist.listeners != nil ? "\(getListenersPretty(artist.listeners!)) Listeners" : ""
         
         if artist.photoUrl == nil {
             setImage(UIImage(named: "no_media")!)
@@ -37,5 +36,22 @@ class ArtistCell : UITableViewCell {
     
     public func setImage(_ image: UIImage) {
         self.customImageView.image = image
+    }
+    
+    
+    private func getListenersPretty(_ listeners: Int) -> String {
+        let numberString = String(listeners)
+        switch listeners {
+        case let x where x >= 1000000:
+            let number = numberString.dropLast(6)
+            return "\(number) Million"
+        case let x where x >= 1000:
+            let number = numberString.dropLast(3)
+            return "\(number) Thousand"
+        case let x where x < 1000:
+            return numberString
+        default:
+            return ""
+        }
     }
 }

@@ -289,8 +289,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stored" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wz-hg-YXB">
-                                                            <rect key="frame" x="0.0" y="19" width="38" height="14.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listeners" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wz-hg-YXB">
+                                                            <rect key="frame" x="0.0" y="19" width="52" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -309,7 +309,7 @@
                                         <connections>
                                             <outlet property="artistName" destination="ODM-Qn-e1j" id="5wQ-oF-FmI"/>
                                             <outlet property="customImageView" destination="nRy-Gk-aSu" id="ZQp-e5-cvZ"/>
-                                            <outlet property="genderSlashStored" destination="8Wz-hg-YXB" id="ddS-Ei-Pqf"/>
+                                            <outlet property="listeners" destination="8Wz-hg-YXB" id="hIC-jp-dbb"/>
                                             <segue destination="dyU-je-z8F" kind="show" identifier="searchToArtistAlbums" id="UVf-kt-qqw"/>
                                         </connections>
                                     </tableViewCell>
