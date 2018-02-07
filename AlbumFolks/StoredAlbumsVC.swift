@@ -11,14 +11,39 @@ import CoreData
 
 class StoredAlbumsVC: UIViewController {
     
-    fileprivate var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
-
+    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistenceController.managedObjectContext
+        let albumsFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Album")
+        let primarySortDescriptor = NSSortDescriptor(key: "storedDate", ascending: false)
+        albumsFetchRequest.sortDescriptors = [primarySortDescriptor]
+        
+        let frc = NSFetchedResultsController(
+            fetchRequest: albumsFetchRequest,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        frc.delegate = self
+        
+        return frc
+    }()
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
         
            
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("An error occurred")
         }
     }
     
@@ -63,16 +88,23 @@ class StoredAlbumsVC: UIViewController {
 extension StoredAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let albumMO = fetchedResultsController.object(at: indexPath) as! AlbumMO
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
         
-        let album = _Album(name: "Salad Days", artist: "Mac DeMarco", photoUrl: nil)
+        let album = _Album(name: albumMO.name!, artist: albumMO.artist!.name!, photoUrl: nil)
         cell.setContent(album)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        if let sections = fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.numberOfObjects
+        } else {
+            return 0
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -110,3 +142,9 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     }
 }
 
+extension StoredAlbumsVC : NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        // TODO - Do something here?
+    }
+    
+}

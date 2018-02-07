@@ -74,6 +74,7 @@ extension AlbumMO {
             _album.name = album.name
             _album.stringHash = String(album.hashValue)
             _album.tags = albumDetail.getTagsString()
+            _album.storedDate = Date()
 
             if let tracks = TrackMO.createMultiple(from: albumDetail.tracks, albumMO: _album) {
                 _album.addToTracks(tracks as NSSet)
