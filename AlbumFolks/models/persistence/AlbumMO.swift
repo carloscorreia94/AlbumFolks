@@ -13,6 +13,43 @@ extension AlbumMO {
     
     fileprivate static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    
+    static func get(from stringHash: String) -> AlbumMO? {
+        let context = appDelegate.persistenceController.managedObjectContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Album")
+        request.predicate = NSPredicate(format: "stringHash = %@", stringHash)
+        
+        
+        do{
+            let results = try context.fetch(request)
+            return results.count == 1 && (results[0] as? AlbumMO) != nil ? (results[0] as! AlbumMO)  : nil
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+    
+    static func delete(album: AlbumMO) -> Bool {
+        var ok = false
+        
+        let persistentStoreCoordinator = appDelegate.persistenceController.persistentStoreCoordinator
+        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.persistentStoreCoordinator = persistentStoreCoordinator
+        
+        let albumToDelete = privateContext.object(with: album.objectID)
+        
+        privateContext.performAndWait {
+            
+            privateContext.delete(albumToDelete)
+            if appDelegate.persistenceController.save(privateContext) {
+               ok = true
+            }
+        }
+        
+        return ok
+    }
+    
     //TODO - Ok with references because of private context? or should I have just objectID?
     static func create(from album: Album) -> AlbumMO? {
         var albumToReturn : AlbumMO?
@@ -35,7 +72,7 @@ extension AlbumMO {
             artist.addToAlbums(_album)
             
             _album.name = album.name
-            _album.myHash = Int64(album.hashValue)
+            _album.stringHash = String(album.hashValue)
             _album.tags = albumDetail.getTagsString()
 
             if let tracks = TrackMO.createMultiple(from: albumDetail.tracks, albumMO: _album) {

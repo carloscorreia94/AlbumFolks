@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class StoredAlbumsVC: UIViewController {
+    
+    fileprivate var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {

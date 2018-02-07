@@ -17,15 +17,20 @@ class AlbumVC : UIViewController {
     @IBOutlet weak var tableView : UITableView!
     fileprivate var albumHeaderCell : AlbumHeaderCell?
     fileprivate let downloader = ImageDownloader()
-    var album: Album!
+    var album: Album! {
+        didSet {
+            albumMO = AlbumMO.get(from: String(album.hashValue))
+        }
+    }
+    var albumMO : AlbumMO?
     
     /* TODO - NO MEDIA FUNCTION */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = album.name
-        
         self.tableView.tableHeaderView = albumInfoHeader
+        
         
         /*
         * I'm not sure about the caching mechanism with AlamofireImage. Am to in a hurry to finish this so didn't went to the trouble of storing potentially a lot of data in memory for UIImages. Anyways, images are stored for savedAlbums.
@@ -58,11 +63,24 @@ class AlbumVC : UIViewController {
     
     
     func saveAlbum() {
-        if let _ = AlbumMO.create(from: album) {
+        if let albumMO = AlbumMO.create(from: album) {
+            self.albumMO = albumMO
             print("Album saved!")
         } else {
             albumHeaderCell!.saveSwitch.setOn(false, animated: true)
         }
+    }
+    
+    func deleteAlbum() {
+        if let album = albumMO {
+            if AlbumMO.delete(album: album) {
+                print("Album deleted!")
+                return
+            }
+        }
+        
+        //UI fallback if we can't delete for some reason
+        albumHeaderCell!.saveSwitch.setOn(true, animated: true)
     }
 
 }
@@ -96,11 +114,15 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let tracks = album.albumDetail?.tracks.count ?? 0
 
-        //ISSUE - Design : Should I be able to store an album with 0 tracks?
         if tracks > 0 {
             if albumHeaderCell == nil {
                 albumHeaderCell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as? AlbumHeaderCell
                 albumHeaderCell!.saveCallback = saveAlbum
+                albumHeaderCell!.deleteCallback = deleteAlbum
+                
+                if let _ = albumMO {
+                    albumHeaderCell!.saveSwitch.setOn(true, animated: false)
+                }
             }
             return albumHeaderCell!
         }
@@ -114,7 +136,7 @@ class AlbumHeaderCell : UITableViewCell {
    
     @IBOutlet weak var saveSwitch: UISwitch!
     var saveCallback : (() -> ())!
-    
+    var deleteCallback: (() -> ())!
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -122,7 +144,9 @@ class AlbumHeaderCell : UITableViewCell {
     }
     
     @objc func stateChanged(switchState: UISwitch) {
-        if switchState.isOn {
+        if !switchState.isOn {
+            deleteCallback()
+        } else {
             saveCallback()
         }
     }

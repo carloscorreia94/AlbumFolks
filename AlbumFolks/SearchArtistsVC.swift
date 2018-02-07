@@ -16,7 +16,7 @@ import AlamofireImage
 class SearchArtistsVC : UIViewController {
     
     fileprivate let imgDownloader = ImageDownloader()
-    static let MIN_SEARCH_QUERY_LENGTH = 4
+    static let MIN_SEARCH_QUERY_LENGTH = 2
     static let SEARCH_INTERVAL_TIMER = 0.5
     
     fileprivate var searchTimer: Timer?
