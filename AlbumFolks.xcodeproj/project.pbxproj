@@ -21,6 +21,8 @@
 		1774B2062027BEEB0060BB71 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2052027BEEB0060BB71 /* Tag.swift */; };
 		1774B20A2027C55F0060BB71 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2092027C55F0060BB71 /* Constants.swift */; };
 		1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B20B2028B6070060BB71 /* PaginatedArtists.swift */; };
+		178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D519E202BAEFC004579B9 /* FileUtils.swift */; };
+		178D51A1202BB201004579B9 /* ImageFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D51A0202BB201004579B9 /* ImageFileUtils.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
 		49111B4D23180D8B4EB32E8A /* Pods_AlbumFolksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C375D602181F760FB3DAF127 /* Pods_AlbumFolksTests.framework */; };
 		D05EB32E202345DC00DC1D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05EB32D202345DC00DC1D34 /* AppDelegate.swift */; };
@@ -80,6 +82,8 @@
 		1774B2052027BEEB0060BB71 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		1774B2092027C55F0060BB71 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1774B20B2028B6070060BB71 /* PaginatedArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedArtists.swift; sourceTree = "<group>"; };
+		178D519E202BAEFC004579B9 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		178D51A0202BB201004579B9 /* ImageFileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileUtils.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A7D38C60D8A388325631595 /* Pods-AlbumFolksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolksUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolksUITests/Pods-AlbumFolksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlbumFolks.release.xcconfig"; path = "Pods/Target Support Files/Pods-AlbumFolks/Pods-AlbumFolks.release.xcconfig"; sourceTree = "<group>"; };
@@ -265,6 +269,8 @@
 				1774B1FC20277D780060BB71 /* CoreNetwork.swift */,
 				1774B1FE202791360060BB71 /* AlertDialog.swift */,
 				173313502029CC2B00AF34F1 /* GenericHelpers.swift */,
+				178D519E202BAEFC004579B9 /* FileUtils.swift */,
+				178D51A0202BB201004579B9 /* ImageFileUtils.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -593,10 +599,12 @@
 				173313512029CC2B00AF34F1 /* GenericHelpers.swift in Sources */,
 				D0FA97542024E91000C75C50 /* AlbumDetail.swift in Sources */,
 				D0FA975B2025CC4800C75C50 /* String.swift in Sources */,
+				178D51A1202BB201004579B9 /* ImageFileUtils.swift in Sources */,
 				D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */,
 				D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */,
 				1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */,
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
+				178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */,
 				173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
 				177120B9202A550100CA47D9 /* PersistenceController.swift in Sources */,

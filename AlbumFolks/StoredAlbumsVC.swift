@@ -8,11 +8,12 @@
 
 import UIKit
 import CoreData
+import AlamofireImage
 
 class StoredAlbumsVC: UIViewController {
     
     fileprivate var context : NSManagedObjectContext?
-    
+
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
         context = (UIApplication.shared.delegate as! AppDelegate).persistenceController.managedObjectContext
         
@@ -122,6 +123,12 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
         let album = _Album(name: albumMO.name!, artist: albumMO.artist!.name!, photoUrl: nil)
         cell.setContent(album)
         
+        
+        //TODO - Use some caching mechanism here
+        if let imageURL = albumMO.getLocalImageURL(), let image = UIImage(contentsOfFile: imageURL.path) {
+            cell.setImage(image)
+        }
+      
         return cell
     }
     

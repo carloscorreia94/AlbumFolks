@@ -17,6 +17,8 @@ class AlbumVC : UIViewController {
     @IBOutlet weak var tableView : UITableView!
     fileprivate var albumHeaderCell : AlbumHeaderCell?
     fileprivate let downloader = ImageDownloader()
+    fileprivate var storedImage : UIImage?
+    
     var album: Album! {
         didSet {
             albumMO = AlbumMO.get(from: String(album.hashValue))
@@ -41,6 +43,7 @@ class AlbumVC : UIViewController {
             downloader.download(urlRequest) { [unowned self] response in
                 
                 if let image = response.result.value {
+                    self.storedImage = image
                     self.albumInfoHeader.imageView.image = image
                 } else {
                     self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
@@ -63,7 +66,7 @@ class AlbumVC : UIViewController {
     
     
     func saveAlbum() {
-        if let albumMO = AlbumMO.create(from: album) {
+        if let albumMO = AlbumMO.create(from: album, withImage: storedImage) {
             self.albumMO = albumMO
             print("Album saved!")
         }

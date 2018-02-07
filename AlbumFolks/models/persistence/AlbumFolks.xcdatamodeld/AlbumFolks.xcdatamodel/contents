@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Album" representedClassName="AlbumMO" syncable="YES" codeGenerationType="class">
+        <attribute name="hasImage" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="storedDate" attributeType="Date" defaultDateTimeInterval="539696460" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="stringHash" attributeType="String" syncable="YES"/>
@@ -26,7 +27,7 @@
         <relationship name="album" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="tracks" inverseEntity="Album" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Album" positionX="522" positionY="-85" width="128" height="135"/>
+        <element name="Album" positionX="522" positionY="-85" width="128" height="150"/>
         <element name="Artist" positionX="513" positionY="119" width="135" height="120"/>
         <element name="RecentSearch" positionX="216" positionY="123" width="128" height="73"/>
         <element name="Track" positionX="225" positionY="-81" width="128" height="105"/>
