@@ -28,8 +28,7 @@ class AlbumCell : UICollectionViewCell {
         if album.photoUrl == nil {
             setImage(UIImage(named: "no_media")!)
         }
-        
-        
+                
         self.albumName.text = album.name
         self.albumArtist.text = album.artist
     }

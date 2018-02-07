@@ -37,7 +37,7 @@ class ArtistAlbumsVC : UIViewController {
             
             if artist.detail == nil {
                 
-                ArtistDetail.fetchNetworkData(artistId: self.artist.id, successCallback: { [unowned self] artistDetail in
+                ArtistDetail.fetchNetworkData(artistId: self.artist.mbid, successCallback: { [unowned self] artistDetail in
                     
                     self.artist.detail = artistDetail
                     self.collectionView.reloadData()

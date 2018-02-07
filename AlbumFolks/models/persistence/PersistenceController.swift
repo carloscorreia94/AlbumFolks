@@ -34,6 +34,9 @@ class PersistenceController: NSObject {
         // Configure Managed Object Context
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
         
+        if #available(iOS 10.0, *) {
+            managedObjectContext.automaticallyMergesChangesFromParent = true
+        }
         
         return managedObjectContext
     }()

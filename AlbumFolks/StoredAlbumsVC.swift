@@ -11,16 +11,18 @@ import CoreData
 
 class StoredAlbumsVC: UIViewController {
     
+    fileprivate var context : NSManagedObjectContext?
+    
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        context = (UIApplication.shared.delegate as! AppDelegate).persistenceController.managedObjectContext
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistenceController.managedObjectContext
         let albumsFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Album")
         let primarySortDescriptor = NSSortDescriptor(key: "storedDate", ascending: false)
         albumsFetchRequest.sortDescriptors = [primarySortDescriptor]
         
         let frc = NSFetchedResultsController(
             fetchRequest: albumsFetchRequest,
-            managedObjectContext: context,
+            managedObjectContext: context!,
             sectionNameKeyPath: nil,
             cacheName: nil)
         
@@ -42,6 +44,7 @@ class StoredAlbumsVC: UIViewController {
         
         do {
             try fetchedResultsController.performFetch()
+            self.collectionView.reloadData()
         } catch {
             print("An error occurred")
         }
@@ -50,12 +53,26 @@ class StoredAlbumsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
+
+        
         if #available(iOS 11.0, *) {
             self.collectionView.contentInsetAdjustmentBehavior = .never
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
         
+    }
+    
+    @objc func contextDidSave(notification: Notification) {
+        
+        
+        if let context = context, let sender = notification.object as? NSManagedObjectContext {
+            if sender != context {
+                context.mergeChanges(fromContextDidSave: notification)
+            }
+        }
+      
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +98,16 @@ class StoredAlbumsVC: UIViewController {
             }
         }
     }
+    
+    
+    private func numberOfAlbums() -> Int {
+        if let sections = fetchedResultsController.sections {
+            let currentSection = sections[0]
+            return currentSection.numberOfObjects
+        } else {
+            return 0
+        }
+    }
 }
 
 
@@ -99,12 +126,7 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let sections = fetchedResultsController.sections {
-            let currentSection = sections[section]
-            return currentSection.numberOfObjects
-        } else {
-            return 0
-        }
+       return numberOfAlbums()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -129,6 +151,9 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
        // self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: 50, height: numberOfAlbums() > 0 ? 0 : 50)
+    }
         
     // MARK : UICollectionViewDelegateFlowLayout
     

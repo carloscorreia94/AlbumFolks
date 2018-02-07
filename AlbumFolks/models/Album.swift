@@ -76,7 +76,7 @@ class Album : Mappable, Equatable, Hashable {
     **/
     static func fetchTopAlbums(artist: Artist, successCallback: @escaping ([Album]) -> (), errorCallback: @escaping (NetworkError) -> ()) {
         
-        let url = String(format: Constants.API_URLS.ArtistAlbums,artist.id)
+        let url = String(format: Constants.API_URLS.ArtistAlbums,artist.mbid)
         print("Request Album with URL: " + url)
 
         Alamofire.request(url).responseArray(keyPath: "topalbums.album") { (response: DataResponse<[Album]>) in

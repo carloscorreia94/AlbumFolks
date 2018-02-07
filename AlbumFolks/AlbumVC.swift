@@ -66,8 +66,6 @@ class AlbumVC : UIViewController {
         if let albumMO = AlbumMO.create(from: album) {
             self.albumMO = albumMO
             print("Album saved!")
-        } else {
-            albumHeaderCell!.saveSwitch.setOn(false, animated: true)
         }
     }
     
@@ -75,12 +73,9 @@ class AlbumVC : UIViewController {
         if let album = albumMO {
             if AlbumMO.delete(album: album) {
                 print("Album deleted!")
-                return
             }
         }
         
-        //UI fallback if we can't delete for some reason
-        albumHeaderCell!.saveSwitch.setOn(true, animated: true)
     }
 
 }

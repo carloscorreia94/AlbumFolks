@@ -21,7 +21,7 @@ class Artist : Mappable {
     var listeners : Int?
     
     var name : String!
-    var id : String!
+    var mbid : String!
     
     required init?(map: Map){
         
@@ -40,7 +40,7 @@ class Artist : Mappable {
     
     func mapping(map: Map) {
         name <- map["name"]
-        id <- map["mbid"]
+        mbid <- map["mbid"]
         photoUrl = LastFmImage.getImageUrl(imageMap: map,imageKey: "image")
         
         var urlString : String?
