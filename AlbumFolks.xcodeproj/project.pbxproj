@@ -23,6 +23,7 @@
 		1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B20B2028B6070060BB71 /* PaginatedArtists.swift */; };
 		177E5350202BD0FA00218AB0 /* AlbumViewPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */; };
 		177E5352202BE18300218AB0 /* RecentSearchMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E5351202BE18300218AB0 /* RecentSearchMO.swift */; };
+		177E5354202BF2D200218AB0 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E5353202BF2D200218AB0 /* UIImage.swift */; };
 		178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D519E202BAEFC004579B9 /* FileUtils.swift */; };
 		178D51A1202BB201004579B9 /* ImageFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D51A0202BB201004579B9 /* ImageFileUtils.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
@@ -86,6 +87,7 @@
 		1774B20B2028B6070060BB71 /* PaginatedArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedArtists.swift; sourceTree = "<group>"; };
 		177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewPopulator.swift; sourceTree = "<group>"; };
 		177E5351202BE18300218AB0 /* RecentSearchMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchMO.swift; sourceTree = "<group>"; };
+		177E5353202BF2D200218AB0 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		178D519E202BAEFC004579B9 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		178D51A0202BB201004579B9 /* ImageFileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileUtils.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +265,7 @@
 			children = (
 				D0FA97582025129400C75C50 /* UILabel.swift */,
 				D0FA975A2025CC4800C75C50 /* String.swift */,
+				177E5353202BF2D200218AB0 /* UIImage.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				D0FA975B2025CC4800C75C50 /* String.swift in Sources */,
 				178D51A1202BB201004579B9 /* ImageFileUtils.swift in Sources */,
 				D0FA974E2024D67D00C75C50 /* ArtistAlbumsVC.swift in Sources */,
+				177E5354202BF2D200218AB0 /* UIImage.swift in Sources */,
 				D05EB330202345DC00DC1D34 /* StoredAlbumsVC.swift in Sources */,
 				1774B1FD20277D780060BB71 /* CoreNetwork.swift in Sources */,
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,

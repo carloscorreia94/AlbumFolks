@@ -42,7 +42,7 @@ class ArtistAlbumsVC : UIViewController {
                     self.artist.detail = artistDetail
                     self.collectionView.reloadData()
                     
-                    let _ = RecentSearchMO.create(from: ArtistPopulator(name: self.artist.name, mbid: self.artist.mbid, photoUrl: self.artist.photoUrl))
+                    let _ = RecentSearchMO.create(from: ArtistPopulator(name: self.artist.name, mbid: self.artist.mbid, photoUrl: self.artist.photoUrl, lastFmUrl: self.artist.lastFmUrl))
                     
                     self.albumRequest(self.artist)
                     
@@ -183,6 +183,9 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
                 }
             }
         }
+        
+        //cell.makeTransparent(_on: artist.albums![indexPath.row].albumDetail == nil)
+    
         
        
         cell.setContent(album)

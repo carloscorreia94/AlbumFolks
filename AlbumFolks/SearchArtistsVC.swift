@@ -110,8 +110,8 @@ class SearchArtistsVC : UIViewController {
                 let artist = Artist()
                 artist.name = recentSearch.artist!.name
                 artist.mbid = recentSearch.artist!.mbid
-                artist.photoUrl = URL(string: recentSearch.artist!.photoUrl ?? "_not_url :@")
-                
+                artist.photoUrl = recentSearch.artist!.getPhotoUrl()
+                artist.lastFmUrl = recentSearch.artist!.getLastFmUrl()
                 
                 destination.artist = artist
             } else {
@@ -162,6 +162,9 @@ class SearchArtistsVC : UIViewController {
             if !self.isSearching {
                 self.tableView.tableHeaderView = nil
             }
+            
+            let errorTitleDesc = CoreNetwork.messageFromError(error)
+            AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self)
             
         })
         
@@ -278,7 +281,7 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
         if recentSearchesMode {
             let recentSearch = fetchedResultsController.object(at: indexPath) as! RecentSearchMO
             cell.setContent(search: recentSearch)
-            photoUrl = URL(string: recentSearch.artist!.photoUrl ?? "_not_url: @")
+            photoUrl = recentSearch.artist!.getPhotoUrl()
             
         } else {
             guard let artist = self.artists?[indexPath.row] else {

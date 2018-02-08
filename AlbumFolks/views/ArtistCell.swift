@@ -25,6 +25,9 @@ class ArtistCell : UITableViewCell {
     }
     
     public func setContent(artist: Artist) {
+        self.listeners.isHidden = false
+        self.customImageView.isHidden = false
+
         self.artistName.text = artist.name
         self.listeners.text = artist.listeners != nil ? "\(getListenersPretty(artist.listeners!)) Listeners" : ""
         

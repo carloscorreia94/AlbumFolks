@@ -10,6 +10,7 @@
         <relationship name="tracks" toMany="YES" deletionRule="Cascade" destinationEntity="Track" inverseName="album" inverseEntity="Track" syncable="YES"/>
     </entity>
     <entity name="Artist" representedClassName="ArtistMO" syncable="YES" codeGenerationType="class">
+        <attribute name="lastFmUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mbid" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="photoUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -28,7 +29,7 @@
     </entity>
     <elements>
         <element name="Album" positionX="522" positionY="-85" width="128" height="150"/>
-        <element name="Artist" positionX="513" positionY="119" width="135" height="120"/>
+        <element name="Artist" positionX="513" positionY="119" width="135" height="135"/>
         <element name="RecentSearch" positionX="216" positionY="123" width="128" height="75"/>
         <element name="Track" positionX="225" positionY="-81" width="128" height="105"/>
     </elements>

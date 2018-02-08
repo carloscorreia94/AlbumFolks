@@ -13,6 +13,20 @@ import UIKit
 extension ArtistMO {
     fileprivate static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    func getLastFmUrl() -> URL? {
+        if let urlString = self.lastFmUrl {
+            return URL(string: urlString)
+        }
+        return nil
+    }
+    
+    func getPhotoUrl() -> URL? {
+        if let urlString = self.photoUrl {
+            return URL(string: urlString)
+        }
+        return nil
+    }
+    
     static func get(from artist: ArtistPopulator, context: NSManagedObjectContext) -> ArtistMO? {
         
         var artistToReturn : ArtistMO?
@@ -54,6 +68,7 @@ extension ArtistMO {
         _artist.name = artist.name
         _artist.photoUrl = artist.photoUrl?.absoluteString
         _artist.mbid = artist.mbid
+        _artist.lastFmUrl = artist.lastFmUrl?.absoluteString
         
         if appDelegate.persistenceController.save(childContext) {
             artistToReturn = context.object(with: _artist.objectID) as? ArtistMO

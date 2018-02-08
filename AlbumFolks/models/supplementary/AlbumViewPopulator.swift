@@ -21,7 +21,7 @@ class AlbumViewPopulator {
         self.image = image
         self.name = album.name
         self.tags = album.albumDetail!.getTagsString()
-        self.artist = ArtistPopulator(name: album.artist.name, mbid: album.artist.mbid, photoUrl: album.artist.photoUrl)
+        self.artist = ArtistPopulator(name: album.artist.name, mbid: album.artist.mbid, photoUrl: album.artist.photoUrl, lastFmUrl: album.artist.lastFmUrl)
         self.hashString = String(album.hashValue)
         self.storedAlbum = AlbumMO.get(from: self.hashString)
 
@@ -37,8 +37,7 @@ class AlbumViewPopulator {
         self.name = albumMO.name!
         self.tags = albumMO.tags
         
-        //No photo for the artistViewPopulator initialier here. Only purpose is to keep a coreData object for an artist (to show in recentSearches example)
-        self.artist = ArtistPopulator(name: albumMO.artist!.name!, mbid: albumMO.artist!.mbid!, photoUrl: nil)
+        self.artist = ArtistPopulator(name: albumMO.artist!.name!, mbid: albumMO.artist!.mbid!, photoUrl: albumMO.artist!.getPhotoUrl(), lastFmUrl: albumMO.artist!.getLastFmUrl())
         self.hashString = String(albumMO.stringHash!)
         self.storedAlbum = albumMO
         
@@ -59,5 +58,5 @@ struct TrackViewPopulator {
 
 struct ArtistPopulator {
     let name, mbid : String
-    var photoUrl : URL?
+    var photoUrl, lastFmUrl : URL?
 }
