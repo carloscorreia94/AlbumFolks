@@ -70,7 +70,7 @@ class PaginatedArtists : Mappable {
         
         var stringPage : String!
         stringPage <- map["opensearch:Query.startPage"]
-        page = Int(stringItemsPerPage)!
+        page = Int(stringPage)!
         
     
         artists <- map["artistmatches.artist"]

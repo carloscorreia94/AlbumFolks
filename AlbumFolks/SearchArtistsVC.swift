@@ -18,13 +18,18 @@ class SearchArtistsVC : UIViewController {
     static let MIN_SEARCH_QUERY_LENGTH = 2
     static let SEARCH_INTERVAL_TIMER = 0.5
     static let MAX_SEARCH_RESULTS = 12
+    static let MAX_PAGE_NUMBER = 30
+    static let PAGE_DECREMENT_FACTOR_PER_EXTRA_CHAR = 2
+    
+    static let DEFAULT_PAGINATION = Pagination(startIndex: 0, page: 1, total: SearchArtistsVC.MAX_SEARCH_RESULTS)
     
     fileprivate var searchTimer: Timer?
     fileprivate var artists : [Artist]?
     fileprivate var paginatedArtists = Dictionary<Pagination,PaginatedArtists>()
     fileprivate var currentPagination : Pagination?
-    fileprivate var askedPagination = Pagination(startIndex: 0, page: 1, total: SearchArtistsVC.MAX_SEARCH_RESULTS)
+    fileprivate var askedPagination = DEFAULT_PAGINATION
     fileprivate var isSearching = false
+    fileprivate var isFetching = false
     fileprivate var recentSearchesMode = true
     
     fileprivate var context : NSManagedObjectContext?
@@ -134,18 +139,32 @@ class SearchArtistsVC : UIViewController {
     
     @objc private func performSearchTimer(_ timer : Timer) {
         isSearching = false
-        performSearch(timer.userInfo as! String)
+
+        if !isFetching {
+            performSearch(timer.userInfo as? String)
+        }
     }
     
-    private func performSearch(_ query: String) {
-        print("searching" + query)
+    private func performSearch(_ query: String? = nil) {
+        print("searching \(query ?? searchController.searchBar.text!) page: \(self.askedPagination.page) ")
         self.recentSearchesMode = false
         self.tableView.tableHeaderView = loadingView
         self.tableView.reloadData()
 
         
-        Artist.fetchAutoCompleteSearch(query: query, pagination: self.askedPagination, successCallback: { [unowned self] paginatedArtists in
-            
+        if query != nil {
+            self.paginatedArtists = Dictionary<Pagination, PaginatedArtists>()
+            self.artists = nil
+            self.askedPagination = SearchArtistsVC.DEFAULT_PAGINATION
+            self.currentPagination = nil
+        } else {
+            self.tableView.tableHeaderView = nil
+        }
+        
+        self.tableView.reloadData()
+
+        
+        Artist.fetchAutoCompleteSearch(query: query ?? searchController.searchBar.text!, pagination: self.askedPagination, successCallback: { [unowned self] paginatedArtists in
             
             if !self.isSearching {
                 self.tableView.tableHeaderView = nil
@@ -162,11 +181,12 @@ class SearchArtistsVC : UIViewController {
             
             self.artists?.append(contentsOf: self.paginatedArtists[self.currentPagination!]!.artists)
            
-            
-            self.artists = paginatedArtists.artists
             self.tableView.reloadData()
+            self.isFetching = false
             
         }, errorCallback: { error in
+            self.isFetching = false
+
             if !self.isSearching {
                 self.tableView.tableHeaderView = nil
             }
@@ -176,6 +196,7 @@ class SearchArtistsVC : UIViewController {
             
         })
         
+        self.isFetching = true
     }
     
     private func showRecentSearches() {
@@ -243,7 +264,7 @@ extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating,
         }
         
         isSearching = true
-        if newText.count >= SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH && newText.count % 3 == 0 {
+        if newText.count >= SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH && newText.count % 3 == 0 && !isFetching {
             performSearch(newText)
         }
         
@@ -317,32 +338,37 @@ extension SearchArtistsVC {
             scrollView.contentOffset = CGPoint.zero
         }
         
-        if isSearching {
-            return
-        }
-        
-        if let pagination = currentPagination, let searchText = searchController.searchBar.text {
+       
             let  height = scrollView.frame.size.height
             let contentYoffset = scrollView.contentOffset.y
             let distanceFromBottom = scrollView.contentSize.height - contentYoffset
             if distanceFromBottom < height {
-
-                if pagination.startIndex + SearchArtistsVC.MAX_SEARCH_RESULTS < pagination.total {
-                    let askedPagination = Pagination(startIndex: 0, page: pagination.page + 1, total: pagination.total)
-
-                    if self.paginatedArtists[askedPagination] != nil {
-                        return
-                    }
-                    
-                    self.askedPagination = askedPagination
-                    
-                    // TODO - Loading
-                    
-                    isSearching = true
-                    performSearch(searchText)
+                
+                if isSearching || isFetching {
+                    return
                 }
                 
-            }
+                if let pagination = currentPagination {
+                
+                    searchTimer?.invalidate()
+                    let decrementNumber = (SearchArtistsVC.PAGE_DECREMENT_FACTOR_PER_EXTRA_CHAR * (searchController.searchBar.text!.count - SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH))
+                    if (pagination.page + decrementNumber + 1 < SearchArtistsVC.MAX_PAGE_NUMBER) && (pagination.startIndex + SearchArtistsVC.MAX_SEARCH_RESULTS < pagination.total)  {
+                        let askedPagination = Pagination(startIndex: 0, page: pagination.page + 1, total: pagination.total)
+
+                        if self.paginatedArtists[askedPagination] != nil {
+                            return
+                        }
+                    
+                        self.askedPagination = askedPagination
+                    
+                        // TODO - Loading
+                        self.isFetching = true
+                        performSearch()
+                    }
+                    
+                }
+                
+            
         }
         
     }
