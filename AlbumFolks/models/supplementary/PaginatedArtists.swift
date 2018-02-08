@@ -10,24 +10,25 @@ import Foundation
 import ObjectMapper
 
 struct Pagination {
-    let limit, offset, total : Int
+    let startIndex, page, total : Int
 }
 
 extension Pagination : Hashable, Equatable {
     
     static func ==(lhs:Pagination, rhs:Pagination) -> Bool {
-        return lhs.limit == rhs.limit && lhs.offset == rhs.offset && rhs.total == lhs.total
+        return lhs.startIndex == rhs.startIndex && lhs.page == rhs.page && rhs.total == lhs.total
     }
     
     var hashValue: Int {
-        return limit.hashValue ^ offset.hashValue ^ total.hashValue
+        return startIndex.hashValue ^ page.hashValue
     }
 }
 
 class PaginatedArtists : Mappable {
     var total: Int!
-    var start: Int!
-    var itemsPerPage: Int!
+    var page: Int!
+    var limit: Int!
+    var startIndex : Int!
     var artists: [Artist]!
     
     
@@ -36,11 +37,15 @@ class PaginatedArtists : Mappable {
             return nil
         }
         
-        guard let start: String = map["opensearch:startIndex"].value(), let _ : Int = Int(start) else {
+        guard let page: String = map["opensearch:Query.startPage"].value(), let _ : Int = Int(page) else {
             return nil
         }
         
-        guard let itemsPerPage: String = map["opensearch:itemsPerPage"].value(), let _ : Int = Int(itemsPerPage) else {
+        guard let limit: String = map["opensearch:itemsPerPage"].value(), let _ : Int = Int(limit) else {
+            return nil
+        }
+        
+        guard let startIndex: String = map["opensearch:startIndex"].value(), let _ : Int = Int(startIndex) else {
             return nil
         }
         
@@ -57,11 +62,15 @@ class PaginatedArtists : Mappable {
         
         var stringStart : String!
         stringStart <- map["opensearch:startIndex"]
-        start = Int(stringStart)!
+        startIndex = Int(stringStart)!
         
         var stringItemsPerPage : String!
         stringItemsPerPage <- map["opensearch:itemsPerPage"]
-        itemsPerPage = Int(stringItemsPerPage)!
+        limit = Int(stringItemsPerPage)!
+        
+        var stringPage : String!
+        stringPage <- map["opensearch:Query.startPage"]
+        page = Int(stringItemsPerPage)!
         
     
         artists <- map["artistmatches.artist"]

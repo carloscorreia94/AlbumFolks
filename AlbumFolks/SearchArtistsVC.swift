@@ -17,6 +17,7 @@ class SearchArtistsVC : UIViewController {
     
     static let MIN_SEARCH_QUERY_LENGTH = 2
     static let SEARCH_INTERVAL_TIMER = 0.5
+    static let MAX_SEARCH_RESULTS = 12
     
     fileprivate var searchTimer: Timer?
     fileprivate var artists : [Artist]?
@@ -144,14 +145,18 @@ class SearchArtistsVC : UIViewController {
         //TODO - Animation
 
         
-        Artist.fetchAutoCompleteSearch(query: query, successCallback: { [unowned self] paginatedArtists in
+        let pagination = self.currentPagination ?? Pagination(startIndex: 0, page: 1, total: SearchArtistsVC.MAX_SEARCH_RESULTS)
+        Artist.fetchAutoCompleteSearch(query: query, pagination: pagination, successCallback: { [unowned self] paginatedArtists in
             
             
             if !self.isSearching {
                 self.tableView.tableHeaderView = nil
             }
             
-            self.currentPagination = Pagination(limit: paginatedArtists.itemsPerPage, offset: paginatedArtists.start, total: paginatedArtists.total)
+            self.currentPagination = Pagination(startIndex: paginatedArtists.startIndex, page: paginatedArtists.page, total: paginatedArtists.total)
+            
+            //TODO : if limit + startIndex >= total - DONT SEARCH MORE
+            //let limit = paginatedArtists.limit
             
             self.paginatedArtists[self.currentPagination!] = paginatedArtists
             self.artists = paginatedArtists.artists
