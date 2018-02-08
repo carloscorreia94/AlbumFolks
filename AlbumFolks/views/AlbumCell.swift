@@ -100,14 +100,14 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     }
     
     private func unsetTransparencyAnimated() {
-        
+        self.imageView.alpha = 0.3
         let animation : CABasicAnimation = CABasicAnimation(keyPath: "opacity");
         animation.delegate = self
         animation.fromValue = 0.3
         animation.toValue = 1
         animation.duration = 0.4
         self.imageView.layer.add(animation, forKey: nil)
-        
+        self.imageView.alpha = 1.0
     }
 }
 
