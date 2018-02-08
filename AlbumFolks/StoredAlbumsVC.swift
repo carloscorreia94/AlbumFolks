@@ -90,7 +90,8 @@ class StoredAlbumsVC: UIViewController {
             let indexPath = collectionView.indexPathsForSelectedItems![0]
             
             let albumMO = fetchedResultsController.object(at: indexPath) as! AlbumMO
-            destination.albumViewPopulator = AlbumViewPopulator(albumMO: albumMO, image: UIImage(contentsOfFile: albumMO.getLocalImageURL()?.path ?? "non_existent"))
+            let image = albumMO.getLocalImagePathString() != nil ? UIImage(contentsOfFile: albumMO.getLocalImagePathString()!) : nil
+            destination.albumViewPopulator = AlbumViewPopulator(albumMO: albumMO, image: image)
             
         default:
             if let id = segue.identifier {
@@ -166,7 +167,7 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
         
         //TODO - Centralize these
         let cellWidth = collectionView.bounds.width / 2.0
-        let cellHeight = cellWidth * (18/15) // ratio as explicitly defined in the AlbumView Layout
+        let cellHeight = cellWidth * (19.5/15) // ratio as explicitly defined in the AlbumView Layout
         
         return CGSize(width: cellWidth - 8, height: cellHeight)
     }

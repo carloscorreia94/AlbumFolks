@@ -22,8 +22,13 @@ extension AlbumMO {
         return self.hasImage ? FileUtils.getFile(name: String(format: FileUtils.ALBUM_FILE, self.stringHash!), folder: FileUtils.ALBUMS_FOLDER) : nil
     }
     
+    func getLocalImagePathString() -> String? {
+        return getLocalImageURL()?.path ?? nil
+    }
+    
     static func get(from stringHash: String) -> AlbumMO? {
         let context = appDelegate.persistenceController.managedObjectContext
+        context.refreshAllObjects()
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Album")
         request.predicate = NSPredicate(format: "stringHash = %@", stringHash)
@@ -31,7 +36,11 @@ extension AlbumMO {
         
         do {
             let results = try context.fetch(request)
-            return results.count == 1 && (results[0] as? AlbumMO) != nil ? (results[0] as! AlbumMO)  : nil
+            if let _ : Int? = results.count == 1 ? 1 : nil, let result = results[0] as? AlbumMO {
+                return result
+            } else {
+                return nil
+            }
         } catch let error {
             print(error)
             return nil

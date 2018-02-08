@@ -72,6 +72,13 @@ class ArtistAlbumsVC : UIViewController {
       
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //TODO - QUICK FIX - when unwinding from Album that was saved/deleted in order to update the Stored Information here -> would be better w/delegate
+        self.collectionView.reloadData()
+    }
+    
     
     private func albumRequest(_ artist: Artist) {
         
@@ -157,7 +164,10 @@ class ArtistAlbumsVC : UIViewController {
             let destination = segue.destination as! AlbumVC
             let indexPath = collectionView.indexPathsForSelectedItems![0]
            
-            if let _ = artist.albums![indexPath.row].albumDetail {
+            if let storedAlbum = AlbumMO.get(from: String(artist.albums![indexPath.row].hashValue)) {
+                let image = storedAlbum.getLocalImagePathString() != nil ? UIImage(contentsOfFile: storedAlbum.getLocalImagePathString()!) : nil
+                destination.albumViewPopulator = AlbumViewPopulator(albumMO: storedAlbum, image: image)
+            } else if let _ = artist.albums![indexPath.row].albumDetail {
                 destination.albumViewPopulator = AlbumViewPopulator(album: artist.albums![indexPath.row], image: artist.albums![indexPath.row].loadedImage)
             }
             
@@ -181,14 +191,25 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             fatalError("Invalid application state while fetching albums.")
         }
         
+        /**
+        * Having the album stored, even if the album don't manage to be downloaded, he can visualize it. Of course only if the app first manages to download artist info (this is not a complete stored functionality)
+        **/
+        if let _ = AlbumMO.get(from: String(album.hashValue)) {
+            cell.storedLabel.isHidden = false
+            
+            cell.hasDetail = true
+            album.hadDetail = true
+        } else {
+            cell.storedLabel.isHidden = true
+            
+            cell.hasDetail = album.albumDetail != nil
+            album.hadDetail = album.albumDetail != nil
+        }
+        
         cell.setContent(album)
-        cell.hasDetail = album.albumDetail != nil
-
         cell.setImage(album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
         
-        album.hadDetail = album.albumDetail != nil
-   
-        
+
         return cell
     }
     
@@ -304,7 +325,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.bounds.width / 2.0
-        let cellHeight = cellWidth * (18/15) // ratio as explicitly defined in the AlbumView Layout
+        let cellHeight = cellWidth * (19.5/15) // ratio as explicitly defined in the AlbumView Layout
         
         return CGSize(width: cellWidth - 8, height: cellHeight)
     }

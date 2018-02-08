@@ -14,6 +14,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var albumName: UILabel!
     @IBOutlet weak var albumArtist: UILabel!
+    @IBOutlet weak var storedLabel: UILabel!
     
     var hasDetail = false
     
