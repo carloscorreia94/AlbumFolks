@@ -167,7 +167,7 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
         
         //TODO - Centralize these
         let cellWidth = collectionView.bounds.width / 2.0
-        let cellHeight = cellWidth * (19.5/15) // ratio as explicitly defined in the AlbumView Layout
+        let cellHeight = cellWidth * (20/15) // ratio as explicitly defined in the AlbumView Layout
         
         return CGSize(width: cellWidth - 8, height: cellHeight)
     }

@@ -312,7 +312,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO _ Loading Screen if we don't have it yet. Show message if no info
-        if let _ = artist.albums![indexPath.row].albumDetail {
+        if AlbumMO.get(from: String(artist.albums![indexPath.row].hashValue)) != nil || artist.albums![indexPath.row].albumDetail != nil {
             self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
         }
     }
@@ -326,7 +326,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.bounds.width / 2.0
-        let cellHeight = cellWidth * (19.5/15) // ratio as explicitly defined in the AlbumView Layout
+        let cellHeight = cellWidth * (20/15) // ratio as explicitly defined in the AlbumView Layout
         
         return CGSize(width: cellWidth - 8, height: cellHeight)
     }
