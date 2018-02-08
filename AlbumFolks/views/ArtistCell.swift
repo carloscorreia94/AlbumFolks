@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ArtistCell : UITableViewCell {
     
@@ -14,6 +15,13 @@ class ArtistCell : UITableViewCell {
     @IBOutlet weak var listeners: UILabel!
     @IBOutlet weak var customImageView : UIImageView!
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.customImageView.af_cancelImageRequest()
+        self.customImageView.image = nil
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -48,6 +56,19 @@ class ArtistCell : UITableViewCell {
     
     public func setImage(_ image: UIImage) {
         self.customImageView.image = image
+    }
+    
+    
+    public func setImage(_ url: URL) {
+        self.customImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
+            response in
+            
+            if let _ = response.result.value {
+                
+            } else {
+                self.setImage(UIImage(named: "no_media")!)
+            }
+        })
     }
     
     

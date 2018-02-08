@@ -122,6 +122,7 @@ class ArtistAlbumsVC : UIViewController {
             AlbumDetail.fetchNetworkData(album: album, successCallback: { albumDetail in
                 album.albumDetail = albumDetail
 
+                self.collectionView.reloadData()
                 }, errorCallback: { error in
                     
             })
@@ -169,28 +170,22 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             fatalError("Invalid application state while fetching albums.")
         }
         
+        cell.setContent(album)
+
         if let albumImageUrl = album.photoUrl {
-            let urlRequest = URLRequest(url: albumImageUrl)
-            
-            imgDownloader.download(urlRequest) { response in
-                
-                if let image = response.result.value {
-                    //DISCLAIMER - If we'd have a lot of loaded albums, needed to get rid of this references when the cells aren't visible...
-                    album.loadedImage = image
-                    cell.setImage(image)
-                } else {
-                    cell.setImage(UIImage(named: "no_media")!)
-                }
-            }
+            let hadDetail = Bool(cell.hasDetail)
+            cell.setImage(albumImageUrl, hadDetail: hadDetail)
         }
         
-        //cell.makeTransparent(_on: artist.albums![indexPath.row].albumDetail == nil)
-    
+        cell.hasDetail = album.albumDetail != nil
+
         
-       
-        cell.setContent(album)
-        
-        
+     /*   if album.loadedImage != nil {
+            //just loaded the contents - so we create animation
+            if !cell.hasDetail && album.albumDetail != nil {
+                cell.unsetTransparencyAnimated()
+            }
+        } */
         
         
         return cell

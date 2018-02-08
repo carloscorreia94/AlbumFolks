@@ -15,7 +15,6 @@ import CoreData
  **/
 class SearchArtistsVC : UIViewController {
     
-    fileprivate let imgDownloader = ImageDownloader()
     static let MIN_SEARCH_QUERY_LENGTH = 2
     static let SEARCH_INTERVAL_TIMER = 0.5
     
@@ -292,17 +291,8 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
         }
         
         
-        //TODO - Default Photo for Artist
         if let url = photoUrl {
-            let urlRequest = URLRequest(url: url)
-            imgDownloader.download(urlRequest) { response in
-                
-                if let image = response.result.value {
-                    cell.setImage(image)
-                } else {
-                    cell.setImage(UIImage(named: "no_media")!)
-                }
-            }
+            cell.setImage(url)
         }
         
         
