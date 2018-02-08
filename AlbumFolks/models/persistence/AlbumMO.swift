@@ -15,11 +15,11 @@ extension AlbumMO {
     
     
     private static func saveAlbumImage(_ image: UIImage, identifier: String) -> URL? {
-        return ImageFileUtils.saveImage(image: image, path: String(format: FileUtils.BOOKING_FILE,identifier), folder: FileUtils.ALBUMS_FOLDER)
+        return ImageFileUtils.saveImage(image: image, path: String(format: FileUtils.ALBUM_FILE,identifier), folder: FileUtils.ALBUMS_FOLDER)
     }
     
     func getLocalImageURL() -> URL? {
-        return self.hasImage ? FileUtils.getFile(name: String(format: FileUtils.BOOKING_FILE, self.stringHash!), folder: FileUtils.ALBUMS_FOLDER) : nil
+        return self.hasImage ? FileUtils.getFile(name: String(format: FileUtils.ALBUM_FILE, self.stringHash!), folder: FileUtils.ALBUMS_FOLDER) : nil
     }
     
     static func get(from stringHash: String) -> AlbumMO? {
@@ -63,7 +63,7 @@ extension AlbumMO {
     }
     
     //TODO - Ok with references because of private context? or should I have just objectID?
-    static func create(from album: Album, withImage: UIImage? = nil) -> AlbumMO? {
+    static func create(from album: AlbumViewPopulator, withImage: UIImage? = nil) -> AlbumMO? {
         var albumToReturn : AlbumMO?
         
         let persistentStoreCoordinator = appDelegate.persistenceController.persistentStoreCoordinator
@@ -74,14 +74,14 @@ extension AlbumMO {
             return nil
         }
         
-        if let albumDetail = album.albumDetail {
+        
             
             var imageURL : URL?
             
             /*
             * We don't save imageURL but instead a boolean (hasImage) so we can fetch the file dynamically.
             */
-            if let image = withImage, let url = saveAlbumImage(image, identifier: String(album.hashValue)) {
+            if let image = withImage, let url = saveAlbumImage(image, identifier: album.hashString) {
                 imageURL = url
             }
             
@@ -92,12 +92,12 @@ extension AlbumMO {
             artist.addToAlbums(_album)
             
             _album.name = album.name
-            _album.stringHash = String(album.hashValue)
+            _album.stringHash = album.hashString
             _album.hasImage = imageURL != nil
-            _album.tags = albumDetail.getTagsString()
+            _album.tags = album.tags
             _album.storedDate = Date()
 
-            if let tracks = TrackMO.createMultiple(from: albumDetail.tracks, albumMO: _album) {
+            if let tracks = TrackMO.createMultiple(from: album.tracks, albumMO: _album) {
                 _album.addToTracks(tracks as NSSet)
             } else {
                 return nil
@@ -112,7 +112,7 @@ extension AlbumMO {
                     let _ = FileUtils.deleteFile(file: url)
                 }
             }
-        }
+        
         
         return albumToReturn
 

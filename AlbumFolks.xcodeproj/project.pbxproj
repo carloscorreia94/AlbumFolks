@@ -21,6 +21,7 @@
 		1774B2062027BEEB0060BB71 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2052027BEEB0060BB71 /* Tag.swift */; };
 		1774B20A2027C55F0060BB71 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2092027C55F0060BB71 /* Constants.swift */; };
 		1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B20B2028B6070060BB71 /* PaginatedArtists.swift */; };
+		177E5350202BD0FA00218AB0 /* AlbumViewPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */; };
 		178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D519E202BAEFC004579B9 /* FileUtils.swift */; };
 		178D51A1202BB201004579B9 /* ImageFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D51A0202BB201004579B9 /* ImageFileUtils.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
@@ -82,6 +83,7 @@
 		1774B2052027BEEB0060BB71 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		1774B2092027C55F0060BB71 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1774B20B2028B6070060BB71 /* PaginatedArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedArtists.swift; sourceTree = "<group>"; };
+		177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewPopulator.swift; sourceTree = "<group>"; };
 		178D519E202BAEFC004579B9 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		178D51A0202BB201004579B9 /* ImageFileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileUtils.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 				1774B2032027BEDC0060BB71 /* LastFmImage.swift */,
 				1774B2052027BEEB0060BB71 /* Tag.swift */,
 				1774B20B2028B6070060BB71 /* PaginatedArtists.swift */,
+				177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */,
 			);
 			path = supplementary;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
 				178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */,
 				173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */,
+				177E5350202BD0FA00218AB0 /* AlbumViewPopulator.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
 				177120B9202A550100CA47D9 /* PersistenceController.swift in Sources */,
 				1733134F2029B9A000AF34F1 /* AlbumFolks.xcdatamodeld in Sources */,

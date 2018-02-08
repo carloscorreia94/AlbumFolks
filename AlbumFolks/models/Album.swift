@@ -9,19 +9,10 @@
 import ObjectMapper
 import Alamofire
 
-class _Album {
-    let  name, artist : String
-    var photoUrl : String?
-    
-    init(name: String, artist: String, photoUrl: String?) {
-        self.name = name
-        self.artist = artist
-        self.photoUrl = photoUrl
-    }
-}
 
 class Album : Mappable, Equatable, Hashable {
     var photoUrl : URL?
+    var loadedImage : UIImage?
     var name : String!
     var id : String?
     var albumDetail : AlbumDetail?
@@ -94,4 +85,5 @@ class Album : Mappable, Equatable, Hashable {
             }
         }
     }
+    
 }

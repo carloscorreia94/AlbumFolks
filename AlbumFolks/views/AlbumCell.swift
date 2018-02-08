@@ -23,14 +23,24 @@ class AlbumCell : UICollectionViewCell {
     }
     
     
-    public func setContent(_ album: _Album) {
+    public func setContent(_ album: Album) {
       
         if album.photoUrl == nil {
             setImage(UIImage(named: "no_media")!)
         }
                 
         self.albumName.text = album.name
-        self.albumArtist.text = album.artist
+        self.albumArtist.text = album.artist.name
+    }
+    
+    
+    public func setContent(_ storedAlbum: AlbumMO) {
+        if !storedAlbum.hasImage {
+            setImage(UIImage(named: "no_media")!)
+        }
+        
+        self.albumName.text = storedAlbum.name
+        self.albumArtist.text = storedAlbum.artist!.name
     }
     
     public func setImage(_ image: UIImage) {

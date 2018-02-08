@@ -13,12 +13,12 @@ import UIKit
 extension ArtistMO {
     fileprivate static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    static func get(from artist: Artist, context: NSManagedObjectContext) -> ArtistMO? {
+    static func get(from artist: ArtistViewPopulator, context: NSManagedObjectContext) -> ArtistMO? {
         
         var artistToReturn : ArtistMO?
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Artist")
-        request.predicate = NSPredicate(format: "mbid = %@", artist.mbid)
+        request.predicate = NSPredicate(format: "mbid = %@", artist.name)
         
         
         do {
@@ -40,7 +40,7 @@ extension ArtistMO {
     }
     
     
-    static func create(from artist: Artist, context: NSManagedObjectContext) -> ArtistMO? {
+    static func create(from artist: ArtistViewPopulator, context: NSManagedObjectContext) -> ArtistMO? {
         
         var artistToReturn : ArtistMO?
         

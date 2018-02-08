@@ -144,9 +144,9 @@ class ArtistAlbumsVC : UIViewController {
             let indexPath = collectionView.indexPathsForSelectedItems![0]
            
             if let _ = artist.albums![indexPath.row].albumDetail {
-                destination.album = artist.albums![indexPath.row]
+                destination.albumViewPopulator = AlbumViewPopulator(album: artist.albums![indexPath.row], image: artist.albums![indexPath.row].loadedImage)
             }
-          
+            
         default:
             if let id = segue.identifier {
                 print("Unknown segue: \(id)")
@@ -172,8 +172,9 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             
             imgDownloader.download(urlRequest) { response in
                 
-                
                 if let image = response.result.value {
+                    //DISCLAIMER - If we'd have a lot of loaded albums, needed to get rid of this references when the cells aren't visible...
+                    album.loadedImage = image
                     cell.setImage(image)
                 } else {
                     cell.setImage(UIImage(named: "no_media")!)
@@ -182,9 +183,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         }
         
        
-        
-        let _album = _Album(name: album.name, artist: artist.name, photoUrl: nil)
-        cell.setContent(_album)
+        cell.setContent(album)
         
         
         
@@ -308,7 +307,7 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.bounds.width / 2.0
-        let cellHeight = cellWidth * (17/15) // ratio as explicitly defined in the AlbumView Layout
+        let cellHeight = cellWidth * (18/15) // ratio as explicitly defined in the AlbumView Layout
         
         return CGSize(width: cellWidth - 8, height: cellHeight)
     }

@@ -13,7 +13,7 @@ extension TrackMO {
     fileprivate static let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     
-    static func createMultiple(from tracks: [Track], albumMO: AlbumMO) -> Set<TrackMO>? {
+    static func createMultiple(from tracks: [TrackViewPopulator], albumMO: AlbumMO) -> Set<TrackMO>? {
         
         var set : Set<TrackMO>?
         
@@ -32,7 +32,7 @@ extension TrackMO {
     }
     
     
-    static func create(from track: Track, albumMO: AlbumMO) -> TrackMO? {
+    static func create(from track: TrackViewPopulator, albumMO: AlbumMO) -> TrackMO? {
         var trackToReturn : TrackMO?
         
         guard let context = albumMO.managedObjectContext else {

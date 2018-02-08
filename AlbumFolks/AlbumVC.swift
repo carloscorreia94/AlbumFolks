@@ -16,45 +16,27 @@ class AlbumVC : UIViewController {
     @IBOutlet var albumInfoHeader: AlbumVcHeaderView!
     @IBOutlet weak var tableView : UITableView!
     fileprivate var albumHeaderCell : AlbumHeaderCell?
-    fileprivate let downloader = ImageDownloader()
     fileprivate var storedImage : UIImage?
     
-    var album: Album! {
-        didSet {
-            albumMO = AlbumMO.get(from: String(album.hashValue))
-        }
-    }
-    var albumMO : AlbumMO?
+    var albumViewPopulator: AlbumViewPopulator!
     
-    /* TODO - NO MEDIA FUNCTION */
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = album.name
+        self.navigationItem.title = albumViewPopulator.name
         self.tableView.tableHeaderView = albumInfoHeader
         
         
-        /*
-        * I'm not sure about the caching mechanism with AlamofireImage. Am to in a hurry to finish this so didn't went to the trouble of storing potentially a lot of data in memory for UIImages. Anyways, images are stored for savedAlbums.
-        */
-        if let albumImageUrl = album.photoUrl {
-            let urlRequest = URLRequest(url: albumImageUrl)
-            
-            downloader.download(urlRequest) { [unowned self] response in
-                
-                if let image = response.result.value {
-                    self.storedImage = image
-                    self.albumInfoHeader.imageView.image = image
-                } else {
-                    self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
-                }
-            }
+       
+        if let albumImage = albumViewPopulator.image {
+            self.albumInfoHeader.imageView.image = albumImage
+            self.storedImage = albumImage
         } else {
             self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
         }
         
-        albumInfoHeader.albumArtist.text = album.artist.name
-        albumInfoHeader.albumTags.text = album.albumDetail?.getTagsString()
+        albumInfoHeader.albumArtist.text = albumViewPopulator.artist.name
+        albumInfoHeader.albumTags.text = albumViewPopulator.tags
 
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -66,14 +48,18 @@ class AlbumVC : UIViewController {
     
     
     func saveAlbum() {
-        if let albumMO = AlbumMO.create(from: album, withImage: storedImage) {
-            self.albumMO = albumMO
-            print("Album saved!")
+        
+        if albumViewPopulator.storedAlbum == nil {
+            if let albumMO = AlbumMO.create(from: albumViewPopulator, withImage: storedImage) {
+                albumViewPopulator.storedAlbum = albumMO
+                print("Album saved!")
+            }
         }
+       
     }
     
     func deleteAlbum() {
-        if let album = albumMO {
+        if let album = albumViewPopulator.storedAlbum {
             if AlbumMO.delete(album: album) {
                 print("Album deleted!")
             }
@@ -92,15 +78,13 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return album.albumDetail?.tracks.count ?? 0
+        return albumViewPopulator.tracks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackCell
         
-        guard let track = album.albumDetail?.tracks[indexPath.row] else {
-            fatalError("Invalid application state on AlbumVC - dequeing cell.")
-        }
+        let track = albumViewPopulator.tracks[indexPath.row]
         
         cell.trackNr.text = String(track.number)
         cell.name.text = track.title
@@ -110,21 +94,18 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let tracks = album.albumDetail?.tracks.count ?? 0
 
-        if tracks > 0 {
             if albumHeaderCell == nil {
                 albumHeaderCell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as? AlbumHeaderCell
                 albumHeaderCell!.saveCallback = saveAlbum
                 albumHeaderCell!.deleteCallback = deleteAlbum
                 
-                if let _ = albumMO {
+                if let _ = albumViewPopulator.storedAlbum {
                     albumHeaderCell!.saveSwitch.setOn(true, animated: false)
                 }
             }
             return albumHeaderCell!
-        }
-        return nil
+        
     }
     
 }

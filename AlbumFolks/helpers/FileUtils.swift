@@ -9,7 +9,7 @@
 import UIKit
 
 class FileUtils {
-    static let BOOKING_FILE = "album_%@.jpg"
+    static let ALBUM_FILE = "album_%@.jpg"
     static let ALBUMS_FOLDER = "albums"
 
     

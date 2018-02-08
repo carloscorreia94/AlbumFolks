@@ -89,9 +89,10 @@ class StoredAlbumsVC: UIViewController {
             navigationItem.backBarButtonItem = backItem
             
             let destination = segue.destination as! AlbumVC
-            //let indexPath = tableView.indexPathForSelectedRow!
-           
-            //destination.albumDetail = albumDetail
+            let indexPath = collectionView.indexPathsForSelectedItems![0]
+            
+            let albumMO = fetchedResultsController.object(at: indexPath) as! AlbumMO
+            destination.albumViewPopulator = AlbumViewPopulator(albumMO: albumMO, image: UIImage(contentsOfFile: albumMO.getLocalImageURL()?.path ?? "non_existent"))
             
         default:
             if let id = segue.identifier {
@@ -120,8 +121,7 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
         
-        let album = _Album(name: albumMO.name!, artist: albumMO.artist!.name!, photoUrl: nil)
-        cell.setContent(album)
+        cell.setContent(albumMO)
         
         
         //TODO - Use some caching mechanism here
@@ -155,7 +155,7 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     // MARK : UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       // self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
+        self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -168,7 +168,7 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
         
         //TODO - Centralize these
         let cellWidth = collectionView.bounds.width / 2.0
-        let cellHeight = cellWidth * (17/15) // ratio as explicitly defined in the AlbumView Layout
+        let cellHeight = cellWidth * (18/15) // ratio as explicitly defined in the AlbumView Layout
         
         return CGSize(width: cellWidth - 8, height: cellHeight)
     }
