@@ -82,8 +82,9 @@ class ArtistAlbumsVC : UIViewController {
             self.seeMoreLinkFooterActivated = albums.count > ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW && artist.lastFmUrl != nil
             self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
             
-            self.collectionView.reloadData()
-            self.requestAlbumDetail()
+            self.collectionView.reloadData(completion: {
+                self.requestAlbumDetail()
+            })
             
             
             }, errorCallback: { [unowned self] error in
@@ -109,10 +110,6 @@ class ArtistAlbumsVC : UIViewController {
         
         
         if let albums = artist.albums {
-             //var visibleAlbums = [Album]()
-             //for indexPath in collectionView.indexPathsForVisibleItems {
-              //  visibleAlbums.append(albums[indexPath.row])
-             //}
             
             let visibleAlbums = collectionView.indexPathsForVisibleItems
             for indexPath in visibleAlbums {
@@ -127,10 +124,14 @@ class ArtistAlbumsVC : UIViewController {
                 
                 self.artist.requestedAlbumDetails![album] = true
                 
-                AlbumDetail.fetchNetworkData(album: album, successCallback: { albumDetail in
+                AlbumDetail.fetchNetworkData(album: album, successCallback: { [unowned self] albumDetail in
                     album.albumDetail = albumDetail
                     
-                    self.collectionView.reloadItems(at: [indexPath])
+                    //If still visible items, we reload them
+                    if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                        self.collectionView.reloadItems(at: [indexPath])
+                    }
+                    
                 }, errorCallback: { error in
                     
                 })
@@ -341,5 +342,12 @@ extension ArtistAlbumsVC {
         } else {
             UIApplication.shared.openURL(self.artist.lastFmUrl!)
         }
+    }
+}
+
+extension UICollectionView {
+    func reloadData(completion: @escaping ()->()) {
+        UIView.animate(withDuration: 0, animations: { self.reloadData() })
+        { _ in completion() }
     }
 }

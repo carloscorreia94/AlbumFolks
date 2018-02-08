@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class AlbumCell : UICollectionViewCell {
+class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var albumName: UILabel!
@@ -53,7 +53,8 @@ class AlbumCell : UICollectionViewCell {
     }
     
     public func setImage(_ image: UIImage) {
-            self.imageView.image = image
+        //nothing to encapsulate for now. but was handy before, can be afterwards
+        self.imageView.image = image
     }
     
     public func setImage (_ url: URL?, hadDetail: Bool, completion: ((UIImage?) -> ())? = nil ) {
@@ -63,14 +64,14 @@ class AlbumCell : UICollectionViewCell {
                 response in
                 
                 if let _image = response.result.value {
+                    self.setImage(_image)
                     completion?(_image)
                     
                     if !hadDetail && self.hasDetail {
-                        self.setImage(_image.alpha(0.3))
                         self.unsetTransparencyAnimated()
                         
                     } else {
-                        self.setImage(_image.alpha(!self.hasDetail ? 0.3 : 1.0))
+                        self.imageView.alpha = !self.hasDetail ? 0.3 : 1.0
                     }
                             
                 } else {
@@ -83,22 +84,16 @@ class AlbumCell : UICollectionViewCell {
         
         
         
-     /*   if !hasDetail {
-            self.imageView.image = image.alpha(0.3)
-        } else {
-            self.imageView.image = image
-        } */
     }
     
     func setNoMediaImage(hadDetail: Bool) {
         let image = UIImage(named: "no_media")!
-
+        self.setImage(image)
         
         if !hadDetail && self.hasDetail {
-            self.setImage(image.alpha(0.3))
             unsetTransparencyAnimated()
         } else {
-            self.setImage(image.alpha(!self.hasDetail ? 0.3 : 1.0))
+            self.imageView.alpha = !self.hasDetail ? 0.3 : 1.0
         }
         
         
@@ -106,15 +101,13 @@ class AlbumCell : UICollectionViewCell {
     
     private func unsetTransparencyAnimated() {
         
-        if let image = self.imageView.image {
-            UIView.animate(withDuration: 0.5,
-                           delay: 0.1,
-                           options: UIViewAnimationOptions.curveEaseIn,
-                           animations: { () -> Void in
-                            self.imageView.image = image.alpha(1)
-            }, completion: { (finished) -> Void in
-            })
-        }
+        let animation : CABasicAnimation = CABasicAnimation(keyPath: "opacity");
+        animation.delegate = self
+        animation.fromValue = 0.3
+        animation.toValue = 1
+        animation.duration = 0.4
+        self.imageView.layer.add(animation, forKey: nil)
         
     }
 }
+
