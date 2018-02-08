@@ -23,6 +23,11 @@ class Artist : Mappable {
     var name : String!
     var mbid : String!
     
+    
+    init() {
+        //TODO - For the recentSearches cells to work - explain better
+    }
+    
     required init?(map: Map){
         
         // We're certified of having an associated artist (Inmplicitly unwrapped optional artist variable) upon Album object usage

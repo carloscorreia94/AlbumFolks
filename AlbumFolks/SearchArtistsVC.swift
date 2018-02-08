@@ -74,6 +74,7 @@ class SearchArtistsVC : UIViewController {
         super.viewDidLoad()
         
         self.searchController = UISearchController(searchResultsController:  nil)
+        showRecentSearches()
         
         NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
         
@@ -102,12 +103,24 @@ class SearchArtistsVC : UIViewController {
         case "searchToArtistAlbums":
             
             let indexPath = tableView.indexPathForSelectedRow!
-            guard let artist = self.artists?[indexPath.row] else {
-                fatalError("Internal inconsistency upon fetching Artist")
-            }
-            
             let destination = segue.destination as! ArtistAlbumsVC
-            destination.artist = artist
+
+            if recentSearchesMode {
+                let recentSearch = fetchedResultsController.object(at: indexPath) as! RecentSearchMO
+                let artist = Artist()
+                artist.name = recentSearch.artist!.name
+                artist.mbid = recentSearch.artist!.mbid
+                artist.photoUrl = URL(string: recentSearch.artist!.photoUrl ?? "_not_url :@")
+                
+                
+                destination.artist = artist
+            } else {
+                guard let artist = self.artists?[indexPath.row] else {
+                    fatalError("Internal inconsistency upon fetching Artist")
+                }
+            
+                destination.artist = artist
+            }
             
             let backItem = UIBarButtonItem()
             backItem.title = "Search"
