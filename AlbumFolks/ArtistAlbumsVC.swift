@@ -16,7 +16,6 @@ class ArtistAlbumsVC : UIViewController {
     
     static let MAX_ALBUMS_TO_SHOW = 12
     
-    fileprivate let imgDownloader = ImageDownloader()
     fileprivate var noFetchedAlbums = false
     fileprivate var seeMoreLinkFooterActivated = false
     
@@ -122,8 +121,11 @@ class ArtistAlbumsVC : UIViewController {
             for indexPath in visibleAlbums {
                 let album = albums[indexPath.row]
                 
-                //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
-                if let index = self.artist.albums!.index(of: album), let _ = self.artist.albums![index].albumDetail {
+                if let index = self.artist.albums!.index(of: album), let _ = AlbumMO.get(from: String(self.artist.albums![index].hashValue)) {
+                    //in case we already have the album stored, no need to fetch it. we fetch albuns by their hashvalue (kind of an id - see more on Album class)
+                    continue
+                } else if let index = self.artist.albums!.index(of: album), let _ = self.artist.albums![index].albumDetail {
+                    //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
                     continue
                 } else if self.artist.requestedAlbumDetails![album] == true {
                     continue
@@ -232,7 +234,6 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
                 artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as? ArtistInfoHeaderCell
                 
                 artistCell!.setArtistInfoCallback(artistInfoCallback)
-                artistCell!.imgDownloader = imgDownloader
                 artistCell!.setContent(artist)
             }
             

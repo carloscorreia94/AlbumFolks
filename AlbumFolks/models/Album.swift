@@ -34,6 +34,9 @@ class Album : Mappable, Equatable, Hashable {
         }
     }
     
+    /**
+    * We keep an hashValue as a result of either mbid or name&artist.name (we don't always receive album mbids from the API)
+    **/
     var hashValue: Int {
         
         if let mbid = id {

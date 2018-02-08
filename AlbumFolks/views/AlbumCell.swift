@@ -87,7 +87,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
         
     }
     
-    func setNoMediaImage(hadDetail: Bool) {
+    private func setNoMediaImage(hadDetail: Bool) {
         let image = UIImage(named: "no_media")!
         self.setImage(image)
         

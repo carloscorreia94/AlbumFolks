@@ -25,8 +25,6 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     var artistInfoCallback : (() -> ())?
     var lastFmUrl : URL?
     
-    var imgDownloader : ImageDownloader!
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -38,15 +36,15 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
     public func setContent(_ artist: Artist) {
         
         if let url = artist.photoUrl {
-            let urlRequest = URLRequest(url: url)
-            imgDownloader.download(urlRequest) { response in
-                
+            self.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
+                response in
                 if let image = response.result.value {
                     self.imageView.image = image
                 } else {
                     self.imageView.image = UIImage(named: "no_media")!
                 }
-            }
+            })
+            
         } else {
             self.imageView.image = UIImage(named: "no_media")!
         }
@@ -54,7 +52,6 @@ class ArtistInfoHeaderCell : UICollectionReusableView {
         if let url = artist.lastFmUrl {
             lastFmUrl = url
         }
-        
     }
     
     public func setDetailContent(_ detail: ArtistDetail) {

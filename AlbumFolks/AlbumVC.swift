@@ -47,7 +47,7 @@ class AlbumVC : UIViewController {
     }
     
     
-    func saveAlbum() {
+    private func saveAlbum() {
         
         if albumViewPopulator.storedAlbum == nil {
             if let albumMO = AlbumMO.create(from: albumViewPopulator, withImage: storedImage) {
@@ -58,7 +58,7 @@ class AlbumVC : UIViewController {
        
     }
     
-    func deleteAlbum() {
+    private func deleteAlbum() {
         if let album = albumViewPopulator.storedAlbum {
             if AlbumMO.delete(album: album) {
                 print("Album deleted!")
