@@ -20,7 +20,7 @@ extension Pagination : Hashable, Equatable {
     }
     
     var hashValue: Int {
-        return startIndex.hashValue ^ page.hashValue
+        return total.hashValue ^ page.hashValue
     }
 }
 

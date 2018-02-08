@@ -23,7 +23,7 @@ class SearchArtistsVC : UIViewController {
     fileprivate var artists : [Artist]?
     fileprivate var paginatedArtists = Dictionary<Pagination,PaginatedArtists>()
     fileprivate var currentPagination : Pagination?
-    
+    fileprivate var askedPagination = Pagination(startIndex: 0, page: 1, total: SearchArtistsVC.MAX_SEARCH_RESULTS)
     fileprivate var isSearching = false
     fileprivate var recentSearchesMode = true
     
@@ -142,11 +142,9 @@ class SearchArtistsVC : UIViewController {
         self.recentSearchesMode = false
         self.tableView.tableHeaderView = loadingView
         self.tableView.reloadData()
-        //TODO - Animation
 
         
-        let pagination = self.currentPagination ?? Pagination(startIndex: 0, page: 1, total: SearchArtistsVC.MAX_SEARCH_RESULTS)
-        Artist.fetchAutoCompleteSearch(query: query, pagination: pagination, successCallback: { [unowned self] paginatedArtists in
+        Artist.fetchAutoCompleteSearch(query: query, pagination: self.askedPagination, successCallback: { [unowned self] paginatedArtists in
             
             
             if !self.isSearching {
@@ -155,10 +153,16 @@ class SearchArtistsVC : UIViewController {
             
             self.currentPagination = Pagination(startIndex: paginatedArtists.startIndex, page: paginatedArtists.page, total: paginatedArtists.total)
             
-            //TODO : if limit + startIndex >= total - DONT SEARCH MORE
-            //let limit = paginatedArtists.limit
-            
             self.paginatedArtists[self.currentPagination!] = paginatedArtists
+            //TODO - Memory recycle artists variable (when you have tons of results, what to do?)
+            
+            if self.artists == nil {
+                self.artists = [Artist]()
+            }
+            
+            self.artists?.append(contentsOf: self.paginatedArtists[self.currentPagination!]!.artists)
+           
+            
             self.artists = paginatedArtists.artists
             self.tableView.reloadData()
             
@@ -302,5 +306,44 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
         
         
         return cell
+    }
+    
+}
+
+extension SearchArtistsVC {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if (scrollView.contentOffset.y<=0) {
+            scrollView.contentOffset = CGPoint.zero
+        }
+        
+        if isSearching {
+            return
+        }
+        
+        if let pagination = currentPagination, let searchText = searchController.searchBar.text {
+            let  height = scrollView.frame.size.height
+            let contentYoffset = scrollView.contentOffset.y
+            let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+            if distanceFromBottom < height {
+
+                if pagination.startIndex + SearchArtistsVC.MAX_SEARCH_RESULTS < pagination.total {
+                    let askedPagination = Pagination(startIndex: 0, page: pagination.page + 1, total: pagination.total)
+
+                    if self.paginatedArtists[askedPagination] != nil {
+                        return
+                    }
+                    
+                    self.askedPagination = askedPagination
+                    
+                    // TODO - Loading
+                    
+                    isSearching = true
+                    performSearch(searchText)
+                }
+                
+            }
+        }
+        
     }
 }
