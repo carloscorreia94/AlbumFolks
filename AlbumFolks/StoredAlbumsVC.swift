@@ -27,8 +27,6 @@ class StoredAlbumsVC: UIViewController {
             sectionNameKeyPath: nil,
             cacheName: nil)
         
-        frc.delegate = self
-        
         return frc
     }()
     
@@ -174,9 +172,3 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     }
 }
 
-extension StoredAlbumsVC : NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        // TODO - Do something here?
-    }
-    
-}

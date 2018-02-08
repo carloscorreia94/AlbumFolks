@@ -8,7 +8,7 @@
 
 import UIKit
 import AlamofireImage
-
+import CoreData
 
 /**
  * I didn't subclass UITableViewController as it makes it more flexible to change the layout /incrementally add more components starting with an embedded UITableView in a blank ViewController
@@ -26,6 +26,25 @@ class SearchArtistsVC : UIViewController {
     
     fileprivate var isSearching = false
     fileprivate var recentSearchesMode = true
+    
+    fileprivate var context : NSManagedObjectContext?
+    
+    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        context = (UIApplication.shared.delegate as! AppDelegate).persistenceController.managedObjectContext
+        
+        let searchFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentSearch")
+        let primarySortDescriptor = NSSortDescriptor(key: "time", ascending: false)
+        searchFetchRequest.sortDescriptors = [primarySortDescriptor]
+        searchFetchRequest.fetchLimit = 10
+        
+        let frc = NSFetchedResultsController(
+            fetchRequest: searchFetchRequest,
+            managedObjectContext: context!,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return frc
+    }()
     
     lazy var loadingView : UIView = {
         let view = UIView(frame: CGRect(origin: CGPoint(x: 0,y:0), size: CGSize(width:self.tableView.frame.size.width, height: 80)))
@@ -55,6 +74,8 @@ class SearchArtistsVC : UIViewController {
         super.viewDidLoad()
         
         self.searchController = UISearchController(searchResultsController:  nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
         
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -137,8 +158,30 @@ class SearchArtistsVC : UIViewController {
         self.tableView.tableHeaderView = nil
         self.artists = nil
         self.recentSearchesMode = true
-        self.tableView.reloadData()
+        
+            do {
+                try fetchedResultsController.performFetch()
+                self.tableView.reloadData()
+            } catch {
+                print("An error occurred")
+            }
     }
+    
+    @objc func contextDidSave(notification: Notification) {
+        
+        
+        if let context = context, let sender = notification.object as? NSManagedObjectContext {
+            if sender != context {
+                context.mergeChanges(fromContextDidSave: notification)
+                
+                if recentSearchesMode {
+                    showRecentSearches()
+                }
+            }
+        }
+        
+    }
+    
 }
 
 extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
@@ -202,19 +245,39 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return artists?.count ?? 0
+        if recentSearchesMode {
+            if let sections = fetchedResultsController.sections {
+                let currentSection = sections[0]
+                return currentSection.numberOfObjects
+            } else {
+                return 0
+            }
+        } else {
+            return artists?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let artist = self.artists?[indexPath.row] else {
-            fatalError("Internal inconsistency upon fetching Artist")
-        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as! ArtistCell
-        cell.setContent(artist)
+        var photoUrl : URL?
+        
+        if recentSearchesMode {
+            let recentSearch = fetchedResultsController.object(at: indexPath) as! RecentSearchMO
+            cell.setContent(search: recentSearch)
+            photoUrl = URL(string: recentSearch.artist!.photoUrl ?? "_not_url: @")
+            
+        } else {
+            guard let artist = self.artists?[indexPath.row] else {
+                fatalError("Internal inconsistency upon fetching Artist")
+            }
+            cell.setContent(artist: artist)
+            photoUrl = artist.photoUrl
+        }
+        
         
         //TODO - Default Photo for Artist
-        if let url = artist.photoUrl {
+        if let url = photoUrl {
             let urlRequest = URLRequest(url: url)
             imgDownloader.download(urlRequest) { response in
                 

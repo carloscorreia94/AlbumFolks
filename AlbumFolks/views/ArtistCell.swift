@@ -24,7 +24,7 @@ class ArtistCell : UITableViewCell {
 
     }
     
-    public func setContent(_ artist: Artist) {
+    public func setContent(artist: Artist) {
         self.artistName.text = artist.name
         self.listeners.text = artist.listeners != nil ? "\(getListenersPretty(artist.listeners!)) Listeners" : ""
         
@@ -32,6 +32,15 @@ class ArtistCell : UITableViewCell {
             setImage(UIImage(named: "no_media")!)
         }
         
+    }
+    
+    public func setContent(search : RecentSearchMO) {
+        self.artistName.text = search.artist!.name
+        self.listeners.isHidden = true
+        
+        if search.artist!.photoUrl == nil {
+            self.customImageView.isHidden = true
+        }
     }
     
     public func setImage(_ image: UIImage) {
