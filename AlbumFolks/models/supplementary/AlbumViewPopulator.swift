@@ -16,6 +16,7 @@ class AlbumViewPopulator {
     var storedAlbum : AlbumMO?
     var tracks = [TrackViewPopulator]()
     var artist : ArtistPopulator
+    var localMode = false
 
     init(album: Album, image: UIImage? = nil) {
         self.image = image
@@ -46,6 +47,7 @@ class AlbumViewPopulator {
             let track = TrackViewPopulator(number: Int(_track.number), title: _track.title, lengthStatic: _track.lengthStatic)
             self.tracks.append(track)
         }
+        self.localMode = true
     }
 }
 

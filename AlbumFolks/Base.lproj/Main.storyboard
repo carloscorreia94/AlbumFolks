@@ -344,7 +344,7 @@
         <!--Artist AlbumsVC-->
         <scene sceneID="eha-J7-Xxx">
             <objects>
-                <viewController id="dyU-je-z8F" customClass="ArtistAlbumsVC" customModule="AlbumFolks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ArtistAlbumsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dyU-je-z8F" customClass="ArtistAlbumsVC" customModule="AlbumFolks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wwH-cz-MLT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

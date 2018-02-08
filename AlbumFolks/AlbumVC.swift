@@ -37,6 +37,10 @@ class AlbumVC : UIViewController {
         
         albumInfoHeader.albumArtist.text = albumViewPopulator.artist.name
         albumInfoHeader.albumTags.text = albumViewPopulator.tags
+        
+        if albumViewPopulator.localMode {
+            albumInfoHeader.albumArtistSelectedCallback = enterArtist
+        }
 
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -44,6 +48,22 @@ class AlbumVC : UIViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
         
+    }
+    
+    func enterArtist() {
+        //TODO - dont forget about maybe album update when coming back...
+        let artistAlbumsVC = self.storyboard!.instantiateViewController(withIdentifier: "ArtistAlbumsVC") as! ArtistAlbumsVC
+        
+        let artist = Artist()
+        artist.name = albumViewPopulator.artist.name
+        artist.mbid = albumViewPopulator.artist.mbid
+        artist.photoUrl = albumViewPopulator.artist.photoUrl
+        artist.lastFmUrl = albumViewPopulator.artist.lastFmUrl
+        
+        artistAlbumsVC.artist = artist
+        
+        let nav = UINavigationController(rootViewController: artistAlbumsVC)
+        self.present(nav, animated: true, completion: nil)
     }
     
     
