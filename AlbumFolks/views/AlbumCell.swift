@@ -56,24 +56,32 @@ class AlbumCell : UICollectionViewCell {
             self.imageView.image = image
     }
     
-    public func setImage (_ url: URL, hadDetail: Bool? = nil) {
+    public func setImage (_ url: URL?, hadDetail: Bool, completion: ((UIImage?) -> ())? = nil ) {
         
-        self.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
-            response in
-            
-            if let _ = response.result.value {
+        if let url = url {
+            self.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
+                response in
                 
-                if let hadDetail = hadDetail {
+                if let _image = response.result.value {
+                    completion?(_image)
+                    
                     if !hadDetail && self.hasDetail {
+                        self.setImage(_image.alpha(0.3))
+                        self.unsetTransparencyAnimated()
                         
+                    } else {
+                        self.setImage(_image.alpha(!self.hasDetail ? 0.3 : 1.0))
                     }
+                            
+                } else {
+                    self.setNoMediaImage(hadDetail: hadDetail)
                 }
-                
+            })
+        } else {
+            setNoMediaImage(hadDetail: hadDetail)
+        }
         
-            } else {
-               self.setImage(UIImage(named: "no_media")!)
-            }
-        })
+        
         
      /*   if !hasDetail {
             self.imageView.image = image.alpha(0.3)
@@ -82,7 +90,21 @@ class AlbumCell : UICollectionViewCell {
         } */
     }
     
-    func unsetTransparencyAnimated() {
+    func setNoMediaImage(hadDetail: Bool) {
+        let image = UIImage(named: "no_media")!
+
+        
+        if !hadDetail && self.hasDetail {
+            self.setImage(image.alpha(0.3))
+            unsetTransparencyAnimated()
+        } else {
+            self.setImage(image.alpha(!self.hasDetail ? 0.3 : 1.0))
+        }
+        
+        
+    }
+    
+    private func unsetTransparencyAnimated() {
         
         if let image = self.imageView.image {
             UIView.animate(withDuration: 0.5,

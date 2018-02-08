@@ -17,6 +17,9 @@ class Album : Mappable, Equatable, Hashable {
     var id : String?
     var albumDetail : AlbumDetail?
     var artist : Artist!
+
+    //hadDetail purpose - to make animation logic for not loaded albums to work.
+    var hadDetail : Bool = false
     
     /** For ease of network request upon lazy loading of album (details) (while scrolling on the artist page)
      * I keep a hashmap / dictionary with albums as keys and bools as values

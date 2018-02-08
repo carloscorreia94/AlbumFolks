@@ -82,12 +82,9 @@ class ArtistAlbumsVC : UIViewController {
             self.seeMoreLinkFooterActivated = albums.count > ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW && artist.lastFmUrl != nil
             self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
             
-            //load up to 4 first albums (the visible ones)
-            let albumDetailToRequest = Array(albums.prefix(4))
-            
-            self.requestAlbumDetail(albums: albumDetailToRequest)
-            
             self.collectionView.reloadData()
+            self.requestAlbumDetail()
+            
             
             }, errorCallback: { [unowned self] error in
                 
@@ -102,32 +99,45 @@ class ArtistAlbumsVC : UIViewController {
         
     }
     
+    
     /**
      * Would be easier/cleaner to have a hashmap/dictionary (to keep track of the album detail requests)
        instead of an array (manipulating keys instead of indexes) -
      - yet I thought first of adopting equatable protocol and it seems to flow right :-)
     **/
-    private func requestAlbumDetail(albums: [Album]) {
+    private func requestAlbumDetail() {
         
-        for album in albums {
-            //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
-            if let index = self.artist.albums!.index(of: album), let _ = self.artist.albums![index].albumDetail {
-                continue
-            } else if self.artist.requestedAlbumDetails![album] == true {
-                continue
-            }
+        
+        if let albums = artist.albums {
+             //var visibleAlbums = [Album]()
+             //for indexPath in collectionView.indexPathsForVisibleItems {
+              //  visibleAlbums.append(albums[indexPath.row])
+             //}
             
-            self.artist.requestedAlbumDetails![album] = true
-            
-            AlbumDetail.fetchNetworkData(album: album, successCallback: { albumDetail in
-                album.albumDetail = albumDetail
-
-                self.collectionView.reloadData()
+            let visibleAlbums = collectionView.indexPathsForVisibleItems
+            for indexPath in visibleAlbums {
+                let album = albums[indexPath.row]
+                
+                //We're sure that upon this function call, we have requestAlbums initialized, and album object->references within the artist object
+                if let index = self.artist.albums!.index(of: album), let _ = self.artist.albums![index].albumDetail {
+                    continue
+                } else if self.artist.requestedAlbumDetails![album] == true {
+                    continue
+                }
+                
+                self.artist.requestedAlbumDetails![album] = true
+                
+                AlbumDetail.fetchNetworkData(album: album, successCallback: { albumDetail in
+                    album.albumDetail = albumDetail
+                    
+                    self.collectionView.reloadItems(at: [indexPath])
                 }, errorCallback: { error in
                     
-            })
+                })
+                
+                
+            }
             
-
         }
     }
     
@@ -171,22 +181,12 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         }
         
         cell.setContent(album)
-
-        if let albumImageUrl = album.photoUrl {
-            let hadDetail = Bool(cell.hasDetail)
-            cell.setImage(albumImageUrl, hadDetail: hadDetail)
-        }
-        
         cell.hasDetail = album.albumDetail != nil
 
+        cell.setImage(album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
         
-     /*   if album.loadedImage != nil {
-            //just loaded the contents - so we create animation
-            if !cell.hasDetail && album.albumDetail != nil {
-                cell.unsetTransparencyAnimated()
-            }
-        } */
-        
+        album.hadDetail = album.albumDetail != nil
+   
         
         return cell
     }
@@ -278,12 +278,8 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if let _ = artist.requestedAlbumDetails, let albums = artist.albums {
-            var visibleAlbums = [Album]()
-            for indexPath in collectionView.indexPathsForVisibleItems {
-                visibleAlbums.append(albums[indexPath.row])
-            }
-            requestAlbumDetail(albums: visibleAlbums)
+        if let _ = artist.requestedAlbumDetails {
+            requestAlbumDetail()
         }
         
     }
