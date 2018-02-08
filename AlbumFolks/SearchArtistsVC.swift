@@ -184,8 +184,12 @@ class SearchArtistsVC : UIViewController {
             self.tableView.reloadData()
             self.isFetching = false
             
+            self.tableView.finishInfiniteScroll()
+            
         }, errorCallback: { error in
             self.isFetching = false
+            self.tableView.finishInfiniteScroll()
+
 
             if !self.isSearching {
                 self.tableView.tableHeaderView = nil
@@ -361,7 +365,7 @@ extension SearchArtistsVC {
                     
                         self.askedPagination = askedPagination
                     
-                        // TODO - Loading
+                        self.tableView.beginInfiniteScroll(true)
                         self.isFetching = true
                         performSearch()
                     }

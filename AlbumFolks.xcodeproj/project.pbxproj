@@ -23,6 +23,7 @@
 		1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B20B2028B6070060BB71 /* PaginatedArtists.swift */; };
 		177E5350202BD0FA00218AB0 /* AlbumViewPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */; };
 		177E5352202BE18300218AB0 /* RecentSearchMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E5351202BE18300218AB0 /* RecentSearchMO.swift */; };
+		177E5358202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 177E5357202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m */; };
 		178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D519E202BAEFC004579B9 /* FileUtils.swift */; };
 		178D51A1202BB201004579B9 /* ImageFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D51A0202BB201004579B9 /* ImageFileUtils.swift */; };
 		1875FD59D28B2C5D2AA82651 /* Pods_AlbumFolksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */; };
@@ -86,6 +87,9 @@
 		1774B20B2028B6070060BB71 /* PaginatedArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedArtists.swift; sourceTree = "<group>"; };
 		177E534F202BD0FA00218AB0 /* AlbumViewPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewPopulator.swift; sourceTree = "<group>"; };
 		177E5351202BE18300218AB0 /* RecentSearchMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchMO.swift; sourceTree = "<group>"; };
+		177E5356202D0D2500218AB0 /* AlbumFolks-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AlbumFolks-Bridging-Header.h"; sourceTree = "<group>"; };
+		177E5357202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+InfiniteScroll.m"; sourceTree = "<group>"; };
+		177E5359202D0D4400218AB0 /* UIScrollView+InfiniteScroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+InfiniteScroll.h"; sourceTree = "<group>"; };
 		178D519E202BAEFC004579B9 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		178D51A0202BB201004579B9 /* ImageFileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileUtils.swift; sourceTree = "<group>"; };
 		35F5AC252CA662ABCF7E955B /* Pods_AlbumFolksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlbumFolksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +178,16 @@
 			path = static;
 			sourceTree = "<group>";
 		};
+		177E5355202D0CE200218AB0 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				177E5357202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m */,
+				177E5356202D0D2500218AB0 /* AlbumFolks-Bridging-Header.h */,
+				177E5359202D0D4400218AB0 /* UIScrollView+InfiniteScroll.h */,
+			);
+			path = external;
+			sourceTree = "<group>";
+		};
 		35FA5A3C81177420F2EC8412 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +236,7 @@
 		D05EB32C202345DC00DC1D34 /* AlbumFolks */ = {
 			isa = PBXGroup;
 			children = (
+				177E5355202D0CE200218AB0 /* external */,
 				1774B2082027C54D0060BB71 /* static */,
 				D0FA97662026322800C75C50 /* views */,
 				D0FA97652026320600C75C50 /* models */,
@@ -397,6 +412,7 @@
 				TargetAttributes = {
 					D05EB329202345DC00DC1D34 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					D05EB340202345DC00DC1D34 = {
@@ -623,6 +639,7 @@
 				1774B1FF202791360060BB71 /* AlertDialog.swift in Sources */,
 				D0FA97692026326C00C75C50 /* Album.swift in Sources */,
 				D0FA97522024E8DE00C75C50 /* ArtistDetail.swift in Sources */,
+				177E5358202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m in Sources */,
 				D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */,
 				17341270202A57A1005749D7 /* AlbumMO.swift in Sources */,
 				1774B2062027BEEB0060BB71 /* Tag.swift in Sources */,
@@ -802,12 +819,15 @@
 			baseConfigurationReference = B33A94BA4AC2445FB33C1AE0 /* Pods-AlbumFolks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
 				INFOPLIST_FILE = AlbumFolks/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AlbumFolks/external/AlbumFolks-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -818,12 +838,14 @@
 			baseConfigurationReference = 473431874208452E8EA18E43 /* Pods-AlbumFolks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MVE9Q2RM5Z;
 				INFOPLIST_FILE = AlbumFolks/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carlosmouracorreia.AlbumFolks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AlbumFolks/external/AlbumFolks-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
