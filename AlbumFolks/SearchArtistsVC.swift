@@ -18,7 +18,7 @@ class SearchArtistsVC : UIViewController {
     static let MAX_RECENT_SEARCH_ENTRIES = 10
     static let MIN_SEARCH_QUERY_LENGTH = 2
     static let MAX_SEARCH_RESULTS = 12
-    static let MAX_PAGE_NUMBER = 30
+    static let MAX_PAGE_NUMBER = 50
     static let PAGE_DECREMENT_FACTOR_PER_EXTRA_CHAR = 2
     
     static let SEARCH_INTERVAL_TIMER = 0.5
@@ -82,7 +82,11 @@ class SearchArtistsVC : UIViewController {
         self.searchController = UISearchController(searchResultsController:  nil)
         showRecentSearches()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
         
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -138,13 +142,7 @@ class SearchArtistsVC : UIViewController {
         }
     }
     
-    @objc private func performSearchTimer(_ timer : Timer) {
-        isSearching = false
-
-        if !isFetching {
-            performSearch(timer.userInfo as? String)
-        }
-    }
+   
     
     private func performSearch(_ query: String? = nil) {
         print("searching \(query ?? searchController.searchBar.text!) page: \(self.askedPagination.page) ")
@@ -215,21 +213,6 @@ class SearchArtistsVC : UIViewController {
             } catch {
                 print("An error occurred")
             }
-    }
-    
-    @objc func contextDidSave(notification: Notification) {
-        
-        
-        if let context = context, let sender = notification.object as? NSManagedObjectContext {
-            if sender != context {
-                context.mergeChanges(fromContextDidSave: notification)
-                
-                if recentSearchesMode {
-                    showRecentSearches()
-                }
-            }
-        }
-        
     }
     
 }
@@ -376,5 +359,40 @@ extension SearchArtistsVC {
             
         }
         
+    }
+}
+
+extension SearchArtistsVC {
+    @objc private func performSearchTimer(_ timer : Timer) {
+        isSearching = false
+        
+        if !isFetching {
+            performSearch(timer.userInfo as? String)
+        }
+    }
+    
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        let userInfo = notification.userInfo!
+        
+        let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
+        self.tableView.scrollIndicatorInsets = self.tableView.contentInset
+        self.tableView.scrollRectToVisible(self.tableView.frame, animated:true)
+    }
+    
+    @objc func contextDidSave(notification: Notification) {
+        
+        if let context = context, let sender = notification.object as? NSManagedObjectContext {
+            if sender != context {
+                context.mergeChanges(fromContextDidSave: notification)
+                
+                if recentSearchesMode {
+                    showRecentSearches()
+                }
+            }
+        }
     }
 }
