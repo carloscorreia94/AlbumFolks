@@ -18,8 +18,7 @@ class AlbumDetail : Mappable {
     
     required init?(map: Map){
         
-        //TODO - Check for track array being empty/nul? Object mapper takes care of this?
-        //should be done with guard instead to check for array type?
+
         if let mappable = map["tracks.track"].currentValue as? [Any] {
             if mappable.count == 0 {
                 return nil

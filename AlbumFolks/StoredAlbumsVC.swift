@@ -89,7 +89,7 @@ class StoredAlbumsVC: UIViewController {
             let destination = segue.destination as! AlbumVC
             let indexPath = collectionView.indexPathsForSelectedItems![0]
             
-            let albumMO = fetchedResultsController.object(at: indexPath) as! AlbumMO
+            let albumMO = fetchedResultsController.object(at: IndexPath(row: indexPath.row - 1, section: 0)) as! AlbumMO
             let image = albumMO.getLocalImagePathString() != nil ? UIImage(contentsOfFile: albumMO.getLocalImagePathString()!) : nil
             destination.albumViewPopulator = AlbumViewPopulator(albumMO: albumMO, image: image)
             
@@ -101,14 +101,6 @@ class StoredAlbumsVC: UIViewController {
     }
     
     
-    private func numberOfAlbums() -> Int {
-        if let sections = fetchedResultsController.sections {
-            let currentSection = sections[0]
-            return currentSection.numberOfObjects
-        } else {
-            return 0
-        }
-    }
 }
 
 
@@ -116,23 +108,33 @@ class StoredAlbumsVC: UIViewController {
 extension StoredAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let albumMO = fetchedResultsController.object(at: indexPath) as! AlbumMO
-
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
-        
-        cell.setContent(albumMO)
-        
-        
-        //TODO - Use some caching mechanism here
-        if let imageURL = albumMO.getLocalImageURL(), let image = UIImage(contentsOfFile: imageURL.path) {
-            cell.setImage(image)
+
+        if indexPath.row == 0 {
+            cell.setSearchCellContent()
+        } else {
+            let albumMO = fetchedResultsController.object(at: IndexPath(row: indexPath.row - 1, section: 0)) as! AlbumMO
+            
+            cell.setContent(albumMO)
+            
+            //TODO - Use some caching mechanism here
+            if let imageURL = albumMO.getLocalImageURL(), let image = UIImage(contentsOfFile: imageURL.path) {
+                cell.setImage(image)
+            }
+            
         }
-      
+        
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return numberOfAlbums()
+        if let sections = fetchedResultsController.sections {
+            let currentSection = sections[0]
+            return currentSection.numberOfObjects + 1
+        } else {
+            return 1
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -140,11 +142,7 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
             return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "MyAlbumsHeaderCell", for: indexPath)
-        } else {
-            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "MyAlbumsFooterCell", for: indexPath)
-        }
     }
     
 }
@@ -154,12 +152,9 @@ extension StoredAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
     // MARK : UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "presentAlbumFromHome", sender: nil)
+        self.performSegue(withIdentifier: indexPath.row == 0 ? "searchSegue" : "presentAlbumFromHome", sender: nil)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: 50, height: numberOfAlbums() > 0 ? 0 : 50)
-    }
         
     // MARK : UICollectionViewDelegateFlowLayout
     

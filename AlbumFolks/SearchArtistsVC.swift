@@ -16,11 +16,11 @@ import CoreData
 class SearchArtistsVC : UIViewController {
     
     static let MIN_SEARCH_QUERY_LENGTH = 2
-    static let SEARCH_INTERVAL_TIMER = 0.5
     static let MAX_SEARCH_RESULTS = 12
     static let MAX_PAGE_NUMBER = 30
     static let PAGE_DECREMENT_FACTOR_PER_EXTRA_CHAR = 2
     
+    static let SEARCH_INTERVAL_TIMER = 0.5
     static let DEFAULT_PAGINATION = Pagination(startIndex: 0, page: 1, total: SearchArtistsVC.MAX_SEARCH_RESULTS)
     
     fileprivate var searchTimer: Timer?

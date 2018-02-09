@@ -71,7 +71,7 @@ extension AlbumMO {
         return ok
     }
     
-    //TODO - Ok with references because of private context? or should I have just objectID?
+
     static func create(from album: AlbumViewPopulator, withImage: UIImage? = nil) -> AlbumMO? {
         var albumToReturn : AlbumMO?
         

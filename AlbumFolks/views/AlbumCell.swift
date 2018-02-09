@@ -43,6 +43,13 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
         self.albumArtist.text = album.artist.name
     }
     
+    public func setSearchCellContent() {
+        setImage(UIImage(named: "add_album")!)
+        self.imageView.layer.borderColor = UIColor.black.cgColor
+        self.imageView.layer.borderWidth = 3.0
+        self.albumName.text = "Last FM API"
+        self.albumArtist.text = "Search Albums"
+    }
     
     public func setContent(_ storedAlbum: AlbumMO) {
         if !storedAlbum.hasImage {

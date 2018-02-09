@@ -25,7 +25,7 @@ class Artist : Mappable {
     
     
     init() {
-        //TODO - For the recentSearches cells to work - explain better
+        //For the RecentSearchesVC,AlbumVC entrypoints
     }
     
     required init?(map: Map){

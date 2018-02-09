@@ -20,7 +20,6 @@ class Constants {
         static let ArtistAutoCompleteSearch = API_URL_FORMAT_AND_METHOD + "artist.search&artist=%@&limit=%@&page=%@"
         static let AlbumDetailById = API_URL_FORMAT_AND_METHOD + "album.getInfo&mbid=%@"
         static let AlbumDetailByNameAndArtist = API_URL_FORMAT_AND_METHOD + "album.getInfo&album=%@&artist=%@"
-        //TODO - By name/artist
     }
     
     static let API_URL = "https://ws.audioscrobbler.com/2.0/"

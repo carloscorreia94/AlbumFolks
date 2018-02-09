@@ -40,6 +40,7 @@ class AlbumVC : UIViewController {
         
         if albumViewPopulator.localMode {
             albumInfoHeader.albumArtistSelectedCallback = enterArtist
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Artist Page", style: .plain, target: self, action: #selector(enterArtistSelector))
         }
 
         if #available(iOS 11.0, *) {
@@ -50,8 +51,11 @@ class AlbumVC : UIViewController {
         
     }
     
-    func enterArtist() {
-        //TODO - dont forget about maybe album update when coming back...
+    @objc func enterArtistSelector(sender: UIBarButtonItem) {
+        enterArtist()
+    }
+    
+    private func enterArtist() {
         let artistAlbumsVC = self.storyboard!.instantiateViewController(withIdentifier: "ArtistAlbumsVC") as! ArtistAlbumsVC
         
         let artist = Artist()
@@ -61,6 +65,10 @@ class AlbumVC : UIViewController {
         artist.lastFmUrl = albumViewPopulator.artist.lastFmUrl
         
         artistAlbumsVC.artist = artist
+        artistAlbumsVC.dismissToAlbumCallback = {
+            //update Saved switch when coming back from artist and having changed the same album
+            self.albumHeaderCell!.saveSwitch.setOn(AlbumMO.get(from: self.albumViewPopulator.hashString) != nil, animated: false)
+        }
         
         let nav = UINavigationController(rootViewController: artistAlbumsVC)
         self.present(nav, animated: true, completion: nil)

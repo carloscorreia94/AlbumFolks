@@ -21,6 +21,12 @@ class ArtistAlbumsVC : UIViewController {
     
     fileprivate var artistCell : ArtistInfoHeaderCell?
     
+    var dismissToAlbumCallback : (() -> ())? {
+        didSet {
+                self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(dismissToAlbum))
+        }
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
@@ -49,7 +55,11 @@ class ArtistAlbumsVC : UIViewController {
                         let errorTitleDesc = CoreNetwork.messageFromError(error)
                         
                         AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
-                            self.navigationController!.popViewController(animated: true)
+                            if self.dismissToAlbumCallback != nil {
+                                self.dismissToAlbum(sender: self.navigationItem.leftBarButtonItem!)
+                            } else {
+                                self.navigationController!.popViewController(animated: true)
+                            }
                         })
                         
                         
@@ -83,7 +93,6 @@ class ArtistAlbumsVC : UIViewController {
         
         Album.fetchTopAlbums(artist: artist, successCallback: { [unowned self] albums in
             
-            //TODO - Check for no receiving albums - we might want to go to the notFetchedAlbums = true
             self.artist.albums = Array(albums.prefix(ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW))
             self.seeMoreLinkFooterActivated = albums.count > ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW && artist.lastFmUrl != nil
             self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
@@ -168,7 +177,9 @@ class ArtistAlbumsVC : UIViewController {
            
             if let storedAlbum = AlbumMO.get(from: String(artist.albums![indexPath.row].hashValue)) {
                 let image = storedAlbum.getLocalImagePathString() != nil ? UIImage(contentsOfFile: storedAlbum.getLocalImagePathString()!) : nil
-                destination.albumViewPopulator = AlbumViewPopulator(albumMO: storedAlbum, image: image)
+                let album = AlbumViewPopulator(albumMO: storedAlbum, image: image)
+                album.localMode = false
+                destination.albumViewPopulator = album
             } else if let _ = artist.albums![indexPath.row].albumDetail {
                 destination.albumViewPopulator = AlbumViewPopulator(album: artist.albums![indexPath.row], image: artist.albums![indexPath.row].loadedImage)
             }
@@ -178,6 +189,13 @@ class ArtistAlbumsVC : UIViewController {
                 print("Unknown segue: \(id)")
             }
         }
+    }
+    
+    @objc func dismissToAlbum(sender : UIBarButtonItem) {
+        if let callback = dismissToAlbumCallback {
+            callback()
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -246,8 +264,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             
             return artistCell!
         } else {
-            //TODO - Change cell name
-            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "LoadingAlbumsFooterCell", for: indexPath)
+            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "AlbumsGenericFooterCell", for: indexPath)
             
             for view in cell.subviews {
                 view.removeFromSuperview()

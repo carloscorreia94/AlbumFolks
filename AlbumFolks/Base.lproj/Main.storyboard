@@ -28,7 +28,7 @@
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="bNo-7b-vtD">
                                     <size key="itemSize" width="150" height="170"/>
                                     <size key="headerReferenceSize" width="50" height="70"/>
-                                    <size key="footerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
@@ -49,23 +49,6 @@
                                         <constraint firstItem="G5v-JC-kbg" firstAttribute="centerY" secondItem="bE6-j6-xKH" secondAttribute="centerY" id="uu0-9l-sjr"/>
                                     </constraints>
                                 </collectionReusableView>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="MyAlbumsFooterCell" id="chl-FI-nvZ">
-                                    <rect key="frame" x="0.0" y="70" width="343" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start by pressing the search button :-)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRI-hJ-ojV">
-                                            <rect key="frame" x="9" y="16" width="321" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="lRI-hJ-ojV" firstAttribute="centerY" secondItem="chl-FI-nvZ" secondAttribute="centerY" id="JHL-RT-AyF"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="lRI-hJ-ojV" secondAttribute="trailing" constant="5" id="UK2-vb-o7T"/>
-                                        <constraint firstItem="lRI-hJ-ojV" firstAttribute="leading" secondItem="chl-FI-nvZ" secondAttribute="leadingMargin" constant="1" id="Xgf-hv-UtM"/>
-                                    </constraints>
-                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="tlD-rq-Ehm"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="M0g-KV-IPs"/>
@@ -84,7 +67,7 @@
                     <navigationItem key="navigationItem" title="AlbumFolks" id="so7-AS-om5">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="n5P-QG-h1C">
                             <connections>
-                                <segue destination="mpX-2s-LA9" kind="presentation" id="Nqp-66-320"/>
+                                <segue destination="mpX-2s-LA9" kind="presentation" identifier="searchSegue" id="Nqp-66-320"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -439,7 +422,7 @@
                                         <outlet property="tags" destination="flE-D3-4Ej" id="99R-Vp-egC"/>
                                     </connections>
                                 </collectionReusableView>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="LoadingAlbumsFooterCell" id="g37-AT-4Wx">
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AlbumsGenericFooterCell" id="g37-AT-4Wx">
                                     <rect key="frame" x="0.0" y="265" width="343" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
