@@ -42,3 +42,7 @@ static let MAX_ALBUMS_TO_SHOW : Int
 ### Bridging Code (Copied Objective-C)
 
 * UIScrollView+InfiniteScroll
+
+## Testing
+
+### Nothing at this point
