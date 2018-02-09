@@ -380,7 +380,6 @@ extension SearchArtistsVC {
         
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height, right: 0)
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset
-        self.tableView.scrollRectToVisible(self.tableView.frame, animated:true)
     }
     
     @objc func contextDidSave(notification: Notification) {
