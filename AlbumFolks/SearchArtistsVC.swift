@@ -15,6 +15,7 @@ import CoreData
  **/
 class SearchArtistsVC : UIViewController {
     
+    static let MAX_RECENT_SEARCH_ENTRIES = 10
     static let MIN_SEARCH_QUERY_LENGTH = 2
     static let MAX_SEARCH_RESULTS = 12
     static let MAX_PAGE_NUMBER = 30
@@ -40,7 +41,7 @@ class SearchArtistsVC : UIViewController {
         let searchFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentSearch")
         let primarySortDescriptor = NSSortDescriptor(key: "time", ascending: false)
         searchFetchRequest.sortDescriptors = [primarySortDescriptor]
-        searchFetchRequest.fetchLimit = 10
+        searchFetchRequest.fetchLimit = SearchArtistsVC.MAX_RECENT_SEARCH_ENTRIES
         
         let frc = NSFetchedResultsController(
             fetchRequest: searchFetchRequest,

@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import SwiftyJSON
 
 class PersistenceController: NSObject {
 

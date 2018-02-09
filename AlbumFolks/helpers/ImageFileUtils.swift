@@ -29,6 +29,10 @@ class ImageFileUtils {
         let maxFileSize = 600*1024
         var imageData = UIImageJPEGRepresentation(image, compression)
         
+        if imageData == nil {
+            return nil
+        }
+        
         while (imageData!.count > maxFileSize)
         {
             compression = compression * 0.1;

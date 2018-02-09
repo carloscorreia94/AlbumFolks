@@ -9,7 +9,8 @@
 import UIKit
 
 class AlbumViewPopulator {
-    var image : UIImage?
+    var inMemoryImage : UIImage?
+    var photoUrl : URL?
     var name : String
     var tags : String?
     var hashString : String
@@ -19,7 +20,8 @@ class AlbumViewPopulator {
     var localMode = false
 
     init(album: Album, image: UIImage? = nil) {
-        self.image = image
+        self.inMemoryImage = image
+        self.photoUrl = album.photoUrl
         self.name = album.name
         self.tags = album.albumDetail!.getTagsString()
         self.artist = ArtistPopulator(name: album.artist.name, mbid: album.artist.mbid, photoUrl: album.artist.photoUrl, lastFmUrl: album.artist.lastFmUrl)
@@ -34,7 +36,7 @@ class AlbumViewPopulator {
     }
     
     init(albumMO: AlbumMO, image: UIImage? = nil) {
-        self.image = image
+        self.inMemoryImage = image
         self.name = albumMO.name!
         self.tags = albumMO.tags
         

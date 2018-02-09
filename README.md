@@ -9,6 +9,9 @@
 ### Search (SearchArtistsVC)
 
 ```Swift
+/* When not searching */
+static let MAX_RECENT_SEARCH_ENTRIES : Int
+
 /* I recommend 2,3 minimum */
  static let MIN_SEARCH_QUERY_LENGTH : Int
 

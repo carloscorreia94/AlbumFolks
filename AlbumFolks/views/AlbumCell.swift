@@ -31,6 +31,9 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
         
         self.imageView.af_cancelImageRequest()
         self.imageView.image = nil
+        
+        self.imageView.layer.borderColor = nil
+        self.imageView.layer.borderWidth = 0.0
     }
     
     public func setContent(_ album: Album) {

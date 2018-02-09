@@ -11,6 +11,7 @@ import PopupDialog
 import Alamofire
 import AlamofireObjectMapper
 import AlamofireImage
+import CoreData
 
 class ArtistAlbumsVC : UIViewController {
     
@@ -18,12 +19,13 @@ class ArtistAlbumsVC : UIViewController {
     
     fileprivate var noFetchedAlbums = false
     fileprivate var seeMoreLinkFooterActivated = false
+    fileprivate var selectedAlbumIndexPath : IndexPath?
     
     fileprivate var artistCell : ArtistInfoHeaderCell?
     
     var dismissToAlbumCallback : (() -> ())? {
         didSet {
-                self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(dismissToAlbum))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(dismissToAlbum))
         }
     }
     
@@ -79,14 +81,23 @@ class ArtistAlbumsVC : UIViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
       
+        NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
+
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    //Fetch album / update UI in case of saving/deleting Album locally on the child controller (AlbumVC)
+    @objc func contextDidSave(notification: Notification) {
         
-        //TODO - QUICK FIX - when unwinding from Album that was saved/deleted in order to update the Stored Information here -> would be better w/delegate
-        self.collectionView.reloadData()
+        if let _ = notification.object as? NSManagedObjectContext, let selectedIndexPath = selectedAlbumIndexPath {
+            if let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? Set<NSManagedObject>, !deletedObjects.isEmpty {
+                requestSingleAlbumDetail(indexPath: selectedIndexPath)
+            }
+            if let insertedObjects = notification.userInfo?[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
+                self.collectionView.reloadItems(at: [selectedIndexPath])
+            }
+        }
     }
+
     
     
     private func albumRequest(_ artist: Artist) {
@@ -142,21 +153,30 @@ class ArtistAlbumsVC : UIViewController {
                 
                 self.artist.requestedAlbumDetails![album] = true
                 
-                AlbumDetail.fetchNetworkData(album: album, successCallback: { [unowned self] albumDetail in
-                    album.albumDetail = albumDetail
-                    
-                    //If still visible items, we reload them
-                    if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
-                        self.collectionView.reloadItems(at: [indexPath])
-                    }
-                    
-                }, errorCallback: { error in
-                    
-                })
-                
+                requestSingleAlbumDetail(indexPath: indexPath)
+
                 
             }
             
+        }
+    }
+    
+    
+    private func requestSingleAlbumDetail(indexPath: IndexPath) {
+        if let albums = artist.albums {
+            let album = albums[indexPath.row]
+            
+            AlbumDetail.fetchNetworkData(album: album, successCallback: { [unowned self] albumDetail in
+                album.albumDetail = albumDetail
+                
+                //If still visible items, we reload them
+                if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                    self.collectionView.reloadItems(at: [indexPath])
+                }
+                
+                }, errorCallback: { error in
+                    
+            })
         }
     }
     
@@ -183,6 +203,8 @@ class ArtistAlbumsVC : UIViewController {
             } else if let _ = artist.albums![indexPath.row].albumDetail {
                 destination.albumViewPopulator = AlbumViewPopulator(album: artist.albums![indexPath.row], image: artist.albums![indexPath.row].loadedImage)
             }
+            
+            self.selectedAlbumIndexPath = collectionView.indexPathsForSelectedItems![0]
             
         default:
             if let id = segue.identifier {

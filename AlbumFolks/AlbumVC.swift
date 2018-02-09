@@ -25,12 +25,18 @@ class AlbumVC : UIViewController {
         
         self.navigationItem.title = albumViewPopulator.name
         self.tableView.tableHeaderView = albumInfoHeader
-        
-        
        
-        if let albumImage = albumViewPopulator.image {
+        if let albumImage = albumViewPopulator.inMemoryImage {
             self.albumInfoHeader.imageView.image = albumImage
             self.storedImage = albumImage
+        } else if let photoUrl = albumViewPopulator.photoUrl {
+            self.albumInfoHeader.imageView.af_setImage(withURL: photoUrl, placeholderImage: UIImage(named: "loading_misc")!, completion: {
+                [unowned self] response in
+                
+                if response.result.value == nil {
+                    self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
+                }
+            })
         } else {
             self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
         }
@@ -81,6 +87,8 @@ class AlbumVC : UIViewController {
             if let albumMO = AlbumMO.create(from: albumViewPopulator, withImage: storedImage) {
                 albumViewPopulator.storedAlbum = albumMO
                 print("Album saved!")
+            } else {
+                albumHeaderCell!.saveSwitch.setOn(false, animated: false)
             }
         }
        
@@ -89,9 +97,13 @@ class AlbumVC : UIViewController {
     private func deleteAlbum() {
         if let album = albumViewPopulator.storedAlbum {
             if AlbumMO.delete(album: album) {
+                albumViewPopulator.storedAlbum = nil
                 print("Album deleted!")
+                return
             }
         }
+        
+        albumHeaderCell!.saveSwitch.setOn(true, animated: false)
         
     }
 
