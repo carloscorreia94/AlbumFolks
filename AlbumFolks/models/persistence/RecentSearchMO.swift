@@ -12,7 +12,7 @@ import CoreData
 extension RecentSearchMO {
     fileprivate static let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-    static func create(from artist: ArtistPopulator) -> RecentSearchMO? {
+    static func create(from artist: ArtistViewPopulator) -> RecentSearchMO? {
         var recentSearch : RecentSearchMO?
         
         let persistentStoreCoordinator = appDelegate.persistenceController.persistentStoreCoordinator
@@ -39,7 +39,7 @@ extension RecentSearchMO {
     }
     
     
-    private static func get(from artist: ArtistPopulator, context: NSManagedObjectContext) -> RecentSearchMO? {
+    private static func get(from artist: ArtistViewPopulator, context: NSManagedObjectContext) -> RecentSearchMO? {
         var searchToReturn : RecentSearchMO?
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentSearch")
