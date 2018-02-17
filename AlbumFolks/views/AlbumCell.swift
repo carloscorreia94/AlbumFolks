@@ -63,9 +63,10 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
         self.albumArtist.text = storedAlbum.artist!.name
     }
     
-    public func setImage(_ image: UIImage) {
-        //nothing to encapsulate for now. but was handy before, can be afterwards
+    public func setImage(_ image: UIImage, transparency: CGFloat = 1.0) {
+        self.imageView.af_cancelImageRequest()
         self.imageView.image = image
+        self.imageView.alpha = transparency
     }
     
     public func setImage (_ url: URL?, hadDetail: Bool, completion: ((UIImage?) -> ())? = nil ) {

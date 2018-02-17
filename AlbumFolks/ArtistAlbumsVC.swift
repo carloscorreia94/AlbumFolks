@@ -90,9 +90,17 @@ class ArtistAlbumsVC : UIViewController {
         
         if let _ = notification.object as? NSManagedObjectContext, let selectedIndexPath = selectedAlbumIndexPath {
             if let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? Set<NSManagedObject>, !deletedObjects.isEmpty {
+                
+                //no use in fetching in case we already have the album in memory
+                if let album = self.artist.albums?[selectedIndexPath.row], let _ = album.albumDetail {
+                    self.collectionView.reloadItems(at: [selectedIndexPath])
+                    return
+                }
+                
                 requestSingleAlbumDetail(indexPath: selectedIndexPath)
             }
             if let insertedObjects = notification.userInfo?[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
+                //Update UI (w stored info) and data source w/local data instead
                 self.collectionView.reloadItems(at: [selectedIndexPath])
             }
         }
@@ -180,10 +188,6 @@ class ArtistAlbumsVC : UIViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
@@ -249,7 +253,12 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         }
         
         cell.setContent(album)
-        cell.setImage(album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
+        
+        if let loadedImage = album.loadedImage {
+            cell.setImage(loadedImage)
+        } else {
+            cell.setImage(album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
+        }
         
 
         return cell

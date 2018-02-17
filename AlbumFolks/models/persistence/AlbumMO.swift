@@ -85,42 +85,42 @@ extension AlbumMO {
         
         
             
-            var imageURL : URL?
+        var imageURL : URL?
             
-            /*
-            * We don't save imageURL but instead a boolean (hasImage) so we can fetch the file dynamically.
-            */
-            if let image = withImage, let url = saveAlbumImage(image, identifier: album.hashString) {
-                imageURL = url
-            }
+        /*
+        * We don't save imageURL but instead a boolean (hasImage) so we can fetch the file dynamically.
+        */
+        if let image = withImage, let url = saveAlbumImage(image, identifier: album.hashString) {
+            imageURL = url
+        }
             
-            let entity = NSEntityDescription.entity(forEntityName: "Album",
+        let entity = NSEntityDescription.entity(forEntityName: "Album",
                                                     in: privateContext)!
-            let _album = AlbumMO(entity: entity, insertInto: privateContext)
-            _album.artist = artist
-            artist.addToAlbums(_album)
+        let _album = AlbumMO(entity: entity, insertInto: privateContext)
+        _album.artist = artist
+        artist.addToAlbums(_album)
             
-            _album.name = album.name
-            _album.stringHash = album.hashString
-            _album.hasImage = imageURL != nil
-            _album.tags = album.tags
-            _album.storedDate = Date()
+        _album.name = album.name
+        _album.stringHash = album.hashString
+        _album.hasImage = imageURL != nil
+        _album.tags = album.tags
+        _album.storedDate = Date()
 
-            if let tracks = TrackMO.createMultiple(from: album.tracks, albumMO: _album) {
-                _album.addToTracks(tracks as NSSet)
-            } else {
-                return nil
-            }
+        if let tracks = TrackMO.createMultiple(from: album.tracks, albumMO: _album) {
+            _album.addToTracks(tracks as NSSet)
+        } else {
+            return nil
+        }
             
-            privateContext.performAndWait {
-                if appDelegate.persistenceController.save(privateContext) {
-                    albumToReturn = _album
-                
-                //In case we can't save and already saved the image File
-                } else if let url = imageURL {
-                    let _ = FileUtils.deleteFile(file: url)
-                }
+        privateContext.performAndWait {
+            if appDelegate.persistenceController.save(privateContext) {
+                albumToReturn = _album
+            
+            //In case we can't save and already saved the image File
+            } else if let url = imageURL {
+                let _ = FileUtils.deleteFile(file: url)
             }
+        }
         
         
         return albumToReturn
