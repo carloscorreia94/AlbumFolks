@@ -1,5 +1,6 @@
 # Album Folks
 
+This is merely a showcase app (for a company-test) gathering some of the most up-to-date iOS/Swift vocabulary by me (02-18). I do not hold any data rights concerning music information - I just use the publically available [LastFM API](https://www.last.fm/api/).
 
 ## Changelog
 
@@ -11,7 +12,7 @@
 
 ## Key Features
 
-* Smooth album visualization/fetching from the LastFM API
+* Smooth album info visualization/fetching from the LastFM API
 * Album information download (along with cover art)
 
 ## To Use
