@@ -14,12 +14,12 @@ extension AlbumMO {
     fileprivate static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     
-    private static func saveAlbumImage(_ image: UIImage, identifier: String) -> URL? {
+    static func saveAlbumImage(_ image: UIImage, identifier: String) -> URL? {
         return ImageFileUtils.saveImage(image: image, path: String(format: FileUtils.ALBUM_FILE,identifier), folder: FileUtils.ALBUMS_FOLDER)
     }
     
     func getLocalImageURL() -> URL? {
-        return self.hasImage ? FileUtils.getFile(name: String(format: FileUtils.ALBUM_FILE, self.stringHash!), folder: FileUtils.ALBUMS_FOLDER) : nil
+        return FileUtils.getFile(name: String(format: FileUtils.ALBUM_FILE, self.stringHash!), folder: FileUtils.ALBUMS_FOLDER)
     }
     
     func getLocalImagePathString() -> String? {
@@ -102,7 +102,7 @@ extension AlbumMO {
             
         _album.name = album.name
         _album.stringHash = album.hashString
-        _album.hasImage = imageURL != nil
+        _album.photoUrl = album.photoUrl?.absoluteString
         _album.tags = album.tags
         _album.storedDate = Date()
 

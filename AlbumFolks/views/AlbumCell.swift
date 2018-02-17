@@ -16,7 +16,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     @IBOutlet weak var albumArtist: UILabel!
     @IBOutlet weak var storedLabel: UILabel!
     
-    var hasDetail = false
+    var hasDetail = true
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -28,10 +28,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        self.imageView.af_cancelImageRequest()
-        self.imageView.image = nil
-        
+                
         self.imageView.layer.borderColor = nil
         self.imageView.layer.borderWidth = 0.0
     }
@@ -39,7 +36,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     public func setContent(_ album: Album) {
       
         if album.photoUrl == nil {
-            setImage(UIImage(named: "no_media")!)
+            setImageFrom(image: UIImage(named: "no_media")!)
         }
                 
         self.albumName.text = album.name
@@ -47,7 +44,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     }
     
     public func setSearchCellContent() {
-        setImage(UIImage(named: "add_album")!)
+        setImageFrom(image: UIImage(named: "add_album")!)
         self.imageView.layer.borderColor = UIColor.black.cgColor
         self.imageView.layer.borderWidth = 3.0
         self.albumName.text = "Last FM API"
@@ -55,38 +52,38 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     }
     
     public func setContent(_ storedAlbum: AlbumMO) {
-        if !storedAlbum.hasImage {
-            setImage(UIImage(named: "no_media")!)
+        if storedAlbum.photoUrl == nil {
+            setImageFrom(image: UIImage(named: "no_media")!)
         }
         
         self.albumName.text = storedAlbum.name
         self.albumArtist.text = storedAlbum.artist!.name
     }
     
-    public func setImage(_ image: UIImage, transparency: CGFloat = 1.0) {
-        self.imageView.af_cancelImageRequest()
+    public func setImageFrom(image: UIImage, hadDetail: Bool = true) {
         self.imageView.image = image
-        self.imageView.alpha = transparency
+       
+        if !hadDetail && self.hasDetail {
+            self.unsetTransparencyAnimated()
+            
+        } else {
+            self.imageView.alpha = !self.hasDetail ? 0.3 : 1.0
+        }
     }
     
-    public func setImage (_ url: URL?, hadDetail: Bool, completion: ((UIImage?) -> ())? = nil ) {
+    public func setImageFrom(url: URL?, hadDetail: Bool, completion: @escaping (UIImage) -> ()) {
         
         if let url = url {
             self.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
                 response in
                 
                 if let _image = response.result.value {
-                    self.setImage(_image)
-                    completion?(_image)
+                    self.setImageFrom(image: _image, hadDetail: hadDetail)
+                    completion(_image)
                     
-                    if !hadDetail && self.hasDetail {
-                        self.unsetTransparencyAnimated()
-                        
-                    } else {
-                        self.imageView.alpha = !self.hasDetail ? 0.3 : 1.0
-                    }
                             
                 } else {
+                    print("Error loading image for url: \(url.absoluteString)")
                     self.setNoMediaImage(hadDetail: hadDetail)
                 }
             })
@@ -100,15 +97,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     
     private func setNoMediaImage(hadDetail: Bool) {
         let image = UIImage(named: "no_media")!
-        self.setImage(image)
-        
-        if !hadDetail && self.hasDetail {
-            unsetTransparencyAnimated()
-        } else {
-            self.imageView.alpha = !self.hasDetail ? 0.3 : 1.0
-        }
-        
-        
+        self.setImageFrom(image: image, hadDetail: hadDetail)
     }
     
     private func unsetTransparencyAnimated() {

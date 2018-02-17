@@ -37,6 +37,7 @@ class AlbumViewPopulator {
     
     init(albumMO: AlbumMO, image: UIImage? = nil) {
         self.inMemoryImage = image
+        self.photoUrl = albumMO.photoUrl != nil ? URL(string: albumMO.photoUrl!) : nil
         self.name = albumMO.name!
         self.tags = albumMO.tags
         

@@ -183,7 +183,7 @@ class ArtistAlbumsVC : UIViewController {
                 }
                 
                 }, errorCallback: { error in
-                    
+                    print("error fetching detail for album name: \(album.name!)")
             })
         }
     }
@@ -255,9 +255,9 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         cell.setContent(album)
         
         if let loadedImage = album.loadedImage {
-            cell.setImage(loadedImage)
+            cell.setImageFrom(image: loadedImage, hadDetail: album.hadDetail)
         } else {
-            cell.setImage(album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
+            cell.setImageFrom(url: album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
         }
         
 

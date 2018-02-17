@@ -35,7 +35,12 @@ class AlbumVC : UIViewController {
                 
                 if response.result.value == nil {
                     self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
+                } else if self.albumViewPopulator.localMode {
+                    /* If we ever get here it means we have a local stored album with Image Url reference just downloaded (couldn't save before)
+                     and so we try to save it */
+                    let _ = AlbumMO.saveAlbumImage(response.result.value!, identifier: self.albumViewPopulator.hashString)
                 }
+                
             })
         } else {
             self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!

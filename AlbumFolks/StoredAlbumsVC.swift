@@ -113,9 +113,16 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
             
             cell.setContent(albumMO)
             
-            //TODO - Use some caching mechanism here
-            if let imageURL = albumMO.getLocalImageURL(), let image = UIImage(contentsOfFile: imageURL.path) {
-                cell.setImage(image)
+            if let imageLocalUrl = albumMO.getLocalImageURL(), let image = UIImage(contentsOfFile: imageLocalUrl.path) {
+                cell.setImageFrom(image: image)
+            } else if let imageUrlString = albumMO.photoUrl, let url = URL(string: imageUrlString) {
+                /* Sometimes user doesn't get his photo to be locally stored. Having a remote imageURL we try to fetch it and save it again
+                (if the user isn't offline at this point) */
+                cell.setImageFrom(url: url, hadDetail: true, completion: { image in
+                    let _ = AlbumMO.saveAlbumImage(image, identifier: albumMO.stringHash!)
+                })
+                
+                
             }
             
         }
