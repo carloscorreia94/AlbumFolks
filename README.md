@@ -1,5 +1,19 @@
 # Album Folks
 
+
+## Changelog
+
+[Consult here](https://github.com/carloscorreia94/AlbumFolks/blob/master/CHANGELOG.md)
+
+## Implementation Details
+
+[Consult here](https://github.com/carloscorreia94/AlbumFolks/blob/master/ARCH.md)
+
+## Key Features
+
+* Smooth album visualization/fetching from the LastFM API
+* Album information download (along with cover art)
+
 ## To Use
 
 * Change API_KEY in static/Constants.swift - API_KEY_VALUE for your own Last FM key - see [HERE](https://www.last.fm/api/authentication)
