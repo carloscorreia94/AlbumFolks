@@ -10,7 +10,7 @@ FlowChart to explain Data flow between volatile models / viewcontrollers / persi
 
 ## ArtistPopulator
 Defined as part of AlbumViewPopulator, same goes for TrackViewPopulator (multiple instances).
-Also, because an user can be redirected from the RecentSearches or Stored Album to the Artist Page (shortcuts not initially considered on the design), ArtistPopulator struct gets to be populated outside the normal context , which would be at Albums CollectionView click (either on StoredAlbumsVC or ArtistAlbumsVC). This is why it is defined under the **models/supplementary folder** instead of the views/populators.
+Also, because an user can be redirected from a Stored Album to the Artist Page (shortcut not initially considered on the design), ArtistPopulator struct gets to be populated outside the normal context , which would be at Albums CollectionView click (either on StoredAlbumsVC or ArtistAlbumsVC). This is why it is defined under the **models/supplementary folder** instead of the views/populators.
 
 ## Album Identifiers
 

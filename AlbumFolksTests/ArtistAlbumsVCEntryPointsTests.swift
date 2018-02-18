@@ -1,15 +1,15 @@
 //
-//  AlbumFolksTests.swift
+//  ArtistAlbumsVCEntryPointsTests.swift
 //  AlbumFolksTests
 //
-//  Created by Carlos Correia on 01/02/18.
+//  Created by NTW-laptop on 18/02/18.
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
 
 import XCTest
 @testable import AlbumFolks
 
-class AlbumFolksTests: XCTestCase {
+class ArtistAlbumsVCEntryPointsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -34,3 +34,4 @@ class AlbumFolksTests: XCTestCase {
     }
     
 }
+
