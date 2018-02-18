@@ -1,6 +1,6 @@
 # Implementation Details
 
-Follow some notes on this implementation that I consider important for the overall solid UX/code base.
+FlowChart to explain Data flow between volatile models / viewcontrollers / persistent models through the use of ViewPopulators
 
 ![Data Flow for Stored Content](https://github.com/carloscorreia94/AlbumFolks/blob/master/data_flow.png)
 
@@ -9,7 +9,7 @@ Follow some notes on this implementation that I consider important for the overa
 [Defined here](https://github.com/carloscorreia94/AlbumFolks/tree/master/AlbumFolks/views/populators) for the ease of view data injection. Abstraction to allow for bidirectional data entry in the AlbumVC. All persistence is then naturally created/fetched through indirection of these objects.
 
 ## ArtistPopulator
-Defined as part of AlbumViewPopulator, same goes for [TrackViewPopulator]().
+Defined as part of AlbumViewPopulator, same goes for TrackViewPopulator (multiple instances).
 Also, because an user can be redirected from the RecentSearches or Stored Album to the Artist Page (shortcuts not initially considered on the design), ArtistPopulator struct gets to be populated outside the normal context , which would be at Albums CollectionView click (either on StoredAlbumsVC or ArtistAlbumsVC). This is why it is defined under the **models/supplementary folder** instead of the views/populators.
 
 ## Album Identifiers
