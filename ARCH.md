@@ -8,6 +8,8 @@ FlowChart to explain Data flow between volatile models / viewcontrollers / persi
 
 [Defined here](https://github.com/carloscorreia94/AlbumFolks/tree/master/AlbumFolks/views/populators) for the ease of view data injection. Abstraction to allow for bidirectional data entry in the AlbumVC. All persistence is then naturally created/fetched through indirection of these objects.
 
+Refer to [this test class](https://github.com/carloscorreia94/AlbumFolks/tree/master/AlbumFolksTests/AlbumVCEntryPointsTests.swift) to guide you in the diagram for the user journey through the usual app navigation process (AlbumVC core ViewController).
+
 ## ArtistPopulator
 Defined as part of AlbumViewPopulator, same goes for TrackViewPopulator (multiple instances).
 Also, because an user can be redirected from a Stored Album to the Artist Page (shortcut not initially considered on the design), ArtistPopulator struct gets to be populated outside the normal context , which would be at Albums CollectionView click (either on StoredAlbumsVC or ArtistAlbumsVC). This is why it is defined under the **models/supplementary folder** instead of the views/populators.

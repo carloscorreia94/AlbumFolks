@@ -1,0 +1,29 @@
+{
+    "name": "Mac DeMarco",
+    "listeners": "444839",
+    "mbid": "f2492c31-54a8-4347-a1fc-f81f72873bbf",
+    "url": "https://www.last.fm/music/Mac+DeMarco",
+    "streamable": "0",
+    "image": [
+              {
+              "#text": "https://lastfm-img2.akamaized.net/i/u/34s/d329b2d3ce7e47b1c77bbb54c2c0dbbb.png",
+              "size": "small"
+              },
+              {
+              "#text": "https://lastfm-img2.akamaized.net/i/u/64s/d329b2d3ce7e47b1c77bbb54c2c0dbbb.png",
+              "size": "medium"
+              },
+              {
+              "#text": "https://lastfm-img2.akamaized.net/i/u/174s/d329b2d3ce7e47b1c77bbb54c2c0dbbb.png",
+              "size": "large"
+              },
+              {
+              "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/d329b2d3ce7e47b1c77bbb54c2c0dbbb.png",
+              "size": "extralarge"
+              },
+              {
+              "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/d329b2d3ce7e47b1c77bbb54c2c0dbbb.png",
+              "size": "mega"
+              }
+              ]
+}

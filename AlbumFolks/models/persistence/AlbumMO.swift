@@ -72,14 +72,26 @@ extension AlbumMO {
     }
     
 
-    static func create(from album: AlbumViewPopulator, withImage: UIImage? = nil) -> AlbumMO? {
+    /*
+    * Context parameter here is for Unit testing purposes at this point
+    **/
+    static func create(from album: AlbumViewPopulator, context: NSManagedObjectContext? = nil, withImage: UIImage? = nil) -> AlbumMO? {
         var albumToReturn : AlbumMO?
         
-        let persistentStoreCoordinator = appDelegate.persistenceController.persistentStoreCoordinator
-        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateContext.persistentStoreCoordinator = persistentStoreCoordinator
+       
         
-        guard let artist = ArtistMO.get(from: album.artist, context: privateContext) else {
+        var _context : NSManagedObjectContext!
+        if let context = context {
+            _context = context
+        } else {
+            let persistentStoreCoordinator = appDelegate.persistenceController.persistentStoreCoordinator
+            let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            privateContext.persistentStoreCoordinator = persistentStoreCoordinator
+            
+            _context = privateContext
+        }
+        
+        guard let artist = ArtistMO.get(from: album.artist, context: _context) else {
             return nil
         }
         
@@ -95,8 +107,8 @@ extension AlbumMO {
         }
             
         let entity = NSEntityDescription.entity(forEntityName: "Album",
-                                                    in: privateContext)!
-        let _album = AlbumMO(entity: entity, insertInto: privateContext)
+                                                    in: _context)!
+        let _album = AlbumMO(entity: entity, insertInto: _context)
         _album.artist = artist
         artist.addToAlbums(_album)
             
@@ -112,8 +124,8 @@ extension AlbumMO {
             return nil
         }
             
-        privateContext.performAndWait {
-            if appDelegate.persistenceController.save(privateContext) {
+        _context.performAndWait {
+            if appDelegate.persistenceController.save(_context) {
                 albumToReturn = _album
             
             //In case we can't save and already saved the image File

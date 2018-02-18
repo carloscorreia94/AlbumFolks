@@ -62,5 +62,6 @@ static let MAX_ALBUMS_TO_SHOW : Int
 * UIScrollView+InfiniteScroll
 
 ## Testing
+[AlbumVCEntryPointsTests.swift](https://github.com/carloscorreia94/AlbumFolks/tree/master/AlbumFolksTests/AlbumVCEntryPointsTests.swift) - Data flow testing corresponding to the core user interaction with the App i.e, visualize albums either from the API or saved.
 
-### Nothing at this point
+

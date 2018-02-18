@@ -83,7 +83,7 @@
         <!--AlbumVC-->
         <scene sceneID="01Z-Ru-vI7">
             <objects>
-                <viewController id="gwC-fm-72j" customClass="AlbumVC" customModule="AlbumFolks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AlbumVCTestEntrance" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gwC-fm-72j" customClass="AlbumVC" customModule="AlbumFolks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AyU-6Z-b8D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -491,6 +491,6 @@
         <image name="loading_misc" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wmV-14-qQm"/>
+        <segue reference="7El-br-PSB"/>
     </inferredMetricsTieBreakers>
 </document>

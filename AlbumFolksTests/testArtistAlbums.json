@@ -1,0 +1,30 @@
+
+              {
+              "name": "Salad Days",
+              "playcount": 9805851,
+              "mbid": "7e535de9-a3b3-423e-8edf-c200e8713c77",
+              "url": "https://www.last.fm/music/Mac+DeMarco/Salad+Days",
+              "artist": {
+              "name": "Mac DeMarco",
+              "mbid": "f2492c31-54a8-4347-a1fc-f81f72873bbf",
+              "url": "https://www.last.fm/music/Mac+DeMarco"
+              },
+              "image": [
+                        {
+                        "#text": "https://lastfm-img2.akamaized.net/i/u/34s/28ffd87a1e554022c0065398979894c4.png",
+                        "size": "small"
+                        },
+                        {
+                        "#text": "https://lastfm-img2.akamaized.net/i/u/64s/28ffd87a1e554022c0065398979894c4.png",
+                        "size": "medium"
+                        },
+                        {
+                        "#text": "https://lastfm-img2.akamaized.net/i/u/174s/28ffd87a1e554022c0065398979894c4.png",
+                        "size": "large"
+                        },
+                        {
+                        "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/28ffd87a1e554022c0065398979894c4.png",
+                        "size": "extralarge"
+                        }
+                        ]
+              }
