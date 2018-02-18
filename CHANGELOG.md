@@ -5,7 +5,7 @@
 * Refactor SearchArtistsVC
 * Created FlowChart to explain Data flow between volatile models / viewcontrollers / persistent models through the use of ViewPopulators
 * Created tests to verify different data entry on AlbumVC
-* Created tests to verify different data entry on ArtistAlbumsVC
+
 
 ## 17-02-2018
 
