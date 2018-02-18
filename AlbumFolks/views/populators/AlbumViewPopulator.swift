@@ -15,7 +15,7 @@ class AlbumViewPopulator {
     var hashString : String
     var storedAlbum : AlbumMO?
     var tracks = [TrackViewPopulator]()
-    var artist : ArtistViewPopulator
+    var artist : ArtistPopulator
     var localMode = false
     
     init(album: Album, image: UIImage? = nil) {
@@ -23,7 +23,7 @@ class AlbumViewPopulator {
         self.photoUrl = album.photoUrl
         self.name = album.name
         self.tags = album.albumDetail!.getTagsString()
-        self.artist = ArtistViewPopulator(name: album.artist.name, mbid: album.artist.mbid, photoUrl: album.artist.photoUrl, lastFmUrl: album.artist.lastFmUrl)
+        self.artist = ArtistPopulator(name: album.artist.name, mbid: album.artist.mbid, photoUrl: album.artist.photoUrl, lastFmUrl: album.artist.lastFmUrl)
         self.hashString = String(album.hashValue)
         self.storedAlbum = AlbumMO.get(from: self.hashString)
         
@@ -40,7 +40,7 @@ class AlbumViewPopulator {
         self.name = albumMO.name!
         self.tags = albumMO.tags
         
-        self.artist = ArtistViewPopulator(name: albumMO.artist!.name!, mbid: albumMO.artist!.mbid!, photoUrl: albumMO.artist!.getPhotoUrl(), lastFmUrl: albumMO.artist!.getLastFmUrl())
+        self.artist = ArtistPopulator(name: albumMO.artist!.name!, mbid: albumMO.artist!.mbid!, photoUrl: albumMO.artist!.getPhotoUrl(), lastFmUrl: albumMO.artist!.getLastFmUrl())
         self.hashString = String(albumMO.stringHash!)
         self.storedAlbum = albumMO
         

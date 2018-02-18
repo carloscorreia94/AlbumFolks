@@ -27,7 +27,7 @@ extension ArtistMO {
         return nil
     }
     
-    static func get(from artist: ArtistViewPopulator, context: NSManagedObjectContext) -> ArtistMO? {
+    static func get(from artist: ArtistPopulator, context: NSManagedObjectContext) -> ArtistMO? {
         
         var artistToReturn : ArtistMO?
         
@@ -54,7 +54,7 @@ extension ArtistMO {
     }
     
     
-    static func create(from artist: ArtistViewPopulator, context: NSManagedObjectContext) -> ArtistMO? {
+    static func create(from artist: ArtistPopulator, context: NSManagedObjectContext) -> ArtistMO? {
         
         var artistToReturn : ArtistMO?
         

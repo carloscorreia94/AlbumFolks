@@ -24,8 +24,12 @@ class Artist : Mappable {
     var mbid : String!
     
     
-    init() {
+    init(from artist: ArtistMO) {
         //For the RecentSearchesVC,AlbumVC entrypoints
+        self.name = artist.name!
+        self.mbid = artist.mbid!
+        self.photoUrl = artist.getPhotoUrl()
+        self.lastFmUrl = artist.getLastFmUrl()
     }
     
     required init?(map: Map){

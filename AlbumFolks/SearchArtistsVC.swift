@@ -117,11 +117,7 @@ class SearchArtistsVC : UIViewController {
 
             if recentSearchesMode {
                 let recentSearch = fetchedResultsController.object(at: indexPath) as! RecentSearchMO
-                let artist = Artist()
-                artist.name = recentSearch.artist!.name
-                artist.mbid = recentSearch.artist!.mbid
-                artist.photoUrl = recentSearch.artist!.getPhotoUrl()
-                artist.lastFmUrl = recentSearch.artist!.getLastFmUrl()
+                let artist = Artist(from: recentSearch.artist!)
                 
                 destination.artist = artist
             } else {
@@ -320,45 +316,51 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
 }
 
 extension SearchArtistsVC {
+    
+    // MARK - UIScrollViewDelegate
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if (scrollView.contentOffset.y<=0) {
-            scrollView.contentOffset = CGPoint.zero
-        }
-        
-       
-            let  height = scrollView.frame.size.height
-            let contentYoffset = scrollView.contentOffset.y
-            let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-            if distanceFromBottom < height {
-                
-                if isSearching || isFetching {
-                    return
-                }
-                
-                if let pagination = currentPagination {
-                
-                    searchTimer?.invalidate()
-                    let decrementNumber = (SearchArtistsVC.PAGE_DECREMENT_FACTOR_PER_EXTRA_CHAR * (searchController.searchBar.text!.count - SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH))
-                    if (pagination.page + decrementNumber + 1 < SearchArtistsVC.MAX_PAGE_NUMBER) && (pagination.startIndex + SearchArtistsVC.MAX_SEARCH_RESULTS < pagination.total)  {
-                        let askedPagination = Pagination(startIndex: 0, page: pagination.page + 1, total: pagination.total)
-
-                        if self.paginatedArtists[askedPagination] != nil {
-                            return
-                        }
-                    
-                        self.askedPagination = askedPagination
-                    
-                        self.tableView.beginInfiniteScroll(true)
-                        self.isFetching = true
-                        performSearch()
-                    }
-                    
-                }
-                
+        if scrollView.canScrollDown() {
+            if isSearching || isFetching {
+                return
+            }
             
+            if let askedPagination = getNewPagination() {
+                
+                //invalidate pending autocomplete searches
+                searchTimer?.invalidate()
+               
+                    
+                self.askedPagination = askedPagination
+                    
+                self.tableView.beginInfiniteScroll(true)
+                self.isFetching = true
+                performSearch()
+            }
+
         }
+    }
+    
+    
+    func getNewPagination() -> Pagination? {
+        // Means we already searched for something with success
+        if let pagination = currentPagination, let searchBarText = searchController.searchBar.text {
         
+            let decrementNumber = (SearchArtistsVC.PAGE_DECREMENT_FACTOR_PER_EXTRA_CHAR * (searchBarText.count - SearchArtistsVC.MIN_SEARCH_QUERY_LENGTH))
+            if (pagination.page + decrementNumber + 1 < SearchArtistsVC.MAX_PAGE_NUMBER) && (pagination.startIndex + SearchArtistsVC.MAX_SEARCH_RESULTS < pagination.total)  {
+                let askedPagination = Pagination(startIndex: 0, page: pagination.page + 1, total: pagination.total)
+            
+                //If we already have this pagination in memory
+                if self.paginatedArtists[askedPagination] != nil {
+                    return nil
+                }
+            
+                return askedPagination
+            
+            }
+        }
+        return nil
     }
 }
 

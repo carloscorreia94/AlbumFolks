@@ -49,7 +49,7 @@ class ArtistAlbumsVC : UIViewController {
                     self.artist.detail = artistDetail
                     self.collectionView.reloadData()
                     
-                    let _ = RecentSearchMO.create(from: ArtistViewPopulator(name: self.artist.name, mbid: self.artist.mbid, photoUrl: self.artist.photoUrl, lastFmUrl: self.artist.lastFmUrl))
+                    let _ = RecentSearchMO.create(from: ArtistPopulator(name: self.artist.name, mbid: self.artist.mbid, photoUrl: self.artist.photoUrl, lastFmUrl: self.artist.lastFmUrl))
                     
                     self.albumRequest(self.artist)
                     

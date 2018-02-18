@@ -6,7 +6,7 @@
 //  Copyright © 2018 carlosmouracorreia. All rights reserved.
 //
 
-struct ArtistViewPopulator {
+struct ArtistPopulator {
     let name, mbid : String
     var photoUrl, lastFmUrl : URL?
 }

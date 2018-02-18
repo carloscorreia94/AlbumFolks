@@ -67,22 +67,20 @@ class AlbumVC : UIViewController {
     }
     
     private func enterArtist() {
-        let artistAlbumsVC = self.storyboard!.instantiateViewController(withIdentifier: "ArtistAlbumsVC") as! ArtistAlbumsVC
-        
-        let artist = Artist()
-        artist.name = albumViewPopulator.artist.name
-        artist.mbid = albumViewPopulator.artist.mbid
-        artist.photoUrl = albumViewPopulator.artist.photoUrl
-        artist.lastFmUrl = albumViewPopulator.artist.lastFmUrl
-        
-        artistAlbumsVC.artist = artist
-        artistAlbumsVC.dismissToAlbumCallback = {
-            //update Saved switch when coming back from artist and having changed the same album
-            self.albumHeaderCell!.saveSwitch.setOn(AlbumMO.get(from: self.albumViewPopulator.hashString) != nil, animated: false)
+        if let storedArtist = albumViewPopulator.storedAlbum?.artist {
+            let artistAlbumsVC = self.storyboard!.instantiateViewController(withIdentifier: "ArtistAlbumsVC") as! ArtistAlbumsVC
+            
+            let artist = Artist(from: storedArtist)
+            
+            artistAlbumsVC.artist = artist
+            artistAlbumsVC.dismissToAlbumCallback = {
+                //update Saved switch when coming back from artist and having changed the same album
+                self.albumHeaderCell!.saveSwitch.setOn(AlbumMO.get(from: self.albumViewPopulator.hashString) != nil, animated: false)
+            }
+            
+            let nav = UINavigationController(rootViewController: artistAlbumsVC)
+            self.present(nav, animated: true, completion: nil)
         }
-        
-        let nav = UINavigationController(rootViewController: artistAlbumsVC)
-        self.present(nav, animated: true, completion: nil)
     }
     
     

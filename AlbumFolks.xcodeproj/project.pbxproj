@@ -13,6 +13,7 @@
 		17341270202A57A1005749D7 /* AlbumMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1734126F202A57A1005749D7 /* AlbumMO.swift */; };
 		17341272202A62AE005749D7 /* ArtistMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17341271202A62AE005749D7 /* ArtistMO.swift */; };
 		17341274202A644C005749D7 /* TrackMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17341273202A644C005749D7 /* TrackMO.swift */; };
+		173A42CD20397D8F0082D1A2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173A42CC20397D8F0082D1A2 /* UIScrollView.swift */; };
 		174F8BB02038D66A0030A76B /* AlbumViewPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F8BAF2038D66A0030A76B /* AlbumViewPopulator.swift */; };
 		174F8BB22038D67F0030A76B /* TrackViewPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F8BB12038D67F0030A76B /* TrackViewPopulator.swift */; };
 		177120B9202A550100CA47D9 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177120B8202A550100CA47D9 /* PersistenceController.swift */; };
@@ -23,7 +24,7 @@
 		1774B2062027BEEB0060BB71 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2052027BEEB0060BB71 /* Tag.swift */; };
 		1774B20A2027C55F0060BB71 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B2092027C55F0060BB71 /* Constants.swift */; };
 		1774B20C2028B6070060BB71 /* PaginatedArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1774B20B2028B6070060BB71 /* PaginatedArtists.swift */; };
-		177E5350202BD0FA00218AB0 /* ArtistViewPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E534F202BD0FA00218AB0 /* ArtistViewPopulator.swift */; };
+		177E5350202BD0FA00218AB0 /* ArtistPopulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E534F202BD0FA00218AB0 /* ArtistPopulator.swift */; };
 		177E5352202BE18300218AB0 /* RecentSearchMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177E5351202BE18300218AB0 /* RecentSearchMO.swift */; };
 		177E5358202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 177E5357202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m */; };
 		178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178D519E202BAEFC004579B9 /* FileUtils.swift */; };
@@ -79,6 +80,7 @@
 		1734126F202A57A1005749D7 /* AlbumMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMO.swift; sourceTree = "<group>"; };
 		17341271202A62AE005749D7 /* ArtistMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMO.swift; sourceTree = "<group>"; };
 		17341273202A644C005749D7 /* TrackMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMO.swift; sourceTree = "<group>"; };
+		173A42CC20397D8F0082D1A2 /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		174F8BAF2038D66A0030A76B /* AlbumViewPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewPopulator.swift; sourceTree = "<group>"; };
 		174F8BB12038D67F0030A76B /* TrackViewPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewPopulator.swift; sourceTree = "<group>"; };
 		177120B8202A550100CA47D9 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -89,7 +91,7 @@
 		1774B2052027BEEB0060BB71 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		1774B2092027C55F0060BB71 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1774B20B2028B6070060BB71 /* PaginatedArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedArtists.swift; sourceTree = "<group>"; };
-		177E534F202BD0FA00218AB0 /* ArtistViewPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewPopulator.swift; sourceTree = "<group>"; };
+		177E534F202BD0FA00218AB0 /* ArtistPopulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistPopulator.swift; sourceTree = "<group>"; };
 		177E5351202BE18300218AB0 /* RecentSearchMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchMO.swift; sourceTree = "<group>"; };
 		177E5356202D0D2500218AB0 /* AlbumFolks-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AlbumFolks-Bridging-Header.h"; sourceTree = "<group>"; };
 		177E5357202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+InfiniteScroll.m"; sourceTree = "<group>"; };
@@ -166,7 +168,6 @@
 		174F8BAE2038D6530030A76B /* populators */ = {
 			isa = PBXGroup;
 			children = (
-				177E534F202BD0FA00218AB0 /* ArtistViewPopulator.swift */,
 				174F8BAF2038D66A0030A76B /* AlbumViewPopulator.swift */,
 				174F8BB12038D67F0030A76B /* TrackViewPopulator.swift */,
 			);
@@ -176,6 +177,7 @@
 		1774B2022027BEB30060BB71 /* supplementary */ = {
 			isa = PBXGroup;
 			children = (
+				177E534F202BD0FA00218AB0 /* ArtistPopulator.swift */,
 				1774B2032027BEDC0060BB71 /* LastFmImage.swift */,
 				1774B2052027BEEB0060BB71 /* Tag.swift */,
 				1774B20B2028B6070060BB71 /* PaginatedArtists.swift */,
@@ -291,6 +293,7 @@
 			children = (
 				D0FA97582025129400C75C50 /* UILabel.swift */,
 				D0FA975A2025CC4800C75C50 /* String.swift */,
+				173A42CC20397D8F0082D1A2 /* UIScrollView.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -643,7 +646,7 @@
 				1774B20A2027C55F0060BB71 /* Constants.swift in Sources */,
 				178D519F202BAEFC004579B9 /* FileUtils.swift in Sources */,
 				173313532029CDCA00AF34F1 /* TrackCell.swift in Sources */,
-				177E5350202BD0FA00218AB0 /* ArtistViewPopulator.swift in Sources */,
+				177E5350202BD0FA00218AB0 /* ArtistPopulator.swift in Sources */,
 				174F8BB22038D67F0030A76B /* TrackViewPopulator.swift in Sources */,
 				D0FA975D2025DAE600C75C50 /* AlbumVC.swift in Sources */,
 				174F8BB02038D66A0030A76B /* AlbumViewPopulator.swift in Sources */,
@@ -657,6 +660,7 @@
 				D0FA97522024E8DE00C75C50 /* ArtistDetail.swift in Sources */,
 				177E5358202D0D2600218AB0 /* UIScrollView+InfiniteScroll.m in Sources */,
 				D0FA974C2024ABD900C75C50 /* ArtistCell.swift in Sources */,
+				173A42CD20397D8F0082D1A2 /* UIScrollView.swift in Sources */,
 				17341270202A57A1005749D7 /* AlbumMO.swift in Sources */,
 				1774B2062027BEEB0060BB71 /* Tag.swift in Sources */,
 				D0FA974A20248CD600C75C50 /* AlbumCell.swift in Sources */,
