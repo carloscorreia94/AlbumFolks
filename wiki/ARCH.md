@@ -2,7 +2,7 @@
 
 FlowChart to explain Data flow between volatile models / viewcontrollers / persistent models through the use of ViewPopulators
 
-![Data Flow for Stored Content](https://github.com/carloscorreia94/AlbumFolks/blob/master/data_flow.png)
+![Data Flow for Stored Content](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/data_flow.png)
 
 ## ViewPopulators
 
