@@ -28,7 +28,8 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-                
+        
+        self.imageView.image = nil
         self.imageView.layer.borderColor = nil
         self.imageView.layer.borderWidth = 0.0
     }
@@ -73,25 +74,21 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     
     public func setImageFrom(url: URL?, hadDetail: Bool, completion: @escaping (UIImage) -> ()) {
         
-        if let url = url {
-            self.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
-                response in
-                
-                if let _image = response.result.value {
-                    self.setImageFrom(image: _image, hadDetail: hadDetail)
-                    completion(_image)
-                    
-                            
-                } else {
-                    print("Error loading image for url: \(url.absoluteString)")
-                    self.setNoMediaImage(hadDetail: hadDetail)
-                }
-            })
-        } else {
+        guard let url = url else {
             setNoMediaImage(hadDetail: hadDetail)
+            return
         }
         
-        
+        self.imageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "loading_misc")!, completion: {
+            response in
+                
+            if let _image = response.result.value {
+                completion(_image)
+            } else {
+                print("Error loading image for url: \(url.absoluteString)")
+                self.setNoMediaImage(hadDetail: hadDetail)
+            }
+        })
         
     }
     

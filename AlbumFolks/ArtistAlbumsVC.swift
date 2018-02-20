@@ -257,7 +257,11 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         if let loadedImage = album.loadedImage {
             cell.setImageFrom(image: loadedImage, hadDetail: album.hadDetail)
         } else {
-            cell.setImageFrom(url: album.photoUrl, hadDetail: album.hadDetail, completion: { image in album.loadedImage = image })
+            cell.setImageFrom(url: album.photoUrl, hadDetail: album.hadDetail, completion: {
+                image in 
+                album.loadedImage = image
+                cell.setImageFrom(image: album.loadedImage!, hadDetail: album.hadDetail)
+            })
         }
         
 
