@@ -2,10 +2,9 @@
 
 This is merely a showcase app gathering some of the most up-to-date iOS/Swift vocabulary by me (02-18). I do not hold any data rights concerning music information - I just use the publically available [LastFM API](https://www.last.fm/api/).
 
-![Stored Albums](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenStoredAlbums.png){:height="400px" width="400px"}
-![Search Artist](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenSearchArtist.png){:height="400px" width="400px"}
-![Artist Albums](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenArtistAlbums.png){:height="400px" width="400px"}
-![Album Detail](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenSavedAlbum.png){:height="400px" width="400px"}
+![Stored Albums](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenStoredAlbums.png "Stored Albums") ![Search Artist](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenSearchArtist.png "Search Artist")
+
+![Artist Albums](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenArtistAlbums.png "Artist Albums") ![Album Detail](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenSavedAlbum.png "Album Details")
 
 ## Changelog
 
