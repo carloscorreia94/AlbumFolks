@@ -13,6 +13,7 @@ import AlamofireImage
 class StoredAlbumsVC: UIViewController {
     
     fileprivate var context : NSManagedObjectContext?
+    fileprivate let imageDownloader = ImageDownloader()
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
         context = (UIApplication.shared.delegate as! AppDelegate).persistenceController.managedObjectContext
@@ -115,14 +116,10 @@ extension StoredAlbumsVC : UICollectionViewDataSource {
             
             if let imageLocalUrl = albumMO.getLocalImageURL(), let image = UIImage(contentsOfFile: imageLocalUrl.path) {
                 cell.setImageFrom(image: image)
-            } else if let imageUrlString = albumMO.photoUrl, let url = URL(string: imageUrlString) {
-                /* Sometimes user doesn't get his photo to be locally stored. Having a remote imageURL we try to fetch it and save it again
-                (if the user isn't offline at this point) */
-                cell.setImageFrom(url: url, hadDetail: true, completion: { image in
-                    let _ = AlbumMO.saveAlbumImage(image, identifier: albumMO.stringHash!)
+            } else {
+                AlbumCell.fetchPhoto(albumMO, downloader: self.imageDownloader, completion: {
+                    self.collectionView.reloadItems(at: [indexPath])
                 })
-                
-                
             }
             
         }

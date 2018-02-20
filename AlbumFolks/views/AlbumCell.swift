@@ -16,6 +16,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     @IBOutlet weak var albumArtist: UILabel!
     @IBOutlet weak var storedLabel: UILabel!
     
+    
     var hasDetail = true
     
     override func layoutSubviews() {
@@ -35,7 +36,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     }
     
     public func setContent(_ album: Album) {
-      
+        
         if album.photoUrl == nil {
             setImageFrom(image: UIImage(named: "no_media")!)
         }
@@ -53,12 +54,15 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     }
     
     public func setContent(_ storedAlbum: AlbumMO) {
+        
+        
         if storedAlbum.photoUrl == nil {
             setImageFrom(image: UIImage(named: "no_media")!)
         }
         
         self.albumName.text = storedAlbum.name
         self.albumArtist.text = storedAlbum.artist!.name
+        
     }
     
     public func setImageFrom(image: UIImage, hadDetail: Bool = true) {
@@ -92,7 +96,7 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
         
     }
     
-    private func setNoMediaImage(hadDetail: Bool) {
+    public func setNoMediaImage(hadDetail: Bool) {
         let image = UIImage(named: "no_media")!
         self.setImageFrom(image: image, hadDetail: hadDetail)
     }
@@ -106,6 +110,37 @@ class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
         animation.duration = 0.4
         self.imageView.layer.add(animation, forKey: nil)
         self.imageView.alpha = 1.0
+    }
+    
+    public static func fetchPhoto(_ album: Album, downloader: ImageDownloader, completion: @escaping () -> ()) {
+        
+        if album.loadedImage == nil, let photoUrl = album.photoUrl {
+            fetchPhotoFrom(photoUrl, downloader: downloader, completion: {
+                image in
+                album.loadedImage = image
+                completion()
+            })
+        }
+        
+    }
+    
+    public static func fetchPhoto(_ album: AlbumMO, downloader: ImageDownloader, completion: @escaping () -> ()) {
+        if (album.getLocalImageURL() == nil ||  UIImage(contentsOfFile: album.getLocalImageURL()!.path) == nil), let imageUrlString = album.photoUrl, let photoUrl = URL(string: imageUrlString)  {
+            fetchPhotoFrom(photoUrl, downloader: downloader, completion: {
+                image in
+                if let _ = AlbumMO.saveAlbumImage(image, identifier: album.stringHash!) {
+                    completion()
+                }
+            })
+        }
+    }
+    
+    public static func fetchPhotoFrom(_ url: URL, downloader: ImageDownloader, completion: @escaping (UIImage) -> ()) {
+        downloader.download(URLRequest(url: url), completion: { response in
+            if let image = response.result.value {
+               completion(image)
+            }
+        })
     }
 }
 

@@ -8,8 +8,6 @@
 
 import UIKit
 import PopupDialog
-import Alamofire
-import AlamofireObjectMapper
 import AlamofireImage
 import CoreData
 
@@ -20,6 +18,7 @@ class ArtistAlbumsVC : UIViewController {
     fileprivate var noFetchedAlbums = false
     fileprivate var seeMoreLinkFooterActivated = false
     fileprivate var selectedAlbumIndexPath : IndexPath?
+    fileprivate let imageDownloader = ImageDownloader()
     
     fileprivate var artistCell : ArtistInfoHeaderCell?
     
@@ -118,6 +117,18 @@ class ArtistAlbumsVC : UIViewController {
             
             self.collectionView.reloadData(completion: {
                 self.requestAlbumDetail()
+                
+                
+                guard let albums = self.artist.albums, albums.count > 0 else {
+                    return
+                }
+                //request all non visible images
+                let lastVisibleAlbumIndex = self.collectionView.indexPathsForVisibleItems.last?.row ?? 0
+                
+                for i in lastVisibleAlbumIndex+1...albums.count-1 {
+                    AlbumCell.fetchPhoto(albums[i], downloader: self.imageDownloader, completion: {})
+                }
+
             })
             
             
@@ -146,8 +157,13 @@ class ArtistAlbumsVC : UIViewController {
         if let albums = artist.albums {
             
             let visibleAlbums = collectionView.indexPathsForVisibleItems
+            
             for indexPath in visibleAlbums {
                 let album = albums[indexPath.row]
+                
+                AlbumCell.fetchPhoto(album, downloader: self.imageDownloader, completion: {
+                    self.collectionView.reloadItems(at: [indexPath])
+                })
                 
                 if let index = self.artist.albums!.index(of: album), let _ = AlbumMO.get(from: String(self.artist.albums![index].hashValue)) {
                     //in case we already have the album stored, no need to fetch it. we fetch albuns by their hashvalue (kind of an id - see more on Album class)
@@ -257,13 +273,8 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
         if let loadedImage = album.loadedImage {
             cell.setImageFrom(image: loadedImage, hadDetail: album.hadDetail)
         } else {
-            cell.setImageFrom(url: album.photoUrl, hadDetail: album.hadDetail, completion: {
-                image in 
-                album.loadedImage = image
-                cell.setImageFrom(image: album.loadedImage!, hadDetail: album.hadDetail)
-            })
+            cell.setNoMediaImage(hadDetail: album.hadDetail)
         }
-        
 
         return cell
     }
