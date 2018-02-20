@@ -1,19 +1,24 @@
 # Album Folks
 
-This is merely a showcase app (for a company-test) gathering some of the most up-to-date iOS/Swift vocabulary by me (02-18). I do not hold any data rights concerning music information - I just use the publically available [LastFM API](https://www.last.fm/api/).
+This is merely a showcase app gathering some of the most up-to-date iOS/Swift vocabulary by me (02-18). I do not hold any data rights concerning music information - I just use the publically available [LastFM API](https://www.last.fm/api/).
+
+![Stored Albums](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenStoredAlbums.png){:height="400px" width="400px"}
+![Search Artist](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenSearchArtist.png){:height="400px" width="400px"}
+![Artist Albums](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenArtistAlbums.png){:height="400px" width="400px"}
+![Album Detail](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/screenSavedAlbum.png){:height="400px" width="400px"}
 
 ## Changelog
 
-[Consult here](https://github.com/carloscorreia94/AlbumFolks/blob/master/CHANGELOG.md)
+[Consult here](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/CHANGELOG.md)
 
 ## Implementation Details
 
-[Consult here](https://github.com/carloscorreia94/AlbumFolks/blob/master/ARCH.md)
+[Consult here](https://github.com/carloscorreia94/AlbumFolks/blob/master/wiki/ARCH.md)
 
 ## Key Features
 
 * Smooth album info visualization/fetching from the LastFM API
-* Album information download (along with cover art)
+* Album information download (along with cover art) resourcing to CoreData
 
 ## To Use
 
