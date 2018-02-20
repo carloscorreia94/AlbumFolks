@@ -1,5 +1,10 @@
 # Changelog
 
+## 20-02-2018
+
+* Added functionality when clicking the keyboard searchbutton - a bit like Google's I feel lucky
+* Added app screens to README.md
+
 ## 18-02-2018
 
 * Refactor SearchArtistsVC

@@ -112,7 +112,8 @@ class SearchArtistsVC : UIViewController {
         switch segue.identifier ?? "" {
         case "searchToArtistAlbums":
             
-            let indexPath = tableView.indexPathForSelectedRow!
+            
+            let indexPath = self.tableView.indexPath(for: sender as! UITableViewCell)!
             let destination = segue.destination as! ArtistAlbumsVC
 
             if recentSearchesMode {
@@ -222,6 +223,14 @@ extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating,
     
     //MARK : UISearchBarDelegate
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //enter first suggestion
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0 , section: 0)) {
+            searchTimer?.invalidate()
+            self.performSegue(withIdentifier: "searchToArtistAlbums", sender: cell)
+        }
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: false, completion: {
             searchBar.resignFirstResponder()
@@ -232,6 +241,13 @@ extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating,
     * Logic for searching is -> Whenever user types query multiple of 3 or after stops writing -> Network Call
     **/
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        /**
+         * In case the user has pressed the Search Button - Workaround - this method is called before searchBarSearchButtonClicked(_ :UISearchBar)
+        */
+        if text == "\n" {
+            return true
+        }
         
         let currentText = searchBar.text ?? ""
         let newText = (currentText as NSString).replacingCharacters(in: range, with: text)
