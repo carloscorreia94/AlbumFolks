@@ -30,7 +30,9 @@ class ArtistAlbumsVC : UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
+            collectionView.register(UINib(nibName: AlbumCell.REUSE_ID, bundle: Bundle.main), forCellWithReuseIdentifier: AlbumCell.REUSE_ID)
+            collectionView.register(UINib(nibName: ArtistInfoHeaderCell.REUSE_ID, bundle: Bundle.main), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ArtistInfoHeaderCell.REUSE_ID)
+            
         }
     }
     
@@ -246,7 +248,7 @@ class ArtistAlbumsVC : UIViewController {
 extension ArtistAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.REUSE_ID, for: indexPath) as! AlbumCell
 
         
         guard let album = artist.albums?[indexPath.row] else {
@@ -295,7 +297,7 @@ extension ArtistAlbumsVC : UICollectionViewDataSource {
             
             
             if artistCell == nil {
-                artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "ArtistInfoHeaderCell", for: indexPath) as? ArtistInfoHeaderCell
+                artistCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ArtistInfoHeaderCell.REUSE_ID, for: indexPath) as? ArtistInfoHeaderCell
                 
                 artistCell!.setArtistInfoCallback(artistInfoCallback)
                 artistCell!.setContent(artist)
@@ -378,6 +380,10 @@ extension ArtistAlbumsVC : UICollectionViewDelegate, UICollectionViewDelegateFlo
         if AlbumMO.get(from: String(artist.albums![indexPath.row].hashValue)) != nil || artist.albums![indexPath.row].albumDetail != nil {
             self.performSegue(withIdentifier: "presentAlbumFromArtist", sender: nil)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 265)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

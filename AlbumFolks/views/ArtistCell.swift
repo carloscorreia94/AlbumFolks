@@ -11,6 +11,8 @@ import AlamofireImage
 
 class ArtistCell : UITableViewCell {
     
+    static let REUSE_ID = String(describing: ArtistCell.self)
+    
     @IBOutlet weak var artistName : UILabel!
     @IBOutlet weak var listeners: UILabel!
     @IBOutlet weak var customImageView : UIImageView!

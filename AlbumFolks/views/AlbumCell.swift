@@ -11,6 +11,10 @@ import AlamofireImage
 
 class AlbumCell : UICollectionViewCell, CAAnimationDelegate {
     
+    static let REUSE_ID = String(describing: AlbumCell.self)
+    
+    // MARK: - Properties
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var albumName: UILabel!
     @IBOutlet weak var albumArtist: UILabel!

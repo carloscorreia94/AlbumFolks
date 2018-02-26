@@ -33,7 +33,7 @@ class StoredAlbumsVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            collectionView.register(UINib(nibName: "AlbumCell", bundle: Bundle.main), forCellWithReuseIdentifier: "AlbumCell")
+            collectionView.register(UINib(nibName: AlbumCell.REUSE_ID, bundle: Bundle.main), forCellWithReuseIdentifier: AlbumCell.REUSE_ID)
         
            
         }
@@ -105,7 +105,7 @@ class StoredAlbumsVC: UIViewController {
 extension StoredAlbumsVC : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as! AlbumCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCell.REUSE_ID, for: indexPath) as! AlbumCell
 
         if indexPath.row == 0 {
             cell.setSearchCellContent()

@@ -59,7 +59,17 @@ class SearchArtistsVC : UIViewController {
         return view
     }()
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            if #available(iOS 11.0, *) {
+                self.tableView.contentInsetAdjustmentBehavior = .never
+            } else {
+                automaticallyAdjustsScrollViewInsets = false
+            }
+            
+            self.tableView.register(UINib(nibName: ArtistCell.REUSE_ID, bundle: Bundle.main), forCellReuseIdentifier: ArtistCell.REUSE_ID)
+        }
+    }
     
     var searchController : UISearchController! {
         didSet {
@@ -87,12 +97,6 @@ class SearchArtistsVC : UIViewController {
         notificationCenter.addObserver(self, selector: #selector(contextDidSave), name: .NSManagedObjectContextDidSave, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-        
-        if #available(iOS 11.0, *) {
-            self.tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
         
     }
     
@@ -284,6 +288,9 @@ extension SearchArtistsVC : UISearchControllerDelegate, UISearchResultsUpdating,
 
 extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "searchToArtistAlbums", sender: self.tableView.cellForRow(at: indexPath))
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
             return self.recentSearchesMode ? "Recent Searches" : nil
@@ -304,7 +311,7 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as! ArtistCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ArtistCell.REUSE_ID, for: indexPath) as! ArtistCell
         var photoUrl : URL?
         
         if recentSearchesMode {
@@ -328,6 +335,7 @@ extension SearchArtistsVC : UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
     
 }
 

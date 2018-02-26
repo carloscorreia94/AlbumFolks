@@ -9,7 +9,7 @@ target 'AlbumFolks' do
   pod 'Alamofire'
   pod 'AlamofireObjectMapper'
   pod 'AlamofireImage'
-  pod 'PopupDialog', '~> 0.7'
+  pod 'PopupDialog', '0.6.2'
 
   target 'AlbumFolksTests' do
     inherit! :search_paths

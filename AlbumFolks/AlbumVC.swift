@@ -139,7 +139,7 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
             if albumHeaderCell == nil {
-                albumHeaderCell = tableView.dequeueReusableCell(withIdentifier: "AlbumHeaderCell") as? AlbumHeaderCell
+                albumHeaderCell = tableView.dequeueReusableCell(withIdentifier: AlbumHeaderCell.REUSE_ID) as? AlbumHeaderCell
                 albumHeaderCell!.saveCallback = saveAlbum
                 albumHeaderCell!.deleteCallback = deleteAlbum
                 
@@ -151,25 +151,4 @@ extension AlbumVC : UITableViewDelegate, UITableViewDataSource {
         
     }
     
-}
-
-
-class AlbumHeaderCell : UITableViewCell {
-   
-    @IBOutlet weak var saveSwitch: UISwitch!
-    var saveCallback : (() -> ())!
-    var deleteCallback: (() -> ())!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        saveSwitch.addTarget(self, action: #selector(stateChanged), for: UIControlEvents.valueChanged)
-    }
-    
-    @objc func stateChanged(switchState: UISwitch) {
-        if !switchState.isOn {
-            deleteCallback()
-        } else {
-            saveCallback()
-        }
-    }
 }

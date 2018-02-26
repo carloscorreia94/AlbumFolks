@@ -11,6 +11,7 @@ import AlamofireImage
 
 class ArtistInfoHeaderCell : UICollectionReusableView {
     
+    static let REUSE_ID = String(describing: ArtistInfoHeaderCell.self)
     
     @IBOutlet weak var imageView : UIImageView!
     @IBOutlet weak var tags: UILabel!
