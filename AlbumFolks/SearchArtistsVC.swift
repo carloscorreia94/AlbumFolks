@@ -164,39 +164,48 @@ class SearchArtistsVC : UIViewController {
         self.tableView.reloadData()
 
         
-        Artist.fetchAutoCompleteSearch(query: query ?? searchController.searchBar.text!, pagination: self.askedPagination, successCallback: { [unowned self] paginatedArtists in
+        Artist.fetchAutoCompleteSearch(query: query ?? searchController.searchBar.text!, pagination: self.askedPagination, successCallback: { [weak self] paginatedArtists in
             
-            if !self.isSearching {
-                self.tableView.tableHeaderView = nil
+            guard let _self = self else {
+                return
             }
             
-            self.currentPagination = Pagination(startIndex: paginatedArtists.startIndex, page: paginatedArtists.page, total: paginatedArtists.total)
+            if !_self.isSearching {
+                _self.tableView.tableHeaderView = nil
+            }
             
-            self.paginatedArtists[self.currentPagination!] = paginatedArtists
+            _self.currentPagination = Pagination(startIndex: paginatedArtists.startIndex, page: paginatedArtists.page, total: paginatedArtists.total)
+            
+            _self.paginatedArtists[_self.currentPagination!] = paginatedArtists
             //TODO - Memory recycle artists variable (when you have tons of results, what to do?)
             
-            if self.artists == nil {
-                self.artists = [Artist]()
+            if _self.artists == nil {
+                _self.artists = [Artist]()
             }
             
-            self.artists?.append(contentsOf: self.paginatedArtists[self.currentPagination!]!.artists)
+            _self.artists?.append(contentsOf: _self.paginatedArtists[_self.currentPagination!]!.artists)
            
-            self.tableView.reloadData()
-            self.isFetching = false
+            _self.tableView.reloadData()
+            _self.isFetching = false
             
-            self.tableView.finishInfiniteScroll()
+            _self.tableView.finishInfiniteScroll()
             
-        }, errorCallback: { error in
-            self.isFetching = false
-            self.tableView.finishInfiniteScroll()
+        }, errorCallback: { [weak self] error in
+            
+            guard let _self = self else {
+                return
+            }
+            
+            _self.isFetching = false
+            _self.tableView.finishInfiniteScroll()
 
 
-            if !self.isSearching {
-                self.tableView.tableHeaderView = nil
+            if !_self.isSearching {
+                _self.tableView.tableHeaderView = nil
             }
             
             let errorTitleDesc = CoreNetwork.messageFromError(error)
-            AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self)
+            AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: _self)
             
         })
         

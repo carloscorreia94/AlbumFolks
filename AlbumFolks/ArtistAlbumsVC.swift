@@ -45,23 +45,32 @@ class ArtistAlbumsVC : UIViewController {
             
             if artist.detail == nil {
                 
-                ArtistDetail.fetchNetworkData(artistId: self.artist.mbid, successCallback: { [unowned self] artistDetail in
+                ArtistDetail.fetchNetworkData(artistId: self.artist.mbid, successCallback: { [weak self] artistDetail in
                     
-                    self.artist.detail = artistDetail
-                    self.collectionView.reloadData()
+                    guard let _self = self else {
+                        return
+                    }
                     
-                    let _ = RecentSearchMO.create(from: ArtistPopulator(name: self.artist.name, mbid: self.artist.mbid, photoUrl: self.artist.photoUrl, lastFmUrl: self.artist.lastFmUrl))
+                    _self.artist.detail = artistDetail
+                    _self.collectionView.reloadData()
                     
-                    self.albumRequest(self.artist)
+                    let _ = RecentSearchMO.create(from: ArtistPopulator(name: _self.artist.name, mbid: _self.artist.mbid, photoUrl: _self.artist.photoUrl, lastFmUrl: _self.artist.lastFmUrl))
                     
-                    }, errorCallback: { [unowned self] error in
+                    _self.albumRequest(_self.artist)
+                    
+                    }, errorCallback: { [weak self] error in
+                        
+                        guard let _self = self else {
+                            return
+                        }
+                        
                         let errorTitleDesc = CoreNetwork.messageFromError(error)
                         
-                        AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
-                            if self.dismissToAlbumCallback != nil {
-                                self.dismissToAlbum(sender: self.navigationItem.leftBarButtonItem!)
+                        AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: _self, action: { _ in
+                            if _self.dismissToAlbumCallback != nil {
+                                _self.dismissToAlbum(sender: _self.navigationItem.leftBarButtonItem!)
                             } else {
-                                self.navigationController!.popViewController(animated: true)
+                                _self.navigationController!.popViewController(animated: true)
                             }
                         })
                         
@@ -111,35 +120,49 @@ class ArtistAlbumsVC : UIViewController {
     
     private func albumRequest(_ artist: Artist) {
         
-        Album.fetchTopAlbums(artist: artist, successCallback: { [unowned self] albums in
+        Album.fetchTopAlbums(artist: artist, successCallback: { [weak self] albums in
             
-            self.artist.albums = Array(albums.prefix(ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW))
-            self.seeMoreLinkFooterActivated = albums.count > ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW && artist.lastFmUrl != nil
-            self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
+            guard let _self = self else {
+                return
+            }
             
-            self.collectionView.reloadData(completion: {
-                self.requestAlbumDetail()
+            _self.artist.albums = Array(albums.prefix(ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW))
+            _self.seeMoreLinkFooterActivated = albums.count > ArtistAlbumsVC.MAX_ALBUMS_TO_SHOW && artist.lastFmUrl != nil
+            _self.artist.requestedAlbumDetails = Dictionary<Album,Bool>()
+            
+            _self.collectionView.reloadData(completion: {
+                _self.requestAlbumDetail()
                 
                 
-                guard let albums = self.artist.albums, albums.count > 0 else {
+                guard let albums = _self.artist.albums, albums.count > 0 else {
                     return
                 }
                 //request all non visible images
-                let lastVisibleAlbumIndex = self.collectionView.indexPathsForVisibleItems.last?.row ?? 0
+                let lastVisibleAlbumIndex = _self.collectionView.indexPathsForVisibleItems.last?.row ?? 0
                 
                 for i in lastVisibleAlbumIndex+1...albums.count-1 {
-                    AlbumCell.fetchPhoto(albums[i], downloader: self.imageDownloader, completion: {})
+                    AlbumCell.fetchPhoto(albums[i], downloader: _self.imageDownloader, completion: {})
                 }
 
             })
             
             
-            }, errorCallback: { [unowned self] error in
+            }, errorCallback: { [weak self] error in
+                
+                defer {
+                    self?.noFetchedAlbums = true
+                    self?.collectionView.reloadData()
+                }
+                
+                guard let _self = self else {
+                    return
+                }
                 
                 let errorTitleDesc = CoreNetwork.messageFromError(error)
-                AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: self, action: { _ in
-                    self.noFetchedAlbums = true
-                    self.collectionView.reloadData()
+                AlertDialog.present(title: errorTitleDesc.title, message: errorTitleDesc.desc, vController: _self, action: { _ in
+                    
+                    return
+                   
                 })
                 
                 
@@ -192,12 +215,16 @@ class ArtistAlbumsVC : UIViewController {
         if let albums = artist.albums {
             let album = albums[indexPath.row]
             
-            AlbumDetail.fetchNetworkData(album: album, successCallback: { [unowned self] albumDetail in
+            AlbumDetail.fetchNetworkData(album: album, successCallback: { [weak self] albumDetail in
                 album.albumDetail = albumDetail
                 
+                guard let _self = self else {
+                    return
+                }
+                
                 //If still visible items, we reload them
-                if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
-                    self.collectionView.reloadItems(at: [indexPath])
+                if _self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                    _self.collectionView.reloadItems(at: [indexPath])
                 }
                 
                 }, errorCallback: { error in

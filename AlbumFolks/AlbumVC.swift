@@ -31,14 +31,18 @@ class AlbumVC : UIViewController {
             self.storedImage = albumImage
         } else if let photoUrl = albumViewPopulator.photoUrl {
             self.albumInfoHeader.imageView.af_setImage(withURL: photoUrl, placeholderImage: UIImage(named: "loading_misc")!, completion: {
-                [unowned self] response in
+                [weak self] response in
+                
+                guard let _self = self else {
+                    return
+                }
                 
                 if response.result.value == nil {
-                    self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
-                } else if self.albumViewPopulator.localMode {
+                    _self.albumInfoHeader.imageView.image = UIImage(named: "no_media")!
+                } else if _self.albumViewPopulator.localMode {
                     /* If we ever get here it means we have a local stored album with Image Url reference just downloaded (couldn't save before)
                      and so we try to save it */
-                    let _ = AlbumMO.saveAlbumImage(response.result.value!, identifier: self.albumViewPopulator.hashString)
+                    let _ = AlbumMO.saveAlbumImage(response.result.value!, identifier: _self.albumViewPopulator.hashString)
                 }
                 
             })
